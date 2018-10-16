@@ -1,3 +1,5 @@
+//Needs SQL integration mainly and method to move to next page.
+
 package 395project2019;
 
 import java.sql.SQLException;
