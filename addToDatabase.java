@@ -22,6 +22,7 @@ public class addToDatabase {
                 pstmt.setString(3, Password);
                 pstmt.setInt(2, Autherization);
                 pstmt.executeUpdate();
+                System.out.println("Success!"); //Test Line Please Delete after confirmation
                 
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
