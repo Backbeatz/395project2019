@@ -31,9 +31,9 @@ public class addToDatabase {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        
-        
+        addToDatabase test = new addToDatabase();
+        test.insertNewContractor(1,"Mike","Password",1);
+                
     }
     
 }
