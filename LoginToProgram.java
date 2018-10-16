@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package project395;
 
 import java.sql.Connection;
@@ -10,11 +11,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+
 /**
  *
  * @author Owner
  */
 public class LoginToProgram {
+
      //FOR TESTING PURPORSES ONLY DELETE THIS AFTER MAIN CREATED and the initial connection is in main.
     private Connection connect() {
         Connection conn = null;
@@ -60,13 +63,16 @@ public class LoginToProgram {
     } 
     
 
+
     public String getUnameDB(){
         return "a";
     }
     
     
 
+
         //--------------------------------------------------------
     
+
 }   
 
