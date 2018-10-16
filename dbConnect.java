@@ -9,7 +9,7 @@ public class dbConnect {
      /**
      * Connect to a sample database
      */
-    public static void connect() {
+    public static Connection connect() {
         Connection conn = null;
         try {
             // db parameters
@@ -30,6 +30,7 @@ public class dbConnect {
                 System.out.println(ex.getMessage());
             }
         }
+        return conn;
     }
     /**
      * @param args the command line arguments
