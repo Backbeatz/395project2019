@@ -18,48 +18,26 @@ import java.sql.ResultSet;
  */
 public class LoginToProgram {
 
-     //FOR TESTING PURPORSES ONLY DELETE THIS AFTER MAIN CREATED and the initial connection is in main.
-    private Connection connect() {
-        Connection conn = null;
-        try {
-            // db parameters
-            String url = "jdbc:sqlite:‪contractDB";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-            
-            System.out.println("Connection to SQLite has been established."); //Test line to see document
-            
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
-        return conn;
-    }
-    
-    
- public boolean executeSearch(String usnm, String psswd) {
-        String sql = "SELECT PersonID,FROM Contractor WHERE Username="+usnm+" AND Password = "+psswd;
-        try (Connection conn = this.connect();
+ public int executeSearch(String usnm, String psswd) {
+        int AuthNum = 0; //default Autherization number 0 is error code
+        String sql = "SELECT PersonID, Autherization FROM Contractor WHERE Username="+usnm+" AND Password = "+psswd;
+        try (Connection conn = dbConnect.connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)){
                 
         //check if password is in database
-        // return true if the combination exists else returns false
+        // return AuthorizationNUmber if the combination exists else returns false
             if (rs.getInt("PersonID")==0) {
-                return false;
+                return AuthNum;
+            }
+            else {
+                AuthNum = rs.getInt("Authorization");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return false;
+            return 0;
         }
-        return true;
+        return AuthNum;
     } 
     
 
