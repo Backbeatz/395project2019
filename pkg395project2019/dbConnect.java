@@ -13,7 +13,7 @@ public class dbConnect {
         Connection conn = null;
         try {
             // db parameters
-            String url = "jdbc:sqlite:‪contractDB";
+            String url = "jdbc:sqlite:‪ContractDB.db";
             // create a connection to the database
             conn = DriverManager.getConnection(url);
             
