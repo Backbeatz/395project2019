@@ -98,19 +98,22 @@ public class bean1 {
     }
     
     public String changePass(String password, String newPass){
+	if(newPass.length() > 12 || newPass.length() < 6) {
+		return "change_password_reset"	
+	}
         try {
             user = getContractInfo();//open up database here to input entries dependent on login.
         } catch (SQLException e) {
             //exception clause
         }
-        if(password.equals(newPass)){
+	//String system_pass = (from database password)
+        if(!(password.equals(system_pass))){
             attempts += 1;
-            return "hours";
+            return "change_password_reset";
         }
         
         attempts = 0;
-        return "change_password";
-        
+        return "logout";
     }
     
     public String checkUsername(String username){
