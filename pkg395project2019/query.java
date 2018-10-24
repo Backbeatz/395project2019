@@ -10,8 +10,13 @@ package pkg395project2019;
  * @author MikeK
  */
 public class query {
+    String queryString = new String;
+    
     public Boolean insert (String table, Object[] info) {
         table.toLowerCase();
+        if (info[1]!=null) {
+            int firstName=
+        }
         return true;
     }  
     //INSERT INTO Contractor(PersonID, Username, Password, Authorization) VALUES(?,?,?,?)"1
@@ -21,7 +26,7 @@ public class query {
     }*/
     public static void main(String args[])
     {
-        query obj = new query();
+        query obj = new query1111
         //obj.disp('a');
         //obj.disp(5);
     }
