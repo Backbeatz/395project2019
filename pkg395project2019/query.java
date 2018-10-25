@@ -10,36 +10,122 @@ package pkg395project2019;
  * @author MikeK
  */
 public class query {
-    String queryString = new String;
+    private StringBuilder queryString = new StringBuilder();
+    String[] contractorTable = new String[8];
+    String[] companyTable = new String[7];
+    String[] contractTable = new String[14];
+    String[] timeTable = new String[4];
     
-    public Boolean insert (String table, Object[] info) {
-        table.toLowerCase();
-        if (info[1]!=null) {
-            int firstName=
+    public query() {
+        contractorTable[0]="PersonID";
+        contractorTable[1]="FirstName";
+        contractorTable[2]="LastName";
+        contractorTable[3]="PhoneNumber";
+        contractorTable[4]="Email";
+        contractorTable[5]="Username";
+        contractorTable[6]="Password";
+        contractorTable[7]="Authorization";
+        
+        companyTable[0]="CompanyID";
+        companyTable[1]="CompanyName";
+        companyTable[2]="City";
+        companyTable[3]="StreetAddress";
+        companyTable[4]="PostalCode";
+        companyTable[5]="PhoneNumber";
+        companyTable[6]="Email";
+        
+        contractTable[0]="ContractID";
+        contractTable[1]="StartDate";
+        contractTable[2]="RenewalStartDate1";
+        contractTable[3]="RenewalStartDate2";
+        contractTable[4]="EndDate";
+        contractTable[5]="RenewalEndDate1";
+        contractTable[6]="RenewalEndDate2";
+        contractTable[7]="RenewalOptions";
+        contractTable[8]="AmountForContractorTerm1";
+        contractTable[9]="AmountForContractorTerm2";
+        contractTable[10]="AmountForContractorTerm3";
+        contractTable[11]="RateForCompanyTerm1";
+        contractTable[12]="RateForCompanyTerm2";
+        contractTable[13]="RateForCompanyTerm3";
+    
+        timeTable[0]="Month";
+        timeTable[1]="Year";
+        timeTable[2]="ContractID";
+        timeTable[3]="PersonID";
+        timeTable[4]="TimeEntry";
+    }
+    
+    public String insert (int tableIdentifier, Object[] info) {
+        //table identifier should be 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
+        //Creates the correct table and start of the query
+        int size = 0;
+        String table = new String("");
+        this.queryString.append("INSERT INTO ");
+        if (tableIdentifier==1) {
+            table = "Contractor";
+            size=7;
         }
-        return true;
+        else if (tableIdentifier==2) {
+            table = "Company";
+            size=6;
+        }
+        else if (tableIdentifier==3) {
+            table = "Contract";
+            size=13;
+        }
+        else if (tableIdentifier==4) {
+            table = "TimeClock";
+            size=4;
+        }
+        else return "NULL";
+        queryString.append(table);
+        
+        //Adds the column names to the string 
+        queryString.append(" (");
+        int x = 0;
+        while (x<=size) {    
+            if (info[x]!=null) {
+                if (tableIdentifier==1) {
+                    queryString.append(contractorTable[x]);
+                }
+                else if (tableIdentifier==2) {
+                    queryString.append(companyTable[x]);
+                } 
+                else if (tableIdentifier==1) {
+                    queryString.append(contractTable[x]);
+                }
+                else if (tableIdentifier==1) {
+                    queryString.append(timeTable[x]);
+                }
+                queryString.append(", "); //dont thiink this works correctly
+                x++;
+            }
+        }
+        queryString.append(") VALUES(");
+        
+        //Adds the value names to the string 
+        queryString.append(" (");
+        x = 0;
+        while (x<=size) {    
+            if (info[x]!=null) {
+                queryString.append(info[x]);
+                queryString.append(", "); //dont thiink this works correctly
+                x++;
+            }
+        }
+        queryString.append(")");
+        return queryString.toString();
     }  
-    //INSERT INTO Contractor(PersonID, Username, Password, Authorization) VALUES(?,?,?,?)"1
+    //INSERT INTO Contractor(PersonID, Username, Password, Authorization) VALUES(?,?,?,?)"
     
     /*public String select () {
     
     }*/
     public static void main(String args[])
     {
-        query obj = new query1111
+        query obj = new query();
         //obj.disp('a');
         //obj.disp(5);
     }
 }
-
-/*CREATE TABLE Contractor (
-    PersonID int NOT NULL PRIMARY KEY,
-    FirstName varchar(255),
-    LastName varchar(255),
-    PhoneNumber varchar(255),
-    Email varchar(255),
-    Username varchar(255) NOT NULL,
-    Password varchar(255) NOT NULL,
-    Autherization int
-    );
-*/
