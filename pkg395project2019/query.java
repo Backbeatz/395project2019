@@ -14,7 +14,7 @@ public class query {
     String[] contractorTable = new String[8];
     String[] companyTable = new String[7];
     String[] contractTable = new String[14];
-    String[] timeTable = new String[4];
+    String[] timeTable = new String[5];
     
     public query() {
         contractorTable[0]="PersonID";

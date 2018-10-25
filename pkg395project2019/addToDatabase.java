@@ -27,13 +27,34 @@ public class addToDatabase {
             } catch (SQLException e) {
                 System.out.println("Failure!"); //Test Line Please Delete after confirmation
                 System.out.println(e.getMessage());        }
-    }
+     }
+        
+    public void insertQuery(String queryString) {
+        try (Connection conn = dbConnect.connect();
+                PreparedStatement pstmt = conn.prepareStatement(queryString)) {                
+                pstmt.executeUpdate();
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());        }
+    }    
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         addToDatabase test = new addToDatabase();
-        test.insertNewContractor(2,"Mike2","Password2",1);
+        query sample = new query();
+        String testQuery;
+        Object[] testInfo = new Object[7];
+        testInfo[0]= 3;
+        testInfo[1]="Mike";
+        testInfo[2]="Password2";
+        testInfo[6]=1;
+        
+        testQuery=sample.insert(1, testInfo);
+        System.out.println(testQuery);
+        test.insertQuery(testQuery);
+        
         
     }
 }
