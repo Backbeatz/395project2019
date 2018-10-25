@@ -125,6 +125,67 @@ public class query {
         return queryString.toString();
     }  
     
+    /**
+     *
+     *@param tableIdentifier identifier for table use 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
+     * @param info variables which you are inserting  position is based on table see query constructor
+     *SELECT (COLUMN NAMES) From Table"   
+     * NEEDS TO ADD THE WHERE condition
+     */
+    public String select (int tableIdentifier, Object[] info) {
+        //table identifier should be 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
+        //Creates the correct table and start of the query
+        int size;
+        String table;
+        this.queryString.append("SELECT ");
+        switch (tableIdentifier) {
+            case 1:
+                table = "Contractor";
+                size=7;
+                break;
+            case 2:
+                table = "Company";
+                size=6;
+                break;
+            case 3:
+                table = "Contract";
+                size=13;
+                break;
+            case 4:
+                table = "TimeClock";
+                size=4;
+                break;
+            default:
+                return "NULL";
+        }
+        
+        //Adds the column names to the string 
+        queryString.append(" (");
+        int x = 0;
+        while (x<=size) {    
+            if (info[x]!=null) {
+                if (tableIdentifier==1) {
+                    queryString.append(contractorTable[x]);
+                }
+                else if (tableIdentifier==2) {
+                    queryString.append(companyTable[x]);
+                } 
+                else if (tableIdentifier==3) {
+                    queryString.append(contractTable[x]);
+                }
+                else if (tableIdentifier==4) {
+                    queryString.append(timeTable[x]);
+                }
+                queryString.append(", "); //dont thiink this works correctly
+                x++;
+            }
+        }
+        queryString.append("FROM ");
+        queryString.append(table);
+        
+        return queryString.toString();
+    }  
+    
     public static void main(String args[])
     {
         query obj = new query();
