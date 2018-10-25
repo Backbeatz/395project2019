@@ -56,11 +56,18 @@ public class query {
         timeTable[4]="TimeEntry";
     }
     
+    /**
+     *
+     * @param tableIdentifier identifier for table use 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
+     * @param info variables which you are inserting  position is based on table see query constructor
+     *INSERT INTO Contractor(PersonID, Username, Password, Authorization) VALUES(?,?,?,?)"   
+     * @return
+     */
     public String insert (int tableIdentifier, Object[] info) {
         //table identifier should be 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
         //Creates the correct table and start of the query
-        int size = 0;
-        String table = new String("");
+        int size;
+        String table;
         this.queryString.append("INSERT INTO ");
         if (tableIdentifier==1) {
             table = "Contractor";
@@ -92,10 +99,10 @@ public class query {
                 else if (tableIdentifier==2) {
                     queryString.append(companyTable[x]);
                 } 
-                else if (tableIdentifier==1) {
+                else if (tableIdentifier==3) {
                     queryString.append(contractTable[x]);
                 }
-                else if (tableIdentifier==1) {
+                else if (tableIdentifier==4) {
                     queryString.append(timeTable[x]);
                 }
                 queryString.append(", "); //dont thiink this works correctly
@@ -117,14 +124,11 @@ public class query {
         queryString.append(")");
         return queryString.toString();
     }  
-    //INSERT INTO Contractor(PersonID, Username, Password, Authorization) VALUES(?,?,?,?)"
     
-    /*public String select () {
-    
-    }*/
     public static void main(String args[])
     {
         query obj = new query();
+        
         //obj.disp('a');
         //obj.disp(5);
     }
