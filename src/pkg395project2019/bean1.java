@@ -1,4 +1,4 @@
-package pck395project2019;
+package  pkg395project2019;
 
 import java.sql.SQLException;
 import javax.faces.bean.ManagedBean;
@@ -99,14 +99,14 @@ public class bean1 {
     
     public String changePass(String password, String newPass){
 	if(newPass.length() > 12 || newPass.length() < 6) {
-		return "change_password_reset"	
+		return "change_password_reset";	
 	}
         try {
             user = getContractInfo();//open up database here to input entries dependent on login.
         } catch (SQLException e) {
             //exception clause
         }
-	//String system_pass = (from database password)
+	String system_pass = "a";//(from database password) 
         if(!(password.equals(system_pass))){
             attempts += 1;
             return "change_password_reset";
@@ -143,8 +143,9 @@ public class bean1 {
         //if no database throw exception
         //go through the query until matching userid is found
         //store all the data into the contractor structure
+        //q = new query.main();       //connor working here
         
-        //user.setContractor_ID(<database variable name>.getlong("Contractor_ID"));
+        //user.setContractor_ID(q);
         //user.setName(<database variable name>.getString("Name"));
         //user.setCompany(<database variable name>.getString("Company"));
         //user.setMonth(<database variable name>.getString("Month"));
