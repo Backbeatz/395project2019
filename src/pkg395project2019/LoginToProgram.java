@@ -17,6 +17,7 @@ import java.sql.ResultSet;
  * @author Owner
  */
 public class LoginToProgram {
+    
 
  public int executeSearch(String usnm, String psswd) {
         int AuthNum = 0; //default Autherization number 0 is error code

@@ -8,12 +8,13 @@ import java.sql.SQLException;
 public class dbConnect {
      /**
      * Connect to a sample database
+     * @return 
      */
     public static Connection connect() {
         Connection conn = null;
         try {
             // db parameters
-            String url = "jdbc:sqlite:‪contractDB";
+            String url = "jdbc:sqlite:contractDB.db";
             // create a connection to the database
             conn = DriverManager.getConnection(url);
             
@@ -27,8 +28,9 @@ public class dbConnect {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main() {
         connect();
+        
     }
 }
 
