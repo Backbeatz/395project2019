@@ -69,59 +69,74 @@ public class query {
         int size;
         String table;
         this.queryString.append("INSERT INTO ");
-        if (tableIdentifier==1) {
-            table = "Contractor";
-            size=7;
+        switch (tableIdentifier) {
+            case 1:
+                table = "Contractor";
+                size=7;
+                break;
+            case 2:
+                table = "Company";
+                size=6;
+                break;
+            case 3:
+                table = "Contract";
+                size=13;
+                break;
+            case 4:
+                table = "TimeClock";
+                size=4;
+                break;
+            default:
+                return "NULL";
         }
-        else if (tableIdentifier==2) {
-            table = "Company";
-            size=6;
-        }
-        else if (tableIdentifier==3) {
-            table = "Contract";
-            size=13;
-        }
-        else if (tableIdentifier==4) {
-            table = "TimeClock";
-            size=4;
-        }
-        else return "NULL";
-        queryString.append(table);
+        this.queryString.append(table);
         
         //Adds the column names to the string 
-        queryString.append(" (");
+        this.queryString.append(" (");
+        
         int x = 0;
-        while (x<=size) {    
+        
+        while (x<size) {    
             if (info[x]!=null) {
-                if (tableIdentifier==1) {
-                    queryString.append(contractorTable[x]);
+                switch (tableIdentifier) {
+                    case 1:
+                        this.queryString.append(contractorTable[x]);
+                        break;
+                    case 2:
+                        this.queryString.append(companyTable[x]);
+                        break;
+                    case 3:
+                        this.queryString.append(contractTable[x]);
+                        break;
+                    case 4:
+                        this.queryString.append(timeTable[x]);
+                        break;
+                    default:
+                        break;
                 }
-                else if (tableIdentifier==2) {
-                    queryString.append(companyTable[x]);
-                } 
-                else if (tableIdentifier==3) {
-                    queryString.append(contractTable[x]);
-                }
-                else if (tableIdentifier==4) {
-                    queryString.append(timeTable[x]);
-                }
-                queryString.append(", "); //dont thiink this works correctly
-                x++;
+                this.queryString.append(", "); //dont thiink this works correctly
             }
+            x++;
         }
-        queryString.append(") VALUES(");
+        this.queryString.deleteCharAt(queryString.length()-1);
+        this.queryString.deleteCharAt(queryString.length()-1);
+        
+        this.queryString.append(") VALUES(");
         
         //Adds the value names to the string 
-        queryString.append(" (");
         x = 0;
-        while (x<=size) {    
+        while (x<size) {    
             if (info[x]!=null) {
                 queryString.append(info[x]);
                 queryString.append(", "); //dont thiink this works correctly
-                x++;
             }
+            x++;
         }
+        
+        this.queryString.deleteCharAt(queryString.length()-1);
+        this.queryString.deleteCharAt(queryString.length()-1);
         queryString.append(")");
+        
         return queryString.toString();
     }  
     
@@ -129,6 +144,7 @@ public class query {
      *
      *@param tableIdentifier identifier for table use 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
      * @param info variables which you are inserting  position is based on table see query constructor
+     * @return String to be used in sql query
      *SELECT (COLUMN NAMES) From Table"   
      * NEEDS TO ADD THE WHERE condition
      * @return 
@@ -163,23 +179,28 @@ public class query {
         //Adds the column names to the string 
         queryString.append(" (");
         int x = 0;
-        while (x<=size) {    
+        while (x<size) {    
             if (info[x]!=null) {
-                if (tableIdentifier==1) {
-                    queryString.append(contractorTable[x]);
-                }
-                else if (tableIdentifier==2) {
-                    queryString.append(companyTable[x]);
-                } 
-                else if (tableIdentifier==3) {
-                    queryString.append(contractTable[x]);
-                }
-                else if (tableIdentifier==4) {
-                    queryString.append(timeTable[x]);
+                switch (tableIdentifier) {
+                    case 1:
+                        queryString.append(contractorTable[x]);
+                        break;
+                    case 2:
+                        queryString.append(companyTable[x]);
+                        break;
+                    case 3:
+                        queryString.append(contractTable[x]);
+                        break;
+                    case 4:
+                        queryString.append(timeTable[x]);
+                        break;
+                    default:
+                        break;
                 }
                 queryString.append(", "); //dont thiink this works correctly
-                x++;
+                
             }
+            x++;
         }
         queryString.append("FROM ");
         queryString.append(table);
@@ -190,7 +211,6 @@ public class query {
     public static void main(String args[])
     {
         query obj = new query();
-        
         //obj.disp('a');
         //obj.disp(5);
     }

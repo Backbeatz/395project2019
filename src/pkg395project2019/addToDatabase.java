@@ -60,9 +60,8 @@ public class addToDatabase {
         Object[] testInfo = new Object[7];
         testInfo[0]= 3;
         testInfo[1]="Mike";
-        testInfo[2]="Password2";
+        testInfo[4]="Password2";
         testInfo[6]=1;
-        
         testQuery=sample.insert(1, testInfo);
         System.out.println(testQuery);
         test.insertQuery(testQuery);
