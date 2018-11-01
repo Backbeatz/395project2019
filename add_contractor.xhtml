@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      
+    <h:head>
+        <title>Add Contractor</title>
+    </h:head>
+    <h:body>
+        <h:form>
+        <h:commandButton value="Logout"
+                         action="login"></h:commandButton><br/></h:form><br/>
+        <Strong><center>Input Contractor Information</center></Strong><br/>
+        <h:form>
+        First Name<br/><h:inputText value="#{bean1.firstName}"></h:inputText><br/><br/>
+        Last Name<br/><h:inputText value="#{bean1.lastName}"></h:inputText><br/><br/>
+        Profession<br/><h:inputText value="#{bean1.job}"></h:inputText><br/><br/>
+        City<br/><h:inputText value="#{bean1.city}"></h:inputText><br/><br/>
+        Province<br/><h:inputText value="#{bean1.province}"></h:inputText><br/><br/>
+        Postal Code<br/><h:inputText value="#{bean1.postalCode}"></h:inputText><br/><br/>
+        Email<br/><h:inputText value="#{bean1.email}"></h:inputText><br/><br/>
+        Phone Number<br/><h:inputText value="#{bean1.phone}"></h:inputText><br/><br/>
+        Date of Birth(Example: 1998/10/20)<br/><h:inputText value="#{bean1.dob}"></h:inputText><br/><br/>
+        Sex<br/><h:inputText value="#{bean1.sex}"></h:inputText><br/><br/>
+        Username<br/><h:inputText value="#{bean1.createUser}"></h:inputText><br/><br/>
+        Password<br/><h:inputText value="#{bean1.createPass}"></h:inputText><br/><br/>
+        <h:commandButton value="Add Contractor"
+                         action="#{bean1.addContractor()}"></h:commandButton>
+        </h:form>
+    </h:body>
+        
+    
+</html>
+

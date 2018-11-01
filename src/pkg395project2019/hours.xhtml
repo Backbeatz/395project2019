@@ -6,9 +6,17 @@
         <title>User hours page</title>
     </h:head>
     <h:body><font face="verdana" size="2">
+        <h:panelGrid columns="3">
+        <h:form>
+        <h:commandButton value="Logout"
+                         action="login"></h:commandButton><br/></h:form>
         <h:form>
         <h:commandButton value="Change Password"
                          action="change_password"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Add Contractor"
+                         action="add_contractor"></h:commandButton><br/></h:form>
+        </h:panelGrid>
         <br/>    
          <!--    <h:outputText value=#"{bean1.toString()}"/> -->
         <strong>Basic Information</strong><br/>        
@@ -33,4 +41,3 @@
         </h:form>
     </h:body>
 </html>
-
