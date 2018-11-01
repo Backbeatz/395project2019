@@ -5,6 +5,10 @@
  */
 package pkg395project2019;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 /**
  *
  * @author MikeK
@@ -208,10 +212,20 @@ public class query {
         return queryString.toString();
     }  
     
+    public void insertQuery() {
+        if (this.queryString!=null) {
+            try (Connection conn = dbConnect.connect();
+                PreparedStatement pstmt = conn.prepareStatement(this.queryString.toString())) {                
+                pstmt.executeUpdate();
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());        }
+        }
+    }
+    
     public static void main(String args[])
     {
         query obj = new query();
-        //obj.disp('a');
-        //obj.disp(5);
+
     }
 }
