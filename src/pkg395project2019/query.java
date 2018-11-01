@@ -5,9 +5,7 @@
  */
 package pkg395project2019;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  *
@@ -131,8 +129,14 @@ public class query {
         x = 0;
         while (x<size) {    
             if (info[x]!=null) {
+                if (info[x] instanceof String) {
+                    queryString.append("\""); 
+                }
                 queryString.append(info[x]);
-                queryString.append(", "); //dont thiink this works correctly
+                if (info[x] instanceof String) {
+                    queryString.append("\""); 
+                }
+                queryString.append(", "); 
             }
             x++;
         }
@@ -181,7 +185,6 @@ public class query {
         }
         
         //Adds the column names to the string 
-        queryString.append(" (");
         int x = 0;
         while (x<size) {    
             if (info[x]!=null) {
@@ -206,16 +209,22 @@ public class query {
             }
             x++;
         }
-        queryString.append("FROM ");
+        
+        this.queryString.deleteCharAt(queryString.length()-1);
+        this.queryString.deleteCharAt(queryString.length()-1);
+        queryString.append(" FROM ");
         queryString.append(table);
         
         return queryString.toString();
     }  
     
-    public void insertQuery() {
+    /**
+     *Code modified from source: http://www.sqlitetutorial.net/sqlite-java/insert/
+     */
+    public void insertQueryToDb() {
         if (this.queryString!=null) {
-            try (Connection conn = dbConnect.connect();
-                PreparedStatement pstmt = conn.prepareStatement(this.queryString.toString())) {                
+            try (Connection conn = dbConnect.connect(); 
+                PreparedStatement pstmt = conn.prepareStatement(this.queryString.toString())) {  
                 pstmt.executeUpdate();
 
             } catch (SQLException e) {
@@ -223,9 +232,54 @@ public class query {
         }
     }
     
+    /**
+     *Code modified from source: http://www.sqlitetutorial.net/sqlite-java/select/
+     */
+    public void selectQueryFromDb(){
+        
+        try (Connection conn = dbConnect.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(this.queryString.toString())){
+            
+            // loop through the result set 
+            
+            while (rs.next()) {
+                System.out.println(rs);
+            }
+            
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     public static void main(String args[])
     {
-        query obj = new query();
+        query sample = new query();
+        String testQuery;
+        Object[] testInfo = new Object[7];
+        testInfo[0]= 1004;
+        testInfo[1]="Mike";
+        testInfo[4]="Password2";
+        testInfo[5]="testUsername";
+        testInfo[6]=1;
+        testQuery=sample.insert(1, testInfo);
+        System.out.println(sample.queryString.toString());
+        sample.insertQueryToDb();
+        System.out.println("Success Test1");
+        
+        query sample2 = new query();
+        String testQuery2;
+        Object[] testInfo2 = new Object[7];
+        testInfo2[0]=1;
+        testInfo2[1]=1;
+        testInfo2[4]=1;
+        testInfo2[5]=1;
+        testInfo2[6]=1;
+        testQuery2=sample2.select(1, testInfo2);
+        System.out.println(sample2.queryString.toString());
+        sample2.selectQueryFromDb();
+        System.out.println("Success Test2");
 
     }
 }

@@ -29,7 +29,7 @@ public class addToDatabase {
                 System.out.println(e.getMessage());        }
      }
         
-    public void insertQuery(String queryString) {
+    public void insertQueryIntoDb(String queryString) {
         try (Connection conn = dbConnect.connect();
                 PreparedStatement pstmt = conn.prepareStatement(queryString)) {                
                 pstmt.executeUpdate();
@@ -54,7 +54,7 @@ public class addToDatabase {
      * @param args the command line arguments
      */
     public static void main() {
-        addToDatabase test = new addToDatabase();
+        
         query sample = new query();
         String testQuery;
         Object[] testInfo = new Object[7];
@@ -64,7 +64,8 @@ public class addToDatabase {
         testInfo[6]=1;
         testQuery=sample.insert(1, testInfo);
         System.out.println(testQuery);
-        test.insertQuery(testQuery);
+        sample.insertQueryToDb();
+        
         
         
     }
