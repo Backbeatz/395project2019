@@ -24,7 +24,7 @@ public class bean1 {
     private String postalCode;
     private String email;
     private String phone;
-    private String dob;//Date of Birth
+    private String dob; //Date of Birth
     private String sex;
     private String createUser;
     private String createPass;
