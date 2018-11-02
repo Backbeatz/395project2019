@@ -33,6 +33,7 @@ public class addToDatabase {
         try (Connection conn = dbConnect.connect();
                 PreparedStatement pstmt = conn.prepareStatement(queryString)) {                
                 pstmt.executeUpdate();
+                System.out.println("a");
 
             } catch (SQLException e) {
                 System.out.println(e.getMessage());        }
