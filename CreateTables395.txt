@@ -1,0 +1,54 @@
+CREATE TABLE Contractor (
+	PersonID int NOT NULL PRIMARY KEY,
+	FirstName varchar(255),
+	LastName varchar(255),
+	PhoneNumber varchar(255),
+	Email varchar(255),
+	Username varchar(255) NOT NULL UNIQUE,
+	Password varchar(255) NOT NULL,
+	Authorization int,
+	ResetPassword int
+	);
+
+CREATE TABLE Company (
+	CompanyID int NOT NULL PRIMARY KEY,
+	CompanyName varchar(255) NOT NULL,
+	City varchar(255),
+	StreetAddress varchar(255),
+	PostalCode varchar(255),
+	PhoneNumber varchar(255),
+	Email varchar(255)
+	);
+
+CREATE TABLE Contract (
+	ContractID int NOT NULL PRIMARY KEY,
+	StartDate date,
+	RenewalStartDate1 date,
+	RenewalStartDate2 date,
+	EndDate date,
+	RenewalEndDate1 date,
+	RenewalEndDate2 date,
+	RenewalOptions date,
+	AmountForContractorTerm1 double(20,2),
+	AmountForContractorTerm2 double(20,2),
+	AmountForContractorTerm3 double(20,2),
+	RateForCompanyTerm1 double(20,2),
+	RateForCompanyTerm2 double(20,2),
+	RateForCompanyTerm3 double(20,2),
+	CompanyID int REFERENCES Company(CompanyID) ON UPDATE CASCADE
+	);
+
+CREATE TABLE TimeClock (
+	Month int NOT NULL,
+	Year year(4) NOT NULL,
+	ContractID int,
+	PersonID int, 
+	TimeEntry int NOT NULL PRIMARY KEY,
+	FOREIGN KEY(ContractID) REFERENCES Contract(ContractID),
+	FOREIGN KEY(PersonID) REFERENCES Contractor(PersonID)
+	);
+
+
+
+
+	
