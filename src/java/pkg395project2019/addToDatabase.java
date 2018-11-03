@@ -63,7 +63,7 @@ public class addToDatabase {
         testInfo[1]="Mike";
         testInfo[4]="Password2";
         testInfo[6]=1;
-        testQuery=sample.insert(1, testInfo);
+        sample.insert(1, testInfo);
         System.out.println(testQuery);
         sample.insertQueryToDb();
         

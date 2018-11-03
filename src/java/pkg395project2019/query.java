@@ -65,7 +65,7 @@ public class query {
      *INSERT INTO Contractor(PersonID, Username, Password, Authorization) VALUES(?,?,?,?)"   
      * @return
      */
-    public String insert (int tableIdentifier, Object[] info) {
+    public boolean insert (int tableIdentifier, Object[] info) {
         //table identifier should be 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
         //Creates the correct table and start of the query
         int size;
@@ -89,7 +89,7 @@ public class query {
                 size=4;
                 break;
             default:
-                return "NULL";
+                return false;
         }
         this.queryString.append(table);
         
@@ -145,7 +145,9 @@ public class query {
         this.queryString.deleteCharAt(queryString.length()-1);
         queryString.append(")");
         
-        return queryString.toString();
+        boolean success = false;
+        success = insertQueryToDb();
+        return success;
     }  
     
     /**
@@ -221,28 +223,31 @@ public class query {
     /**
      *Code modified from source: http://www.sqlitetutorial.net/sqlite-java/insert/
      */
-    public void insertQueryToDb() {
+    public boolean insertQueryToDb() {
         if (this.queryString!=null) {
             try (Connection conn = dbConnect.connect(); 
                 PreparedStatement pstmt = conn.prepareStatement(this.queryString.toString())) {  
                 pstmt.executeUpdate();
 
             } catch (SQLException e) {
-                System.out.println(e.getMessage());        }
+                System.out.println(e.getMessage());
+                return false;
+            }
         }
+        return true;
     }
     
     /**
      *Code modified from source: http://www.sqlitetutorial.net/sqlite-java/select/
      */
-    public void selectQueryFromDb(){
+    public boolean selectQueryFromDb(){
         
         try (Connection conn = dbConnect.connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(this.queryString.toString())){
             
             // loop through the result set 
-            
+           
             while (rs.next()) {
                 System.out.println(rs);
             }
@@ -250,7 +255,9 @@ public class query {
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            return false;
         }
+        return true;
     }
     
     public static void main(String args[])
@@ -263,7 +270,7 @@ public class query {
         testInfo[4]="Password2";
         testInfo[5]="testUsername";
         testInfo[6]=1;
-        testQuery=sample.insert(1, testInfo);
+        sample.insert(1, testInfo);
         System.out.println(sample.queryString.toString());
         sample.insertQueryToDb();
         System.out.println("Success Test1");
