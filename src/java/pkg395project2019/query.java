@@ -11,6 +11,7 @@ import java.sql.*;
  *
  * @author MikeK
  */
+
 public class query {
     private StringBuilder queryString = new StringBuilder();
     String[] contractorTable = new String[8];
@@ -147,6 +148,10 @@ public class query {
         
         boolean success = false;
         success = insertQueryToDb();
+        
+        if (success) {
+            System.out.println("The insert was Successful");
+        }
         return success;
     }  
     
@@ -223,7 +228,7 @@ public class query {
     /**
      *Code modified from source: http://www.sqlitetutorial.net/sqlite-java/insert/
      */
-    public boolean insertQueryToDb() {
+    private boolean insertQueryToDb() {
         if (this.queryString!=null) {
             try (Connection conn = dbConnect.connect(); 
                 PreparedStatement pstmt = conn.prepareStatement(this.queryString.toString())) {  
@@ -252,7 +257,6 @@ public class query {
                 System.out.println(rs);
             }
             
-            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
@@ -264,20 +268,20 @@ public class query {
     {
         query sample = new query();
         String testQuery;
-        Object[] testInfo = new Object[7];
-        testInfo[0]= 1004;
-        testInfo[1]="Mike";
-        testInfo[4]="Password2";
-        testInfo[5]="testUsername";
-        testInfo[6]=1;
+        Object[] testInfo = new Object[8];
+        testInfo[0]= 1200;
+        testInfo[1]="Mike3rd";
+        testInfo[4]="email";
+        testInfo[5]="testUsername3rd";
+        testInfo[6]="password3rd";
+        testInfo[7]=1;
         sample.insert(1, testInfo);
         System.out.println(sample.queryString.toString());
-        sample.insertQueryToDb();
         System.out.println("Success Test1");
         
         query sample2 = new query();
         String testQuery2;
-        Object[] testInfo2 = new Object[7];
+        Object[] testInfo2 = new Object[8];
         testInfo2[0]=1;
         testInfo2[1]=1;
         testInfo2[4]=1;
