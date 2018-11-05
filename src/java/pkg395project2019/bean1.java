@@ -13,8 +13,8 @@ public class bean1 {
     private Contractor user;
     private Contractor newContractor;
     private int attempts;
-    private String username;
-    private String pass;
+    private String username = "testUsername3rd";
+    private String pass =  "password3rd";
     
     private String firstName;
     private String lastName;
@@ -234,13 +234,23 @@ public class bean1 {
     }   
     public String login(String username, String password) throws SQLException{
         //Needs to be changed to compare to database, just dummy login
-        if(username.equals("user")){
-          if(password.equals("pass")){
-              setContractInfo(username, password);
-              return "hours";
-          }
-      }
-      return "login";
+        query sample2 = new query();
+        String testQuery2;
+        Object[] testInfo2 = new Object[8];
+        testInfo2[5]=username;
+        testInfo2[6]=password;
+        testQuery2=sample2.select(1, testInfo2);
+        System.out.printf( "All" + username + " " + password);
+        boolean a = sample2.selectQueryFromDb();
+        if(a == true){
+            //set bean contractor table
+           return "hours"; 
+        }
+        else {
+            return "login";
+        }
+     
+      
     }
 }
         //Open database and look for a similar login (if found, compare pass)
