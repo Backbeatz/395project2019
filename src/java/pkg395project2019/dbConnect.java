@@ -4,6 +4,7 @@ package pkg395project2019;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
  
 public class dbConnect {
      /**
@@ -14,16 +15,19 @@ public class dbConnect {
         Connection conn = null;
         try {
             // db parameters
-            String url = "jdbc:sqlite:contractDB.db";
+            String url = "jdbc:sqlite:contractDB.db:c:/Users/Owner/Documents/NetBeansProjects/395project2019"; //need albsloute pathname
             // create a connection to the database
+            System.out.println(url + " url !!!!!");
             conn = DriverManager.getConnection(url);
+            System.out.println(conn + " conn zzzz");
+                    
             
-            System.out.println("Connection to SQLite has been established."); //Test line to see document
+            
             
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.print("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
         }
-        return conn;
+        return conn; //returns null currently
     }
     /**
      * @param args the command line arguments
