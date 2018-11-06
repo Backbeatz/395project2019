@@ -240,7 +240,6 @@ public class bean1 {
         testInfo2[5]=username;
         testInfo2[6]=password;
         testQuery2=sample2.select(1, testInfo2);
-        System.out.printf( "All" + username + " " + password);
         boolean a = sample2.selectQueryFromDb();
         if(a == true){
             //set bean contractor table
