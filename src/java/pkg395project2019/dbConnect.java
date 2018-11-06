@@ -13,15 +13,20 @@ public class dbConnect {
     public static Connection connect() {
         Connection conn = null;
         try {
+            try {
+                Class.forName("org.sqlite.JDBC");
+                } catch (ClassNotFoundException eString) {
+                    System.err.println("Could not init JDBC driver - driver not found");
+}
             // db parameters
-            String url = "jdbc:sqlite:contractDB.db";
+            String url = "jdbc:sqlite:D:\\MikeK\\Documents\\GitHub\\395project2019\\contractDB.db";
             // create a connection to the database
             conn = DriverManager.getConnection(url);
             
-            System.out.println("Connection to SQLite has been established."); //Test line to see document
+            System.err.println("Connection to SQLite has been established."); //Test line to see document
             
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
         return conn;
     }

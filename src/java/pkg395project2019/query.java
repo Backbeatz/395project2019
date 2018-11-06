@@ -6,6 +6,9 @@
 package pkg395project2019;
 
 import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
@@ -225,13 +228,140 @@ public class query {
         return queryString.toString();
     }  
     
+    public String selectWhere (int tableIdentifier, Object[] info, Object[] item) {
+        //table identifier should be 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
+        //Creates the correct table and start of the query
+        int size;
+        String table;
+        this.queryString.append("SELECT ");
+        switch (tableIdentifier) {
+            case 1:
+                table = "Contractor";
+                size=7;
+                break;
+            case 2:
+                table = "Company";
+                size=6;
+                break;
+            case 3:
+                table = "Contract";
+                size=13;
+                break;
+            case 4:
+                table = "TimeClock";
+                size=4;
+                break;
+            default:
+                return "NULL";
+        }
+        
+        //Adds the column names to the string 
+        int x = 0;
+        while (x<size) {    
+            if (info[x]!=null) {
+                switch (tableIdentifier) {
+                    case 1:
+                        queryString.append(contractorTable[x]);
+                        break;
+                    case 2:
+                        queryString.append(companyTable[x]);
+                        break;
+                    case 3:
+                        queryString.append(contractTable[x]);
+                        break;
+                    case 4:
+                        queryString.append(timeTable[x]);
+                        break;
+                    default:
+                        break;
+                }
+                queryString.append(", "); //dont thiink this works correctly
+                
+            }
+            x++;
+        }
+        
+        this.queryString.deleteCharAt(queryString.length()-1);
+        this.queryString.deleteCharAt(queryString.length()-1);
+        queryString.append(" FROM ");
+        queryString.append(table);
+        queryString.append(" WHERE ");
+        
+        x = 0;
+        
+        while (x<size) {    
+            if (item[x]!=null) {
+                switch (tableIdentifier) {
+                    case 1:
+                        queryString.append(contractorTable[x]);
+                        queryString.append("=");
+                        if (info[x] instanceof String) {
+                            queryString.append("\""); 
+                        }
+                        queryString.append(item[x]);
+                        if (info[x] instanceof String) {
+                            queryString.append("\""); 
+                        }
+                        break;
+                    case 2:
+                        queryString.append(companyTable[x]);
+                        queryString.append("=");
+                        if (info[x] instanceof String) {
+                            queryString.append("\""); 
+                        }
+                        queryString.append(item[x]);
+                        if (info[x] instanceof String) {
+                            queryString.append("\""); 
+                        }
+                        break;
+                    case 3:
+                        queryString.append(contractTable[x]);
+                        queryString.append("=");
+                        if (info[x] instanceof String) {
+                            queryString.append("\""); 
+                        }
+                        queryString.append(item[x]);
+                        if (info[x] instanceof String) {
+                            queryString.append("\""); 
+                        }
+                        break;
+                    case 4:
+                        queryString.append(timeTable[x]);
+                        queryString.append("=");
+                        if (info[x] instanceof String) {
+                            queryString.append("\""); 
+                        }
+                        queryString.append(item[x]);
+                        if (info[x] instanceof String) {
+                            queryString.append("\""); 
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                queryString.append(" AND "); //dont thiink this works correctly
+                
+            }
+            x++;
+        }
+        this.queryString.deleteCharAt(queryString.length()-1);
+        this.queryString.deleteCharAt(queryString.length()-1);
+        this.queryString.deleteCharAt(queryString.length()-1);
+        this.queryString.deleteCharAt(queryString.length()-1);
+        this.queryString.deleteCharAt(queryString.length()-1);
+        System.err.println(queryString.toString());
+        
+        return queryString.toString();
+        
+    }  
+    
     /**
      *Code modified from source: http://www.sqlitetutorial.net/sqlite-java/insert/
      */
     private boolean insertQueryToDb() {
         if (this.queryString!=null) {
-            try (Connection conn = dbConnect.connect(); 
-                PreparedStatement pstmt = conn.prepareStatement(this.queryString.toString())) {  
+            try ( Connection conn = dbConnect.connect();  
+                    PreparedStatement pstmt = conn.prepareStatement(this.queryString.toString())) {  
                 pstmt.executeUpdate();
 
             } catch (SQLException e) {
@@ -247,19 +377,34 @@ public class query {
      */
     public boolean selectQueryFromDb(){
         
-        try (Connection conn = dbConnect.connect();
-             Statement stmt  = conn.createStatement();
+        Connection conn = dbConnect.connect();
+        if (conn == null) {
+            return false;
+        }
+        try  (Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(this.queryString.toString())){
             
             // loop through the result set 
-           
-            while (rs.next()) {
-                System.out.println(rs);
+            System.err.println("Inside First Try Fails Here!");
+            boolean empty = true;
+            while( rs.next() ) {
+                // ResultSet processing here
+            empty = false;
+            }
+
+            if( empty ) {
+                return false;
             }
             
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
             return false;
+        }
+        
+        if (conn != null) {
+        try {
+            conn.close();
+            } catch (SQLException e) { /* ignored */}
         }
         return true;
     }

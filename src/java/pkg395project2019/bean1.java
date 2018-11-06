@@ -232,17 +232,27 @@ public class bean1 {
         //user.setCompany(<database variable name>.getString("Company"));
         //user.setMonth(<database variable name>.getString("Month"));
     }   
-    public String login(String username, String password) throws SQLException{
+
+   public String login(String username, String password) throws SQLException{
         //Needs to be changed to compare to database, just dummy login
-        if(username.equals("user")){
-          if(password.equals("pass")){
-              setContractInfo(username, password);
-              return "hours";
-          }
-      }
-      return "login";
-    }
+        query sample2 = new query();
+        String testQuery2;
+        Object[] testInfo2 = new Object[8];
+        testInfo2[5]=username;
+        testInfo2[6]=password;
+        testQuery2=sample2.selectWhere(1, testInfo2, testInfo2);
+        
+        boolean a = sample2.selectQueryFromDb();
+        if(a == true){
+            //set bean contractor table
+           return "hours"; 
+        }
+        else {
+            return "login";
+        }
+   }
 }
+
         //Open database and look for a similar login (if found, compare pass)
       /*  try{
             user = getContractInfo(username, password);//Open database here
