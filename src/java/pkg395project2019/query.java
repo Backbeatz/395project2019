@@ -17,6 +17,13 @@ import java.sql.SQLException;
 
 public class query {
     private StringBuilder queryString = new StringBuilder();
+    int tableIdentifier;
+    ResultSet savedSet;
+    Object[] contractorResultInfo = new Object[8];
+    Object[] companyResultInfo = new Object[7];
+    Object[] contractResultInfo = new Object[14];
+    Object[] timeTableResultInfo = new Object[5];
+    
     String[] contractorTable = new String[8];
     String[] companyTable = new String[7];
     String[] contractTable = new String[14];
@@ -60,6 +67,8 @@ public class query {
         timeTable[2]="ContractID";
         timeTable[3]="PersonID";
         timeTable[4]="TimeEntry";
+        
+        tableIdentifier = 0;
     }
     
     /**
@@ -69,9 +78,10 @@ public class query {
      *INSERT INTO Contractor(PersonID, Username, Password, Authorization) VALUES(?,?,?,?)"   
      * @return
      */
-    public boolean insert (int tableIdentifier, Object[] info) {
+    public boolean insert (int whichTable, Object[] info) {
         //table identifier should be 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
         //Creates the correct table and start of the query
+        this.tableIdentifier = whichTable;
         int size;
         String table;
         this.queryString.append("INSERT INTO ");
@@ -160,16 +170,17 @@ public class query {
     
     /**
      *
-     *@param tableIdentifier identifier for table use 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
+     *@param whichTable identifier for table use 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
      * @param info variables which you are inserting  position is based on table see query constructor
      * @return String to be used in sql query
      *SELECT (COLUMN NAMES) From Table"   
      * NEEDS TO ADD THE WHERE condition
      * @return 
      */
-    public String select (int tableIdentifier, Object[] info) {
+    public String select (int whichTable, Object[] info) {
         //table identifier should be 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
         //Creates the correct table and start of the query
+        this.tableIdentifier = whichTable;
         int size;
         String table;
         this.queryString.append("SELECT ");
@@ -228,9 +239,10 @@ public class query {
         return queryString.toString();
     }  
     
-    public String selectWhere (int tableIdentifier, Object[] info, Object[] item) {
+    public String selectWhere (int whichTable, Object[] info, Object[] item) {
         //table identifier should be 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
         //Creates the correct table and start of the query
+        this.tableIdentifier = whichTable;
         int size;
         String table;
         this.queryString.append("SELECT ");
@@ -374,21 +386,41 @@ public class query {
     
     /**
      *Code modified from source: http://www.sqlitetutorial.net/sqlite-java/select/
+     * @return returns Boolean for successful or not
      */
+    
     public boolean selectQueryFromDb(){
         
         Connection conn = dbConnect.connect();
         if (conn == null) {
             return false;
         }
+        int indexForResultSet = 0;
         try  (Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(this.queryString.toString())){
+             ResultSet rs = stmt.executeQuery(this.queryString.toString())){
             
             // loop through the result set 
-            System.err.println("Inside First Try Fails Here!");
             boolean empty = true;
+            
             while( rs.next() ) {
                 // ResultSet processing here
+                //tableIdentifier = 0;
+                switch (tableIdentifier) {
+                case 1:
+                    contractorResultInfo[indexForResultSet]=rs.getString(1);
+                    break;
+                case 2:
+                    companyResultInfo[indexForResultSet]=rs.getString(1);
+                    break;
+                case 3:
+                    contractResultInfo[indexForResultSet]=rs.getString(1);
+                    break;
+                case 4:
+                    timeTableResultInfo[indexForResultSet]=rs.getString(1);
+                    break;
+                default: ; 
+            }
+            
             empty = false;
             }
 
@@ -406,7 +438,44 @@ public class query {
             conn.close();
             } catch (SQLException e) { /* ignored */}
         }
+        printItemsinResultTables();
         return true;
+    }
+    
+    public void printItemsinResultTables() {
+        int index = 0;
+        System.err.println("contractor Result Info:\n");
+        while (index<8) {    
+            if (contractorResultInfo[index]!=null) {
+                 System.err.println(contractorResultInfo[index]+"\n");
+            }
+            index++;
+        }
+        index=0;
+        System.err.println("company Result Info:\n");
+        while (index<7) {    
+            if (companyResultInfo[index]!=null) {
+                 System.err.println(companyResultInfo[index]+"\n");
+            }
+            index++;
+        }
+        index=0;
+        System.err.println("Contract Result Info:\n");
+        while (index<14) {    
+            if (contractResultInfo[index]!=null) {
+                 System.err.println(contractResultInfo[index]+"\n");
+            }
+            index++;
+        }
+        index=0;
+        System.err.println("timeTable Result Info:\n");
+        while (index<5) {    
+            if (contractorResultInfo[index]!=null) {
+                 System.err.println(contractorResultInfo[index]+"\n");
+            }
+            index++;
+        }
+        return;
     }
     
     public static void main(String args[])
