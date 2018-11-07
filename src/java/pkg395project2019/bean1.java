@@ -160,7 +160,7 @@ public class bean1 {
             attempts += 1;
             return "hours_reset";
         }
-        
+         
         if(verifyInt(hours)){
             
             //Hours make sense, so parse the string to int for submission.
@@ -178,7 +178,7 @@ public class bean1 {
             newCont[3]= user.Contractor_ID; //PersonID
             newCont[4]= hours; //Timeentry
             boolean a = Worktime.insert(4, newCont);
-            
+            //Throws a null pointer exception
             
             //insert hour into entry 
             //Enter database and enter hours (work)
