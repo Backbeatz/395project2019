@@ -7,7 +7,6 @@ package pkg395project2019;
 
 import java.sql.*;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
@@ -17,6 +16,15 @@ import java.sql.SQLException;
 
 public class query {
     private StringBuilder queryString = new StringBuilder();
+    int tableIdentifier;
+    int numOfResults;
+    
+    ResultSet savedSet;
+    Object[][] contractorResultInfo = new Object[8][];
+    Object[][] companyResultInfo = new Object[7][];
+    Object[][] contractResultInfo = new Object[14][];
+    Object[][] timeTableResultInfo = new Object[5][];
+    
     String[] contractorTable = new String[8];
     String[] companyTable = new String[7];
     String[] contractTable = new String[14];
@@ -60,6 +68,9 @@ public class query {
         timeTable[2]="ContractID";
         timeTable[3]="PersonID";
         timeTable[4]="TimeEntry";
+        
+        tableIdentifier = 0;
+        numOfResults = 0;
     }
     
     /**
@@ -69,28 +80,29 @@ public class query {
      *INSERT INTO Contractor(PersonID, Username, Password, Authorization) VALUES(?,?,?,?)"   
      * @return
      */
-    public boolean insert (int tableIdentifier, Object[] info) {
+    public boolean insert (int whichTable, Object[] info) {
         //table identifier should be 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
         //Creates the correct table and start of the query
+        this.tableIdentifier = whichTable;
         int size;
         String table;
         this.queryString.append("INSERT INTO ");
         switch (tableIdentifier) {
             case 1:
                 table = "Contractor";
-                size=7;
+                size=8;
                 break;
             case 2:
                 table = "Company";
-                size=6;
+                size=7;
                 break;
             case 3:
                 table = "Contract";
-                size=13;
+                size=14;
                 break;
             case 4:
                 table = "TimeClock";
-                size=4;
+                size=5;
                 break;
             default:
                 return false;
@@ -158,37 +170,85 @@ public class query {
         return success;
     }  
     
+    public boolean update (int whichTable, Object[] info) {
+        //table identifier should be 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
+        //Creates the correct table and start of the query
+        this.tableIdentifier = whichTable;
+        int size;
+        String table;
+        this.queryString.append("UPDATE ");
+        switch (tableIdentifier) {
+            case 1:
+                table = "Contractor";
+                size=8;
+                break;
+            case 2:
+                table = "Company";
+                size=7;
+                break;
+            case 3:
+                table = "Contract";
+                size=14;
+                break;
+            case 4:
+                table = "TimeClock";
+                size=5;
+                break;
+            default:
+                return false;
+        }
+        this.queryString.append(table);
+        
+        //Adds the column names to the string 
+        this.queryString.append(" SET ");
+        
+        int x = 0;
+        
+        //Adds the value names to the string 
+        x = 0;
+        queryString.append(")");
+        
+        boolean success = false;
+        success = insertQueryToDb();
+        
+        if (success) {
+            System.out.println("The insert was Successful");
+        }
+        return success;
+    }  
+    
     /**
      *
-     *@param tableIdentifier identifier for table use 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
+     *@param whichTable identifier for table use 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
      * @param info variables which you are inserting  position is based on table see query constructor
      * @return String to be used in sql query
      *SELECT (COLUMN NAMES) From Table"   
      * NEEDS TO ADD THE WHERE condition
      * @return 
      */
-    public String select (int tableIdentifier, Object[] info) {
+    public String select (int whichTable, Object[] info) {
         //table identifier should be 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
         //Creates the correct table and start of the query
+        this.tableIdentifier = whichTable;
         int size;
         String table;
         this.queryString.append("SELECT ");
         switch (tableIdentifier) {
             case 1:
                 table = "Contractor";
-                size=7;
+                size=8;
                 break;
             case 2:
                 table = "Company";
-                size=6;
+                size=7;
                 break;
             case 3:
                 table = "Contract";
-                size=13;
+                size=14;
                 break;
             case 4:
                 table = "TimeClock";
-                size=4;
+                size=5;
                 break;
             default:
                 return "NULL";
@@ -228,28 +288,29 @@ public class query {
         return queryString.toString();
     }  
     
-    public String selectWhere (int tableIdentifier, Object[] info, Object[] item) {
+    public String selectWhere (int whichTable, Object[] info, Object[] item) {
         //table identifier should be 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
         //Creates the correct table and start of the query
+        this.tableIdentifier = whichTable;
         int size;
         String table;
         this.queryString.append("SELECT ");
         switch (tableIdentifier) {
             case 1:
                 table = "Contractor";
-                size=7;
+                size=8;
                 break;
             case 2:
                 table = "Company";
-                size=6;
+                size=7;
                 break;
             case 3:
                 table = "Contract";
-                size=13;
+                size=14;
                 break;
             case 4:
                 table = "TimeClock";
-                size=4;
+                size=5;
                 break;
             default:
                 return "NULL";
@@ -374,21 +435,42 @@ public class query {
     
     /**
      *Code modified from source: http://www.sqlitetutorial.net/sqlite-java/select/
+     * @return returns Boolean for successful or not
      */
+    
     public boolean selectQueryFromDb(){
         
         Connection conn = dbConnect.connect();
         if (conn == null) {
             return false;
         }
+        int indexForResultSet = 0;
         try  (Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(this.queryString.toString())){
+             ResultSet rs = stmt.executeQuery(this.queryString.toString())){
             
             // loop through the result set 
-            System.err.println("Inside First Try Fails Here!");
             boolean empty = true;
+            numOfResults = 0;
             while( rs.next() ) {
                 // ResultSet processing here
+                tableIdentifier = 0;
+                switch (tableIdentifier) {
+                case 1:
+                    contractorResultInfo[indexForResultSet][numOfResults]=rs.getString(1);
+                    break;
+                case 2:
+                    companyResultInfo[indexForResultSet][numOfResults]=rs.getString(1);
+                    break;
+                case 3:
+                    contractResultInfo[indexForResultSet][numOfResults]=rs.getString(1);
+                    break;
+                case 4:
+                    timeTableResultInfo[indexForResultSet][numOfResults]=rs.getString(1);
+                    break;
+                default: ; 
+                numOfResults++;
+            }
+            
             empty = false;
             }
 
@@ -406,36 +488,52 @@ public class query {
             conn.close();
             } catch (SQLException e) { /* ignored */}
         }
+        printItemsinResultTables();
         return true;
+    }
+    
+    public void printItemsinResultTables() {
+        int index = 0;
+        System.err.println("contractor Result Info:\n");
+        int x = 0;
+        while (x<this.numOfResults) {
+            while (index<8) {    
+                if (contractorResultInfo[index]!=null) {
+                     System.err.println(contractorResultInfo[index]+"\n");
+                }
+                index++;
+            }
+            index=0;
+            System.err.println("company Result Info:\n");
+            while (index<7) {    
+                if (companyResultInfo[index]!=null) {
+                    System.err.println(companyResultInfo[index]+"\n");
+                }
+                index++;
+            }
+            index=0;
+            System.err.println("Contract Result Info:\n");
+            while (index<14) {    
+                if (contractResultInfo[index]!=null) {
+                    System.err.println(contractResultInfo[index]+"\n");
+                }
+                index++;
+            }
+            index=0;
+            System.err.println("timeTable Result Info:\n");
+            while (index<5) {    
+                if (contractorResultInfo[index]!=null) {
+                    System.err.println(contractorResultInfo[index]+"\n");
+                }
+                index++;
+            }
+            x++;
+        }
+        return;
     }
     
     public static void main(String args[])
     {
-        query sample = new query();
-        String testQuery;
-        Object[] testInfo = new Object[8];
-        testInfo[0]= 1200;
-        testInfo[1]="Mike3rd";
-        testInfo[4]="email";
-        testInfo[5]="testUsername3rd";
-        testInfo[6]="password3rd";
-        testInfo[7]=1;
-        sample.insert(1, testInfo);
-        System.out.println(sample.queryString.toString());
-        System.out.println("Success Test1");
-        
-        query sample2 = new query();
-        String testQuery2;
-        Object[] testInfo2 = new Object[8];
-        testInfo2[0]=1;
-        testInfo2[1]=1;
-        testInfo2[4]=1;
-        testInfo2[5]=1;
-        testInfo2[6]=1;
-        testQuery2=sample2.select(1, testInfo2);
-        System.out.println(sample2.queryString.toString());
-        sample2.selectQueryFromDb();
-        System.out.println("Success Test2");
 
     }
 }

@@ -7,15 +7,15 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean(name="bean1")
 @RequestScoped
 public class bean1 {
-    //user
+
     private String hours;    
     private String newPass;
-    private Contractor user; //this
-    private Contractor newContractor; //this
+    private Contractor user;
+    private Contractor newContractor;
     private int attempts;
     private String username;
     private String pass;
-    //for add contractor
+    
     private String firstName;
     private String lastName;
     private String job;
@@ -142,7 +142,7 @@ public class bean1 {
     }
     
     
-    public class Contractor{ //this
+    public class Contractor{
         public long Contractor_ID;
         public String firstName;
         public String lastName;
@@ -150,8 +150,6 @@ public class bean1 {
         public String email;
         public String Company;
         public String Month;
-        public String Year;
-        public String activeContract;
         private int protocol;
     }
     
@@ -160,27 +158,13 @@ public class bean1 {
             attempts += 1;
             return "hours_reset";
         }
-         
+        
         if(verifyInt(hours)){
-            
             //Hours make sense, so parse the string to int for submission.
             int work = Integer.parseInt(hours);
             if((work > 700) || (work < 0)){
                 return "hours_reset";
             }
-            //hour
-            query Worktime = new query();
-            String testQuery;
-            Object[] newCont = new Object[5];
-            newCont[0]= user.Month; //month
-            newCont[1]= user.Year; //year
-            newCont[2]= user.activeContract; //ContractID
-            newCont[3]= user.Contractor_ID; //PersonID
-            newCont[4]= hours; //Timeentry
-            boolean a = Worktime.insert(4, newCont);
-            //Throws a null pointer exception
-            
-            //insert hour into entry 
             //Enter database and enter hours (work)
         }
         else{
@@ -228,16 +212,10 @@ public class bean1 {
         }
         
     }*/
-    //Connor working
+    
     public String addContractor(){
         //verify every field
-        //take user
-        
-        //take
-        
-        
         return "contractor_added";
-
     }
    
     public void setContractInfo(String username, String password) throws SQLException{
@@ -253,9 +231,6 @@ public class bean1 {
         //user.setName(<database variable name>.getString("Name"));
         //user.setCompany(<database variable name>.getString("Company"));
         //user.setMonth(<database variable name>.getString("Month"));
-        
-        
-        
     }   
 
    public String login(String username, String password) throws SQLException{
@@ -269,11 +244,7 @@ public class bean1 {
         
         boolean a = sample2.selectQueryFromDb();
         if(a == true){
-<<<<<<< HEAD
             //set bean contractor table
-=======
-           setContractInfo(username, password);
->>>>>>> c576dbecd03189a91ab46bb0525c228b07aed8da
            return "hours"; 
         }
         else {
