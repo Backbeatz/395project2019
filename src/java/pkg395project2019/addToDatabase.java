@@ -64,8 +64,8 @@ public class addToDatabase {
         testInfo[4]="Password2";
         testInfo[6]=1;
         sample.insert(1, testInfo);
-        System.out.println(testQuery);
-        sample.insertQueryToDb();
+        //System.out.println(testQuery);
+        //sample.insertQueryToDb();
         
         
         
