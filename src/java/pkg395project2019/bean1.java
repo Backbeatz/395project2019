@@ -1,21 +1,48 @@
 package  pkg395project2019;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 @ManagedBean(name="bean1")
 @RequestScoped
 public class bean1 {
-
+    //Calander
+    Calendar cal = Calendar.getInstance();
+    //logged in user info
+    private Contractor currentUser; //this is where we set our info
     private String hours;    
-    private String newPass;
-    private Contractor user;
-    private Contractor newContractor;
-    private int attempts;
+    
+    //login page info
     private String username;
     private String pass;
+    private String newPass;
+    private int attempts;
     
+    //info box info( name, rep period, email, phone, company )
+    private String currentName;
+    //Rep period is month + year
+    private String currentEmail;
+    private String currentPhone;
+    private String currentComp;
+    
+    
+    
+    //system info
+    
+    //The current date and time
+    Calendar now = Calendar.getInstance();
+    int d1 = now.get(Calendar.YEAR);
+    String year = String.valueOf(d1); //current year
+    
+    String month = new SimpleDateFormat("MMM").format(now.getTime()); //Current month
+
+    //add user fields
+    private Contractor newContractor;
+    private String createUser;
+    private String createPass;
     private String firstName;
     private String lastName;
     private String job;
@@ -26,8 +53,78 @@ public class bean1 {
     private String phone;
     private String dob; //Date of Birth
     private String sex;
-    private String createUser;
-    private String createPass;
+    
+ //---------------------------------------------------------------------------  
+ // Setters and Getters
+    //All
+    public String getMonth(){
+        return month;
+    }
+    
+    public String getYear(){
+        return year;
+    }
+    
+    public String getHours(){
+        return hours;
+    }
+    public void setHours(String hours){
+        this.hours = hours;
+    }
+
+    //Current user
+    public String getCurName(){
+        return currentName;
+    }
+    public void setCurName(String Name){
+        this.currentName = Name;
+    }
+    public String getCurEmail(){
+        return currentEmail;
+    }
+    public void setCurEmail(String email){
+        this.currentEmail = email;
+    }
+    public String getCurPhone(){
+        return currentPhone;
+    }
+    public void setCurPhone(String phone){
+        this.currentPhone = phone;
+    }
+    public String getCurComp(){
+        return currentComp;
+    }
+    public void setCurComp(String company){
+        this.currentComp = company;
+    }
+    
+    public String getPass(){
+        return pass;
+    }
+    public void setPass(String pass){
+        this.pass = pass;
+    }
+
+    public String getNewPass(){
+        return newPass;
+    }
+    public void setNewPass(String newPass){
+        this.newPass = newPass;
+    }
+    
+    public String getUsername(){
+        return username;
+    }
+    public void setUsername(String username){
+        this.username = username;
+    }
+    //Add user
+    public String getJob(){
+        return job;
+    }
+    public void setJob(String job){
+        this.job = job;
+    }
     
     public String getDob(){
         return dob;
@@ -106,42 +203,8 @@ public class bean1 {
         this.lastName = lastName;
     }
         
-    public String getHours(){
-        return hours;
-    }
-    public void setHours(String hours){
-        this.hours = hours;
-    }
-    
-    public String getJob(){
-        return job;
-    }
-    public void setJob(String job){
-        this.job = job;
-    }
-    
-    public String getPass(){
-        return pass;
-    }
-    public void setPass(String pass){
-        this.pass = pass;
-    }
-
-    public String getNewPass(){
-        return newPass;
-    }
-    public void setNewPass(String newPass){
-        this.newPass = newPass;
-    }
-    
-    public String getUsername(){
-        return username;
-    }
-    public void setUsername(String username){
-        this.username = username;
-    }
-    
-    
+    //--------------------------------------------------------------------
+    //Contrctor object
     public class Contractor{
         public long Contractor_ID;
         public String firstName;
@@ -149,9 +212,11 @@ public class bean1 {
         public String phoneNumber;
         public String email;
         public String Company;
-        public String Month;
         private int protocol;
     }
+    
+    //----------------------------------------------------------------------
+    //functions
     
     public String verify(String hours){
         if(hours.equals("")){
@@ -217,20 +282,21 @@ public class bean1 {
         //verify every field
         return "contractor_added";
     }
-   
+   /**
+    * Sets our current user's info as the log in
+    * @param username
+    * @param password
+    * @throws SQLException 
+    */
     public void setContractInfo(String username, String password) throws SQLException{
-        user = new Contractor();
-        //check if source exists
-        //connect to database
-        //if no database throw exception
-        //go through the query until matching userid is found
-        //store all the data into the contractor structure
-        //q = new query.main();       //connor working here
+        currentUser = new Contractor();
+        //we connect to database
         
-        //user.setContractor_ID(q);
-        //user.setName(<database variable name>.getString("Name"));
-        //user.setCompany(<database variable name>.getString("Company"));
-        //user.setMonth(<database variable name>.getString("Month"));
+        //set our values ussing setters
+        setCurName("Name");
+        setCurEmail("Email");
+        setCurPhone("Phone");
+        setCurComp("Job");
     }   
 
    public String login(String username, String password) throws SQLException{
@@ -244,7 +310,7 @@ public class bean1 {
         
         boolean a = sample2.selectQueryFromDb();
         if(a == true){
-            //set bean contractor table
+           setContractInfo(username, password);
            return "hours"; 
         }
         else {
