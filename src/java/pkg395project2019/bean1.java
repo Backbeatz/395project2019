@@ -230,7 +230,21 @@ public class bean1 {
             if((work > 700) || (work < 0)){
                 return "hours_reset";
             }
-            //Enter database and enter hours (work)
+            query qConIn = new query();
+            String hrQuery;
+            Object[] infoHr = new Object[8];
+            infoHr[0]="a"; //Edit here
+            infoHr[1]="a";
+            infoHr[2]="a";
+            infoHr[3]="a";
+            infoHr[4]="a";
+            
+            if(!qConIn.insert(4, infoHr)){
+                return "hours_reset";
+            } 
+        
+        
+            
         }
         else{
             attempts += 1;
@@ -291,9 +305,15 @@ public class bean1 {
     public void setContractInfo(String username, String password) throws SQLException{
         currentUser = new Contractor();
         //we connect to database
+        query qConIn = new query();
+        Object[] testInfo2 = new Object[8];
+        testInfo2[5]=username;
+        testInfo2[6]=password;
+        
+        String Name = qConIn.selectWhere(1, testInfo2, testInfo2);
         
         //set our values ussing setters
-        setCurName("Name");
+        setCurName(Name);
         setCurEmail("Email");
         setCurPhone("Phone");
         setCurComp("Job");
