@@ -29,7 +29,8 @@ public class bean1 {
     private String currentEmail;
     private String currentPhone;
     private String currentComp;
-    
+    private String currentPId;
+    private String currentCId;
     
     
     //system info
@@ -59,6 +60,19 @@ public class bean1 {
  //---------------------------------------------------------------------------  
  // Setters and Getters
     //All
+    public String getcurrentPId(){
+        return currentPId;
+    }
+    public void setcurrentPId(String ID){
+        this.currentPId = ID;
+    }
+    public String getcurrentCId(){
+        return currentPId;
+    }
+    public void setcurrentCId(String ID){
+        this.currentPId = ID;
+    }
+    
     public String getMonth(){
         return month;
     }
@@ -215,26 +229,27 @@ public class bean1 {
             if((work > 700) || (work < 0)){
                 return "hours_reset";
             }
-            query qConIn = new query();
-            String hrQuery;
-            Object[] infoHr = new Object[8];
-            infoHr[0]="a"; //Edit here
-            infoHr[1]="a";
-            infoHr[2]="a";
-            infoHr[3]="a";
-            infoHr[4]="a";
-            
-            if(!qConIn.insert(4, infoHr)){
-                return "hours_reset";
-            } 
-        
-        
-            
+
         }
         else{
             attempts += 1;
             return "hours_reset";
         }
+        query qConIn = new query();
+            String hrQuery;
+            Object[] infoHr = new Object[8];
+            infoHr[0]=month; //Edit here
+            infoHr[1]=year;
+            infoHr[2]=getcurrentPId();
+            infoHr[3]=getcurrentCId();
+            infoHr[4]=getHours();
+            
+            //Need to check if month has already been used
+            
+            if(qConIn.insert(4, infoHr)){  //Nani?
+                return "hours_reset";
+            } 
+
         attempts = 0;
         return "hours_confirmed";
     }
@@ -249,7 +264,7 @@ public class bean1 {
         }
     }
     
-
+//Not working
     public String changePass(String password, String newPassword){
         if(!(password.equals(newPassword))){
 
@@ -308,7 +323,7 @@ public class bean1 {
             
             
             if(!qConIn.insert(1, infoNC)){
-                return "hours_reset";
+                return "hours";
             } 
         return "hours";
     }
@@ -355,9 +370,12 @@ public class bean1 {
         String Name = qConIn.selectWhere(1, resultInfo, testInfo2);
         if (qConIn.selectQueryFromDb()) {
             resultInfo = qConIn.getResults();
-            setFirstName(resultInfo[1].toString());
-            setLastName(resultInfo[2].toString());
+            
+            setcurrentPId(resultInfo[0].toString()); //this is not working
+            setcurrentCId("N/A"); //need to be looked at
+            
             setCurName(resultInfo[1].toString());
+            setLastName(resultInfo[2].toString());
             setCurPhone(resultInfo[3].toString());
             setCurEmail(resultInfo[4].toString());
             setUsername(resultInfo[5].toString());
