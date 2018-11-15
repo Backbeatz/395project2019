@@ -216,30 +216,30 @@ public class query {
                     case 1:
                         queryString.append(contractorTable[x]);
                         queryString.append("=");
-                        queryString.append("\"");
+                        queryString.append("\'");
                         queryString.append(updateInfo[x]);
-                        queryString.append("\"");
+                        queryString.append("\'");
                         break;
                     case 2:
                         queryString.append(companyTable[x]);
                         queryString.append("=");
-                        queryString.append("\"");
+                        queryString.append("\'");
                         queryString.append(updateInfo[x]);
-                        queryString.append("\"");
+                        queryString.append("\'");
                         break;
                     case 3:
                         queryString.append(contractTable[x]);
                         queryString.append("=");
-                        queryString.append("\"");
+                        queryString.append("\'");
                         queryString.append(updateInfo[x]);
-                        queryString.append("\"");
+                        queryString.append("\'");
                         break;
                     case 4:
                         queryString.append(timeTable[x]);
                         queryString.append("=");
-                        queryString.append("\"");
+                        queryString.append("\'");
                         queryString.append(updateInfo[x]);
-                        queryString.append("\"");
+                        queryString.append("\'");
                         break;
                     default:
                         break;
@@ -255,18 +255,19 @@ public class query {
         queryString.append(" WHERE ");
         
         x = 0;
-        while (x<size) {    
+        while (x<size) {
+            System.err.println("WOOHOO!");
             if (itemWhere[x]!=null) {
                 switch (tableIdentifier) {
                     case 1:
                         queryString.append(contractorTable[x]);
                         queryString.append("=");
-                        queryString.append("\"");
+                        queryString.append("\'");
                         //if (info[x] instanceof String) {
                             //queryString.append("\""); 
                         //}
                         queryString.append(itemWhere[x]);
-                        queryString.append("\"");
+                        queryString.append("\'");
                         //if (info[x] instanceof String) {
                             //queryString.append("\""); 
                         //}
@@ -274,23 +275,23 @@ public class query {
                     case 2:
                         queryString.append(companyTable[x]);
                         queryString.append("=");
-                        queryString.append("\"");
+                        queryString.append("\'");
                         queryString.append(itemWhere[x]);
-                        queryString.append("\"");
+                        queryString.append("\'");
                         break;
                     case 3:
                         queryString.append(contractTable[x]);
                         queryString.append("=");
-                        queryString.append("\"");
+                        queryString.append("\'");
                         queryString.append(itemWhere[x]);
-                        queryString.append("\"");
+                        queryString.append("\'");
                         break;
                     case 4:
                         queryString.append(timeTable[x]);
                         queryString.append("=");
-                        queryString.append("\"");
+                        queryString.append("\'");
                         queryString.append(itemWhere[x]);
-                        queryString.append("\"");
+                        queryString.append("\'");
                         break;
                     default:
                         break;
@@ -309,7 +310,7 @@ public class query {
         System.err.println(queryString.toString());
         //Adds the value names to the string 
         x = 0;
-        queryString.append(")");
+        queryString.append(";");
         
         boolean success = false;
         success = insertQueryToDb();

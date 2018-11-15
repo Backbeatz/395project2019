@@ -256,12 +256,20 @@ public class bean1 {
             attempts += 1;
             pass = "";
             newPass = "";
-            return "change_password_reset";
+            query qUpdatePassword = new query();
+            Object[] infoUpPassword = new Object[8];
+            infoUpPassword[6]=newPassword;
+            Object[] userInfo = new Object[8];
+            userInfo[5]="test1";
+            if (qUpdatePassword.update(1, infoUpPassword, userInfo)) {
+                return "logged_out";
+            }
+            
         }
         pass = "";
         newPass = "";
         attempts = 0;
-        return "logged_out";
+        return "change_password_reset";
         
     }
     /*For forgot_password page 
@@ -352,6 +360,7 @@ public class bean1 {
             setCurName(resultInfo[1].toString());
             setCurPhone(resultInfo[3].toString());
             setCurEmail(resultInfo[4].toString());
+            setUsername(resultInfo[5].toString());
             
         }
     }   
