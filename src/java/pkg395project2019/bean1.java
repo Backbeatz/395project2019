@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import java.util.Arrays;
  
 
 @ManagedBean(name="bean1")
@@ -339,14 +340,20 @@ public class bean1 {
         Object[] testInfo2 = new Object[8];
         testInfo2[5]=username;
         testInfo2[6]=password;
-        //This is where we're waiting for our
-        String Name = qConIn.selectWhere(1, testInfo2, testInfo2);
+        Object[] resultInfo = new Object[8];
+        Arrays.fill(resultInfo, true);
         
-        //set our values ussing setters
-        setCurName("Name");
-        setCurEmail("Email");
-        setCurPhone("Phone");
-        setCurComp("Job");
+        //This is where we're waiting for our
+        String Name = qConIn.selectWhere(1, resultInfo, testInfo2);
+        if (qConIn.selectQueryFromDb()) {
+            resultInfo = qConIn.getResults();
+            setFirstName(resultInfo[1].toString());
+            setLastName(resultInfo[2].toString());
+            setCurName(resultInfo[1].toString());
+            setCurPhone(resultInfo[3].toString());
+            setCurEmail(resultInfo[4].toString());
+            
+        }
     }   
 
    public String login(String username, String password) throws SQLException{

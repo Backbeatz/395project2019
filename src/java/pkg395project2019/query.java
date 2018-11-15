@@ -20,10 +20,10 @@ public class query {
     int numOfResults;
     
     ResultSet savedSet;
-    Object[][] contractorResultInfo = new Object[8][];
-    Object[][] companyResultInfo = new Object[7][];
-    Object[][] contractResultInfo = new Object[14][];
-    Object[][] timeTableResultInfo = new Object[5][];
+    Object[] contractorResultInfo = new Object[8];
+    Object[] companyResultInfo = new Object[7];
+    Object[] contractResultInfo = new Object[14];
+    Object[] timeTableResultInfo = new Object[5];
     
     String[] contractorTable = new String[8];
     String[] companyTable = new String[7];
@@ -170,7 +170,14 @@ public class query {
         return success;
     }  
     
-    public boolean update (int whichTable, Object[] info) {
+    /**
+     *
+     * @param whichTable table identifier should be 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
+     * @param updateInfo the information to update
+     * @param itemWhere the information to match in database
+     * @return
+     */
+    public boolean update (int whichTable, Object[] updateInfo, Object[] itemWhere) {
         //table identifier should be 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
         //Creates the correct table and start of the query
         this.tableIdentifier = whichTable;
@@ -198,12 +205,108 @@ public class query {
                 return false;
         }
         this.queryString.append(table);
-        
+        int x = 0;
         //Adds the column names to the string 
         this.queryString.append(" SET ");
+        x = 0;
         
-        int x = 0;
+        while (x<size) {    
+            if (updateInfo[x]!=null) {
+                switch (tableIdentifier) {
+                    case 1:
+                        queryString.append(contractorTable[x]);
+                        queryString.append("=");
+                        queryString.append("\"");
+                        queryString.append(updateInfo[x]);
+                        queryString.append("\"");
+                        break;
+                    case 2:
+                        queryString.append(companyTable[x]);
+                        queryString.append("=");
+                        queryString.append("\"");
+                        queryString.append(updateInfo[x]);
+                        queryString.append("\"");
+                        break;
+                    case 3:
+                        queryString.append(contractTable[x]);
+                        queryString.append("=");
+                        queryString.append("\"");
+                        queryString.append(updateInfo[x]);
+                        queryString.append("\"");
+                        break;
+                    case 4:
+                        queryString.append(timeTable[x]);
+                        queryString.append("=");
+                        queryString.append("\"");
+                        queryString.append(updateInfo[x]);
+                        queryString.append("\"");
+                        break;
+                    default:
+                        break;
+                }
+                queryString.append(" , "); //dont thiink this works correctly
+                
+            }
+            x++;
+        }
+        this.queryString.deleteCharAt(queryString.length()-1);
+        this.queryString.deleteCharAt(queryString.length()-1);
+        this.queryString.deleteCharAt(queryString.length()-1);        
+        queryString.append(" WHERE ");
         
+        x = 0;
+        while (x<size) {    
+            if (itemWhere[x]!=null) {
+                switch (tableIdentifier) {
+                    case 1:
+                        queryString.append(contractorTable[x]);
+                        queryString.append("=");
+                        queryString.append("\"");
+                        //if (info[x] instanceof String) {
+                            //queryString.append("\""); 
+                        //}
+                        queryString.append(itemWhere[x]);
+                        queryString.append("\"");
+                        //if (info[x] instanceof String) {
+                            //queryString.append("\""); 
+                        //}
+                        break;
+                    case 2:
+                        queryString.append(companyTable[x]);
+                        queryString.append("=");
+                        queryString.append("\"");
+                        queryString.append(itemWhere[x]);
+                        queryString.append("\"");
+                        break;
+                    case 3:
+                        queryString.append(contractTable[x]);
+                        queryString.append("=");
+                        queryString.append("\"");
+                        queryString.append(itemWhere[x]);
+                        queryString.append("\"");
+                        break;
+                    case 4:
+                        queryString.append(timeTable[x]);
+                        queryString.append("=");
+                        queryString.append("\"");
+                        queryString.append(itemWhere[x]);
+                        queryString.append("\"");
+                        break;
+                    default:
+                        break;
+                }
+                queryString.append(" AND "); //dont thiink this works correctly
+                
+            }
+            x++;
+        }
+        this.queryString.deleteCharAt(queryString.length()-1);
+        this.queryString.deleteCharAt(queryString.length()-1);
+        this.queryString.deleteCharAt(queryString.length()-1);
+        this.queryString.deleteCharAt(queryString.length()-1);
+        this.queryString.deleteCharAt(queryString.length()-1);
+        
+        System.err.println(queryString.toString());
         //Adds the value names to the string 
         x = 0;
         queryString.append(")");
@@ -288,6 +391,13 @@ public class query {
         return queryString.toString();
     }  
     
+    /**
+     *
+     * @param whichTable Table to query
+     * @param info Object outlining which information is wanted
+     * @param item Object with items for comparison
+     * @return
+     */
     public String selectWhere (int whichTable, Object[] info, Object[] item) {
         //table identifier should be 1 for Contractor, 2 for company, 3 for contract, 4 for timeclock
         //Creates the correct table and start of the query
@@ -337,7 +447,6 @@ public class query {
                         break;
                 }
                 queryString.append(", "); //dont thiink this works correctly
-                
             }
             x++;
         }
@@ -356,46 +465,36 @@ public class query {
                     case 1:
                         queryString.append(contractorTable[x]);
                         queryString.append("=");
-                        if (info[x] instanceof String) {
-                            queryString.append("\""); 
-                        }
+                        queryString.append("\"");
+                        //if (info[x] instanceof String) {
+                            //queryString.append("\""); 
+                        //}
                         queryString.append(item[x]);
-                        if (info[x] instanceof String) {
-                            queryString.append("\""); 
-                        }
+                        queryString.append("\"");
+                        //if (info[x] instanceof String) {
+                            //queryString.append("\""); 
+                        //}
                         break;
                     case 2:
                         queryString.append(companyTable[x]);
                         queryString.append("=");
-                        if (info[x] instanceof String) {
-                            queryString.append("\""); 
-                        }
+                        queryString.append("\"");
                         queryString.append(item[x]);
-                        if (info[x] instanceof String) {
-                            queryString.append("\""); 
-                        }
+                        queryString.append("\"");
                         break;
                     case 3:
                         queryString.append(contractTable[x]);
                         queryString.append("=");
-                        if (info[x] instanceof String) {
-                            queryString.append("\""); 
-                        }
+                        queryString.append("\"");
                         queryString.append(item[x]);
-                        if (info[x] instanceof String) {
-                            queryString.append("\""); 
-                        }
+                        queryString.append("\"");
                         break;
                     case 4:
                         queryString.append(timeTable[x]);
                         queryString.append("=");
-                        if (info[x] instanceof String) {
-                            queryString.append("\""); 
-                        }
+                        queryString.append("\"");
                         queryString.append(item[x]);
-                        if (info[x] instanceof String) {
-                            queryString.append("\""); 
-                        }
+                        queryString.append("\"");
                         break;
                     default:
                         break;
@@ -410,8 +509,8 @@ public class query {
         this.queryString.deleteCharAt(queryString.length()-1);
         this.queryString.deleteCharAt(queryString.length()-1);
         this.queryString.deleteCharAt(queryString.length()-1);
-        System.err.println(queryString.toString());
         
+        System.err.println(queryString.toString());
         return queryString.toString();
         
     }  
@@ -424,7 +523,7 @@ public class query {
             try ( Connection conn = dbConnect.connect();  
                     PreparedStatement pstmt = conn.prepareStatement(this.queryString.toString())) {  
                 pstmt.executeUpdate();
-
+                conn.close();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
                 return false;
@@ -450,26 +549,49 @@ public class query {
             
             // loop through the result set 
             boolean empty = true;
-            numOfResults = 0;
+            ResultSetMetaData rsmd = rs.getMetaData();
+            numOfResults = 1; //counts how many rows of results were populated
+            int columnNum = 1; // counts how many columns were returned
+            String columnName = "";
             while( rs.next() ) {
+                while (columnNum <= rsmd.getColumnCount()) {
+                    columnName = rsmd.getColumnName(columnNum);
+                    
                 // ResultSet processing here
-                tableIdentifier = 0;
-                switch (tableIdentifier) {
-                case 1:
-                    contractorResultInfo[indexForResultSet][numOfResults]=rs.getString(1);
-                    break;
-                case 2:
-                    companyResultInfo[indexForResultSet][numOfResults]=rs.getString(1);
-                    break;
-                case 3:
-                    contractResultInfo[indexForResultSet][numOfResults]=rs.getString(1);
-                    break;
-                case 4:
-                    timeTableResultInfo[indexForResultSet][numOfResults]=rs.getString(1);
-                    break;
-                default: ; 
-                numOfResults++;
-            }
+                    switch (tableIdentifier) {
+                    case 1:
+                        for (int x=0; x<=7; x++) { //needed to get which index to add to
+                            if (contractorTable[x].compareTo(columnName)==0) {
+                                contractorResultInfo[x]=rs.getString(columnName);
+                            }
+                        }
+                        break;
+                    case 2:
+                        for (int x=0; x<=6; x++) { //needed to get which index to add to
+                            if (companyTable[x].compareTo(columnName)==0) {
+                                companyResultInfo[x]=rs.getString(columnName);
+                            }
+                        }
+                        break;
+                    case 3:
+                        for (int x=0; x<=13; x++) { //needed to get which index to add to
+                            if (contractTable[x].compareTo(columnName)==0) {
+                                contractResultInfo[x]=rs.getString(columnName);
+                            }
+                        }
+                        break;
+                    case 4:
+                        for (int x=0; x<=4; x++) { //needed to get which index to add to
+                            if (timeTable[x].compareTo(columnName)==0) {
+                                timeTableResultInfo[x]=rs.getString(columnName);
+                            }
+                        }
+                        break;
+                    default: ;
+                    }
+                columnNum++;
+                }
+            //numOfResults++;
             
             empty = false;
             }
@@ -488,15 +610,37 @@ public class query {
             conn.close();
             } catch (SQLException e) { /* ignored */}
         }
+        System.err.println("----------Print of Result Table------------");
         printItemsinResultTables();
+        try {
+            conn.close();
+            } catch (SQLException e) {
+        }
+        
         return true;
+    }
+    
+    public Object[] getResults() {
+        switch (tableIdentifier) {
+                    case 1:
+                        return contractorResultInfo;                
+                    case 2:
+                        return companyResultInfo;
+                    case 3:
+                        return contractResultInfo;
+                    case 4:
+                        return timeTableResultInfo;
+                    default:
+                        break;
+                }
+        return null;
     }
     
     public void printItemsinResultTables() {
         int index = 0;
-        System.err.println("contractor Result Info:\n");
         int x = 0;
-        while (x<this.numOfResults) {
+        while (x<=this.numOfResults) {
+            System.err.println("contractor Result Info:\n");
             while (index<8) {    
                 if (contractorResultInfo[index]!=null) {
                      System.err.println(contractorResultInfo[index]+"\n");
@@ -522,13 +666,14 @@ public class query {
             index=0;
             System.err.println("timeTable Result Info:\n");
             while (index<5) {    
-                if (contractorResultInfo[index]!=null) {
-                    System.err.println(contractorResultInfo[index]+"\n");
+                if (timeTableResultInfo[index]!=null) {
+                    System.err.println(timeTableResultInfo[index]+"\n");
                 }
                 index++;
             }
             x++;
         }
+        System.err.println("-----End of Result Table-----");
         return;
     }
     
