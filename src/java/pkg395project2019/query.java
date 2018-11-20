@@ -20,10 +20,10 @@ public class query {
     int numOfResults;
     
     ResultSet savedSet;
-    Object[] contractorResultInfo = new Object[8];
-    Object[] companyResultInfo = new Object[7];
-    Object[] contractResultInfo = new Object[14];
-    Object[] timeTableResultInfo = new Object[5];
+    Object[][] contractorResultInfo = new Object[100][8];
+    Object[][] companyResultInfo = new Object[100][7];
+    Object[][] contractResultInfo = new Object[100][14];
+    Object[][] timeTableResultInfo = new Object[100][5];
     
     String[] contractorTable = new String[8];
     String[] companyTable = new String[7];
@@ -551,7 +551,7 @@ public class query {
             // loop through the result set 
             boolean empty = true;
             ResultSetMetaData rsmd = rs.getMetaData();
-            numOfResults = 1; //counts how many rows of results were populated
+            numOfResults = 0; //counts how many rows of results were populated
             int columnNum = 1; // counts how many columns were returned
             String columnName = "";
             while( rs.next() ) {
@@ -563,28 +563,28 @@ public class query {
                     case 1:
                         for (int x=0; x<=7; x++) { //needed to get which index to add to
                             if (contractorTable[x].compareTo(columnName)==0) {
-                                contractorResultInfo[x]=rs.getString(columnName);
+                                contractorResultInfo[numOfResults][x]=rs.getString(columnName);
                             }
                         }
                         break;
                     case 2:
                         for (int x=0; x<=6; x++) { //needed to get which index to add to
                             if (companyTable[x].compareTo(columnName)==0) {
-                                companyResultInfo[x]=rs.getString(columnName);
+                                companyResultInfo[numOfResults][x]=rs.getString(columnName);
                             }
                         }
                         break;
                     case 3:
                         for (int x=0; x<=13; x++) { //needed to get which index to add to
                             if (contractTable[x].compareTo(columnName)==0) {
-                                contractResultInfo[x]=rs.getString(columnName);
+                                contractResultInfo[numOfResults][x]=rs.getString(columnName);
                             }
                         }
                         break;
                     case 4:
                         for (int x=0; x<=4; x++) { //needed to get which index to add to
                             if (timeTable[x].compareTo(columnName)==0) {
-                                timeTableResultInfo[x]=rs.getString(columnName);
+                                timeTableResultInfo[numOfResults][x]=rs.getString(columnName);
                             }
                         }
                         break;
@@ -592,7 +592,7 @@ public class query {
                     }
                 columnNum++;
                 }
-            //numOfResults++;
+            numOfResults++;
             
             empty = false;
             }
@@ -621,7 +621,7 @@ public class query {
         return true;
     }
     
-    public Object[] getResults() {
+    public Object[][] getResults() {
         switch (tableIdentifier) {
                     case 1:
                         return contractorResultInfo;                
@@ -640,11 +640,11 @@ public class query {
     public void printItemsinResultTables() {
         int index = 0;
         int x = 0;
-        while (x<=this.numOfResults) {
+        while (x<this.numOfResults) {
             System.err.println("contractor Result Info:\n");
             while (index<8) {    
                 if (contractorResultInfo[index]!=null) {
-                     System.err.println(contractorResultInfo[index]+"\n");
+                     System.err.println(contractorResultInfo[x][index]+"\n");
                 }
                 index++;
             }
@@ -652,7 +652,7 @@ public class query {
             System.err.println("company Result Info:\n");
             while (index<7) {    
                 if (companyResultInfo[index]!=null) {
-                    System.err.println(companyResultInfo[index]+"\n");
+                    System.err.println(companyResultInfo[x][index]+"\n");
                 }
                 index++;
             }
@@ -660,7 +660,7 @@ public class query {
             System.err.println("Contract Result Info:\n");
             while (index<14) {    
                 if (contractResultInfo[index]!=null) {
-                    System.err.println(contractResultInfo[index]+"\n");
+                    System.err.println(contractResultInfo[x][index]+"\n");
                 }
                 index++;
             }
@@ -668,7 +668,7 @@ public class query {
             System.err.println("timeTable Result Info:\n");
             while (index<5) {    
                 if (timeTableResultInfo[index]!=null) {
-                    System.err.println(timeTableResultInfo[index]+"\n");
+                    System.err.println(timeTableResultInfo[x][index]+"\n");
                 }
                 index++;
             }

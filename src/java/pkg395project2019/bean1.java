@@ -594,22 +594,22 @@ public class bean1 {
         Object[] testInfo2 = new Object[8];
         testInfo2[5]=username;
         testInfo2[6]=password;
-        Object[] resultInfo = new Object[8];
-        Arrays.fill(resultInfo, true);
+        Object[][] resultInfo = new Object[1][8];
+        Arrays.fill(resultInfo[0], true);
         
         //This is where we're waiting for our
-        String Name = qConIn.selectWhere(1, resultInfo, testInfo2);
+        String Name = qConIn.selectWhere(1, resultInfo[0], testInfo2);
         if (qConIn.selectQueryFromDb()) {
             resultInfo = qConIn.getResults();
             
-            setcurrentPId(resultInfo[0].toString()); //this is not working
+            setcurrentPId(resultInfo[0][0].toString()); //this is not working
             setcurrentCId("N/A"); //need to be looked at
             
-            setCurName(resultInfo[1].toString());
-            setLastName(resultInfo[2].toString());
-            setCurPhone(resultInfo[3].toString());
-            setCurEmail(resultInfo[4].toString());
-            setUsername(resultInfo[5].toString());
+            setCurName(resultInfo[0][1].toString());
+            setLastName(resultInfo[0][2].toString());
+            setCurPhone(resultInfo[0][3].toString());
+            setCurEmail(resultInfo[0][4].toString());
+            setUsername(resultInfo[0][5].toString());
             
         }
     }   
