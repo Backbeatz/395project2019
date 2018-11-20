@@ -64,18 +64,25 @@ public class bean1 {
     private String endDate;
     private String renewalEndDate1;
     private String renewalEndDate2;
-    private String renewalOptions;
-    private String amountForContractorTerm1;
-    private String amountForContractorTerm2;
-    private String amountForContractorTerm3;
-    private String rateForCompanyTerm1;
-    private String rateForCompanyTerm2;
-    private String rateForCompanyTerm3;
+    private int renewalOptions;
+    private float amountForContractorTerm1;
+    private float amountForContractorTerm2;
+    private float amountForContractorTerm3;
+    private float rateForCompanyTerm1;
+    private float rateForCompanyTerm2;
+    private float rateForCompanyTerm3;
     
-    
+    private String compName;
+    private String compCity;
+    private String compAddress;
+    private String compPostal;
+    private String compPhone;
+    private String compEmail;
+
  //---------------------------------------------------------------------------  
  // Setters and Getters
     //All
+    
     public String getcurrentPId(){
         return currentPId;
     }
@@ -217,7 +224,128 @@ public class bean1 {
     public void setLastName(String lastName){
         this.lastName = lastName;
     }
-       
+    
+    public int setcontractID(){
+        return contractID;
+    }
+    public void setcontractID(int idNum){
+        this.contractID = idNum;
+    }
+    public String getstartDate(){
+        return startDate;
+    }
+    public void setstartDate(String date){
+        this.startDate = date;
+    }
+    public String getrenewalStartDate1(){
+        return renewalStartDate1;
+    }
+    public void setrenewalStartDate1(String date){
+        this.renewalStartDate1 = date;
+    }
+    public String getrenewalStartDate2(){
+        return renewalStartDate2;
+    }
+    public void setrenewalStartDate2(String date){
+        this.renewalStartDate2 = date;
+    }
+    public String getendDate(){
+        return endDate;
+    }
+    public void setendDate(String date){
+        this.endDate = date;
+    }
+    public String getrenewalEndDate1(){
+        return renewalEndDate1;
+    }
+    public void setrenewalEndDate1(String date){
+        this.renewalEndDate1 = date;
+    }
+    public String getrenewalEndDate2(){
+        return renewalEndDate2;
+    }
+    public void setrenewalEndDate2(String date){
+        this.renewalEndDate2 = date;
+    }
+    public int getrenewalOptions(){
+        return renewalOptions;
+    }
+    public void setrenewalOptions(int num){
+        this.renewalOptions = num;
+    }
+    public float getamountForContractorTerm1(){
+        return amountForContractorTerm1;
+    }
+    public void setamountForContractorTerm1(float amount){
+        this.amountForContractorTerm1 = amount;
+    }
+    public float getamountForContractorTerm2(){
+        return amountForContractorTerm2;
+    }
+    public void setamountForContractorTerm2(float amount){
+        this.amountForContractorTerm2 = amount;
+    }
+    public float getamountForContractorTerm3(){
+        return amountForContractorTerm3;
+    }
+    public void setamountForContractorTerm3(float amount){
+        this.amountForContractorTerm3 = amount;
+    }
+    public float getrateForCompanyTerm1(){
+        return rateForCompanyTerm1;
+    }
+    public void setrateForCompanyTerm1(float amount){
+        this.rateForCompanyTerm1 = amount;
+    }
+    public float getrateForCompanyTerm2(){
+        return rateForCompanyTerm2;
+    }
+    public void setrateForCompanyTerm2(float amount){
+        this.rateForCompanyTerm2 = amount;
+    }
+    public float getrateForCompanyTerm3(){
+        return rateForCompanyTerm3;
+    }
+    public void setrateForCompanyTerm3(float amount){
+        this.rateForCompanyTerm3 = amount;
+    }
+    
+    public String getcompName(){
+        return compName;
+    }
+    public void setcompName(String name){
+        this.compName = name;
+    }
+    public String getcompCity(){
+        return compName;
+    }
+    public void setcompCity(String city){
+        this.compName = city;
+    }
+    public String getcompAddress(){
+        return compAddress;
+    }
+    public void setcompAddress(String address){
+        this.compAddress = address;
+    }
+    public String getcompPostal(){
+        return compPostal;
+    }
+    public void setcompPostal(String postal){
+        this.compPostal = postal;
+    }    
+    public String getcompPhone(){
+        return compPhone;
+    }
+    public void setcompPhone(String phone){
+        this.compPhone = phone;
+    }
+    public String getcompEmail(){
+        return compEmail;
+    }
+    public void setcompEmail(String email){
+        this.compEmail = email;
+    }    
     //--------------------------------------------------------------------
     //Contrctor object
     public class Contractor{
@@ -390,32 +518,41 @@ public class bean1 {
     }
     
     public String addContract(){
-        
-        //load
-        String a = getFirstName();
-        
         //Query
         query queryContractInsert = new query();
         Object[] insertObject = new Object[14];
-        insertObject[0]= giveNewID(1, 10000); //person id
-        
-        insertObject[1]=startDate; //Fname
-        insertObject[2]=renewalStartDate1;
-        insertObject[3]=renewalStartDate2;
-        insertObject[4]=endDate;
-        insertObject[5]=renewalEndDate1;
-        insertObject[6]=renewalEndDate2;
-        insertObject[7]=renewalOptions;
-        insertObject[8]=amountForContractorTerm1;
-        insertObject[9]=amountForContractorTerm2;
-        insertObject[10]=amountForContractorTerm3;
-        insertObject[11]=rateForCompanyTerm1;
-        insertObject[12]=rateForCompanyTerm2;
-        insertObject[13]=rateForCompanyTerm3;
-        
-            
-            
-            if(!queryContractInsert.insert(3, insertObject)){
+        insertObject[0]= giveNewID(1, 10000); //person id        
+        insertObject[1]=getstartDate(); //Fname
+        insertObject[2]=getrenewalStartDate1();
+        insertObject[3]=getrenewalStartDate2();
+        insertObject[4]=getendDate();
+        insertObject[5]=getrenewalEndDate1();
+        insertObject[6]=getrenewalEndDate2();
+        insertObject[7]=getrenewalOptions();
+        insertObject[8]=getamountForContractorTerm1();
+        insertObject[9]=getamountForContractorTerm2();
+        insertObject[10]=getamountForContractorTerm3();
+        insertObject[11]=getrateForCompanyTerm1();
+        insertObject[12]=getrateForCompanyTerm2();
+        insertObject[13]=getrateForCompanyTerm3();       
+        if(!queryContractInsert.insert(3, insertObject)){
+                return "hours";
+            } 
+        return "hours";
+    }
+    public String addCompany(){
+        //Query
+        query queryCompanyInsert = new query();
+        Object[] insertObject = new Object[7];
+        insertObject[0]= giveNewID(1, 10000); //person id        
+        insertObject[1]=getcompName(); //Fname
+        insertObject[2]=getcompCity();
+        insertObject[3]=getcompAddress();
+        insertObject[4]=getcompPostal();
+        insertObject[5]=getcompPhone();
+        insertObject[6]=getcompEmail();
+             
+        if(!queryCompanyInsert.insert(2, insertObject)){
                 return "hours";
             } 
         return "hours";

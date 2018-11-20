@@ -12,20 +12,20 @@
                          action="login"></h:commandButton><br/></h:form><br/>
         <Strong><center>Input Contract Information</center></Strong><br/>
         <h:form>
-        Contract ID
-        Start Date<br/><h:inputText value="#{bean1.contractObject.startDate}"></h:inputText><br/><br/>
-        Renewal Start Date 1<br/><h:inputText value="#{bean1.contractObject.renewalStartDate1}"></h:inputText><br/><br/>
-        Renewal Start Date 2<br/><h:inputText value="#{bean1.contractObject.renewalStartDate2}"></h:inputText><br/><br/>
-        End Date<br/><h:inputText value="#{bean1.contractObject.endDate}"></h:inputText><br/><br/>
-        Renewal End Date 1<br/><h:inputText value="#{bean1.contractObject.renewalEndDate1}"></h:inputText><br/><br/>
-        Renewal End Date 2<br/><h:inputText value="#{bean1.contractObject.renewalEndDate2}"></h:inputText><br/><br/>
-        Renewal Options<br/><h:inputText value="#{bean1.contractObject.renewalOptions}"></h:inputText><br/><br/>
-        Amount For Contract Term 1<br/><h:inputText value="#{bean1.contractObject.amountForContractorTerm1}"></h:inputText><br/><br/>
-        Amount For Contract Term 2<br/><h:inputText value="#{bean1.contractObject.amountForContractorTerm2}"></h:inputText><br/><br/>
-        Amount For Contract Term 3<br/><h:inputText value="#{bean1.contractObject.amountForContractorTerm3}"></h:inputText><br/><br/>
-        Rate For Company Term 1<br/><h:inputText value="#{bean1.contractObject.rateForCompanyTerm1}"></h:inputText><br/><br/>
-        Rate For Company Term 2<br/><h:inputText value="#{bean1.contractObject.rateForCompanyTerm2}"></h:inputText><br/><br/>
-        Rate For Company Term 3<br/><h:inputText value="#{bean1.contractObject.rateForCompanyTerm3}"></h:inputText><br/><br/>
+        Contract ID<br/><h:inputText value="#{bean1.contractID}"></h:inputText><br/><br/>
+        Start Date<br/><h:inputText value="#{bean1.startDate}"></h:inputText><br/><br/>
+        Renewal Start Date 1<br/><h:inputText value="#{bean1.renewalStartDate1}"></h:inputText><br/><br/>
+        Renewal Start Date 2<br/><h:inputText value="#{bean1.renewalStartDate2}"></h:inputText><br/><br/>
+        End Date<br/><h:inputText value="#{bean1.endDate}"></h:inputText><br/><br/>
+        Renewal End Date 1<br/><h:inputText value="#{bean1.renewalEndDate1}"></h:inputText><br/><br/>
+        Renewal End Date 2<br/><h:inputText value="#{bean1.renewalEndDate2}"></h:inputText><br/><br/>
+        Renewal Options<br/><h:inputText value="#{bean1.renewalOptions}"></h:inputText><br/><br/>
+        Amount For Contract Term 1<br/><h:inputText value="#{bean1.amountForContractorTerm1}"></h:inputText><br/><br/>
+        Amount For Contract Term 2<br/><h:inputText value="#{bean1.amountForContractorTerm2}"></h:inputText><br/><br/>
+        Amount For Contract Term 3<br/><h:inputText value="#{bean1.amountForContractorTerm3}"></h:inputText><br/><br/>
+        Rate For Company Term 1<br/><h:inputText value="#{bean1.rateForCompanyTerm1}"></h:inputText><br/><br/>
+        Rate For Company Term 2<br/><h:inputText value="#{bean1.rateForCompanyTerm2}"></h:inputText><br/><br/>
+        Rate For Company Term 3<br/><h:inputText value="#{bean1.rateForCompanyTerm3}"></h:inputText><br/><br/>
         
         <h:commandButton value="Add Contractor"
                          action="#{bean1.addContract()}"></h:commandButton>
