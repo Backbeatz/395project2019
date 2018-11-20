@@ -245,10 +245,10 @@ public class bean1 {
         this.lastName = lastName;
     }
     
-    public int setcontractID(){
+    public int getcontractID(){
         return contractID;
     }
-    public void getcontractID(int idNum){
+    public void setcontractID(int idNum){
         this.contractID = idNum;
     }
     public String getstartDate(){
