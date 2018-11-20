@@ -17,7 +17,27 @@ public class bean1 {
     private Contractor currentUser; //this is where we set our info
     private String hours;    
     
-    //login page info
+    //Where search bar results are stored    
+    private String[] SearchResultList = {"A","b"};
+    
+    public String[] getSearchRez(){
+        return SearchResultList;
+    }
+    
+
+//searchbar
+    private String searchvalue;
+       
+    public String getAdminSearch(){
+        return currentPId;
+    }
+    public void setAdminSearch(String searchvalue){
+        this.currentPId = searchvalue;
+    }
+    
+
+
+//login page info
     private String username;
     private String pass;
     private String newPass;
@@ -358,52 +378,7 @@ public class bean1 {
         private int protocol;
     }
     
-    /*
-//Company Object
-    public class Company{
-        public int companyID;
-        public String compName;
-        public String compCity;
-        public String compAddress;
-        public String compPostal;
-        public String compPhone;
-        public String compEmail;
-    }
-    
-    
-    public class Contract {
-    public int contractID;
-    public String startDate;
-    public String renewalStartDate1;
-    public String renewalStartDate2;
-    public String endDate;
-    public String renewalEndDate1;
-    public String renewalEndDate2;
-    public String renewalOptions;
-    public String amountForContractorTerm1;
-    public String amountForContractorTerm2;
-    public String amountForContractorTerm3;
-    public String rateForCompanyTerm1;
-    public String rateForCompanyTerm2;
-    public String rateForCompanyTerm3;
-
-    */
-    
-    /**
-     * Use to get a new Contract ID for making a Contract
-     * @return returns a new ID number
-     */
-    /**
-    public int getNewID() {
-        
-        return 0;
-    }
-    }
-    */
-
-    
-    //----------------------------------------------------------------------
-    //functions
+   
     
     public String verify(String hours){
         if(hours.equals("")){
@@ -475,6 +450,7 @@ public class bean1 {
         return "change_password_reset";
         
     }
+
     //-------------------Add Object Methods -----------
     /**
      * 
@@ -495,7 +471,7 @@ public class bean1 {
         infoNC[4]=getEmail();//email
         infoNC[5]=getCreateUser(); //uname 
         infoNC[6]=getCreatePass(); //pass
-        infoNC[7]=2; //Auth Hard code as 2 for now
+        infoNC[7]=1; //Auth Hard code as 2 for now
         // Waiting on db additions of sex and job
             
             
@@ -524,9 +500,9 @@ public class bean1 {
         insertObject[12]=getrateForCompanyTerm2();
         insertObject[13]=getrateForCompanyTerm3();       
         if(!queryContractInsert.insert(3, insertObject)){
-                return "hours";
+                return  "adminMain";
             } 
-        return "hours";
+        return "adminMain";
     }
     public String addCompany(){
         //Query
@@ -541,9 +517,9 @@ public class bean1 {
         insertObject[6]=getcompEmail();
              
         if(!queryCompanyInsert.insert(2, insertObject)){
-                return "hours";
+                return "adminMain";
             } 
-        return "hours";
+        return "adminMain";
     }
     
     /**
@@ -599,7 +575,66 @@ public class bean1 {
             setUsername(resultInfo[0][5].toString());
            
         }
-    }   
+    }
+    
+    
+    
+    /**
+     * Connor's search results NEEDS TO BE UPDATED
+     * @param SearchCrit
+     * @param SearchVal
+     * @return 
+     */
+    public String ConductSearch(String SearchCrit, String SearchVal){
+        //check in db for fields 
+        //SearchCrit is field, SearchVal is what we search for
+        //use selectwhere?
+        //display results
+        
+        //If you want to find all compagnies where the compagny_name contains USA just do :
+        //SELECT * FROM Company
+        //WHERE company_name like '%USA%';
+
+        System.out.print("Here is where it starts");
+        //Set up query
+        query searchQuery = new query();
+        Object[] testInfo2 = new Object[8];
+        Object[] resultInfo = new Object[8];
+        
+        if("FName".equals(SearchCrit)){
+           testInfo2[2]=SearchVal;
+
+        }
+        if("LName".equals(SearchCrit)){
+            testInfo2[3]=SearchVal;
+            
+        }
+        if("Email".equals(SearchCrit)){
+            testInfo2[4]=SearchVal;
+        }
+        if("Phone".equals(SearchCrit)){
+            testInfo2[5]=SearchVal;
+        }
+        if("company".equals(SearchCrit)){
+            testInfo2[6]=SearchVal;
+        }
+        if("UName".equals(SearchCrit)){
+           testInfo2[7]=SearchVal;
+            
+        }
+        Arrays.fill(resultInfo, true);
+        String queryz = searchQuery.selectWhere(1, resultInfo, testInfo2);
+        System.out.println("----------------------------" + queryz);
+        if (searchQuery.selectQueryFromDb()){ //change this
+            resultInfo = searchQuery.getResults(); 
+            System.out.println("+++++++++" +resultInfo.toString());
+        }
+        
+        return "adminSearchResults";
+        
+        }
+    
+    
 
    public String login(String username, String password) throws SQLException{
         //Needs to be changed to compare to database, just dummy login
@@ -636,4 +671,4 @@ public class bean1 {
             return "login";
         }
    }
-}
+
