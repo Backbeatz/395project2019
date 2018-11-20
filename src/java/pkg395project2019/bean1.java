@@ -621,12 +621,29 @@ public class bean1 {
         Object[] testInfo2 = new Object[8];
         testInfo2[5]=username;
         testInfo2[6]=password;
-        testQuery2=sample2.selectWhere(1, testInfo2, testInfo2);
+        
+        Object[] fieldsToGet = new Object[8];
+        fieldsToGet[5] = true;
+        fieldsToGet[6] = true;
+        fieldsToGet[7] = true;
+        
+        testQuery2=sample2.selectWhere(1, fieldsToGet, testInfo2);
+        
+        //testQuery2=sample2.selectWhere(1, testInfo2, testInfo2);
         
         boolean a = sample2.selectQueryFromDb();
+        Object[][] result = new Object[1][8];
+        result = sample2.getResults();
         if(a == true){
            setContractInfo(username, password);
-           return "hours"; 
+           System.err.println(result[0][7].toString());
+           if (result[0][7].toString().compareTo("1")==0) { //for Contractor
+            return "hours";
+           }
+           if (result[0][7].toString().compareTo("2")==0) { //for Admin
+            return "hours"; //<--- Change to Admin page
+           }
+           return "login";
         }
         else {
             return "login";
