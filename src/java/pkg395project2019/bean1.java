@@ -248,7 +248,7 @@ public class bean1 {
     public int setcontractID(){
         return contractID;
     }
-    public void setcontractID(int idNum){
+    public void getcontractID(int idNum){
         this.contractID = idNum;
     }
     public String getstartDate(){
@@ -450,7 +450,7 @@ public class bean1 {
         return "change_password_reset";
         
     }
-    
+
     //-------------------Add Object Methods -----------
     /**
      * 
@@ -476,9 +476,9 @@ public class bean1 {
             
             
             if(!qConIn.insert(1, infoNC)){
-                return "hours";
+                return "adminMain";
             } 
-        return "hours";
+        return "adminMain";
     }
     
     public String addContract(){
@@ -541,8 +541,7 @@ public class bean1 {
         }
         
         return 0;
-    }
-    
+    }   
     //--------------------------------------
     
    /**
@@ -574,12 +573,10 @@ public class bean1 {
             setCurPhone(resultInfo[0][3].toString());
             setCurEmail(resultInfo[0][4].toString());
             setUsername(resultInfo[0][5].toString());
-            
+           
         }
     }
-    
-    
-    
+
     /**
      * Connor's search results NEEDS TO BE UPDATED
      * @param SearchCrit
@@ -673,3 +670,4 @@ public class bean1 {
         }
    }
 }
+
