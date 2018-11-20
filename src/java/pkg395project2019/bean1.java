@@ -475,18 +475,6 @@ public class bean1 {
         return "change_password_reset";
         
     }
-    /*For forgot_password page 
-    public String checkUsername(String username){
-        
-        try{
-            //open database, if found send a message to the user (method unsure).
-            return "request_sent";
-        } catch (SQLException e){
-            //exception
-            return "forgot_password_reset";
-        }
-        
-    }*/
     //-------------------Add Object Methods -----------
     /**
      * 
@@ -577,8 +565,7 @@ public class bean1 {
         }
         
         return 0;
-    }
-    
+    }   
     //--------------------------------------
     
    /**
@@ -610,7 +597,7 @@ public class bean1 {
             setCurPhone(resultInfo[0][3].toString());
             setCurEmail(resultInfo[0][4].toString());
             setUsername(resultInfo[0][5].toString());
-            
+           
         }
     }   
 
@@ -641,7 +628,7 @@ public class bean1 {
             return "hours";
            }
            if (result[0][7].toString().compareTo("2")==0) { //for Admin
-            return "hours"; //<--- Change to Admin page
+            return "adminMain"; //<--- Change to Admin page
            }
            return "login";
         }
@@ -650,27 +637,3 @@ public class bean1 {
         }
    }
 }
-
-        //Open database and look for a similar login (if found, compare pass)
-      /*  try{
-            user = getContractInfo(username, password);//Open database here
-            attempts = 0;
-            switch (user.protocol) {
-                case 0:
-                    //Contractor access, sent to hours page.
-                    return "hours";
-                case 1:
-                    //Admin access, no admin only pages as of yet.
-                    return "hours";
-                case 2:
-                    //Super admin access, no super-admin only pages yet
-                    return "hours";
-                default:
-                    //Issue with database entries, so simply reset.
-                    return "main_website_reset";
-            }
-        } catch (SQLException e){
-            //Exception clause
-            attempts += 1;
-            return "main_websi te_reset";
-        }*/
