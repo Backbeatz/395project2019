@@ -57,6 +57,22 @@ public class bean1 {
     private String dob; //Date of Birth
     private String sex;
     
+    private int contractID;
+    private String startDate;
+    private String renewalStartDate1;
+    private String renewalStartDate2;
+    private String endDate;
+    private String renewalEndDate1;
+    private String renewalEndDate2;
+    private String renewalOptions;
+    private String amountForContractorTerm1;
+    private String amountForContractorTerm2;
+    private String amountForContractorTerm3;
+    private String rateForCompanyTerm1;
+    private String rateForCompanyTerm2;
+    private String rateForCompanyTerm3;
+    
+    
  //---------------------------------------------------------------------------  
  // Setters and Getters
     //All
@@ -201,7 +217,7 @@ public class bean1 {
     public void setLastName(String lastName){
         this.lastName = lastName;
     }
-        
+       
     //--------------------------------------------------------------------
     //Contrctor object
     public class Contractor{
@@ -213,6 +229,50 @@ public class bean1 {
         public String Company;
         private int protocol;
     }
+    
+    /*
+//Company Object
+    public class Company{
+        public int companyID;
+        public String compName;
+        public String compCity;
+        public String compAddress;
+        public String compPostal;
+        public String compPhone;
+        public String compEmail;
+    }
+    
+    
+    public class Contract {
+    public int contractID;
+    public String startDate;
+    public String renewalStartDate1;
+    public String renewalStartDate2;
+    public String endDate;
+    public String renewalEndDate1;
+    public String renewalEndDate2;
+    public String renewalOptions;
+    public String amountForContractorTerm1;
+    public String amountForContractorTerm2;
+    public String amountForContractorTerm3;
+    public String rateForCompanyTerm1;
+    public String rateForCompanyTerm2;
+    public String rateForCompanyTerm3;
+
+    */
+    
+    /**
+     * Use to get a new Contract ID for making a Contract
+     * @return returns a new ID number
+     */
+    /**
+    public int getNewID() {
+        
+        return 0;
+    }
+    }
+    */
+
     
     //----------------------------------------------------------------------
     //functions
@@ -299,6 +359,7 @@ public class bean1 {
         }
         
     }*/
+    //-------------------Add Object Methods -----------
     /**
      * 
      * @return webpage
@@ -327,6 +388,39 @@ public class bean1 {
             } 
         return "hours";
     }
+    
+    public String addContract(){
+        
+        //load
+        String a = getFirstName();
+        
+        //Query
+        query queryContractInsert = new query();
+        Object[] insertObject = new Object[14];
+        insertObject[0]= giveNewID(1, 10000); //person id
+        
+        insertObject[1]=startDate; //Fname
+        insertObject[2]=renewalStartDate1;
+        insertObject[3]=renewalStartDate2;
+        insertObject[4]=endDate;
+        insertObject[5]=renewalEndDate1;
+        insertObject[6]=renewalEndDate2;
+        insertObject[7]=renewalOptions;
+        insertObject[8]=amountForContractorTerm1;
+        insertObject[9]=amountForContractorTerm2;
+        insertObject[10]=amountForContractorTerm3;
+        insertObject[11]=rateForCompanyTerm1;
+        insertObject[12]=rateForCompanyTerm2;
+        insertObject[13]=rateForCompanyTerm3;
+        
+            
+            
+            if(!queryContractInsert.insert(3, insertObject)){
+                return "hours";
+            } 
+        return "hours";
+    }
+    
     /**
      * This generates our person ID
      * -Connor
@@ -348,7 +442,7 @@ public class bean1 {
         return 0;
     }
     
-    
+    //--------------------------------------
     
    /**
     * Sets our current user's info as the log in

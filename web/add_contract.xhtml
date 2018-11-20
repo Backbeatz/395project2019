@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      
+    <h:head>
+        <title>Add Contract</title>
+    </h:head>
+    <h:body>
+        <h:form>
+        <h:commandButton value="Logout"
+                         action="login"></h:commandButton><br/></h:form><br/>
+        <Strong><center>Input Contract Information</center></Strong><br/>
+        <h:form>
+        Contract ID
+        Start Date<br/><h:inputText value="#{bean1.contractObject.startDate}"></h:inputText><br/><br/>
+        Renewal Start Date 1<br/><h:inputText value="#{bean1.contractObject.renewalStartDate1}"></h:inputText><br/><br/>
+        Renewal Start Date 2<br/><h:inputText value="#{bean1.contractObject.renewalStartDate2}"></h:inputText><br/><br/>
+        End Date<br/><h:inputText value="#{bean1.contractObject.endDate}"></h:inputText><br/><br/>
+        Renewal End Date 1<br/><h:inputText value="#{bean1.contractObject.renewalEndDate1}"></h:inputText><br/><br/>
+        Renewal End Date 2<br/><h:inputText value="#{bean1.contractObject.renewalEndDate2}"></h:inputText><br/><br/>
+        Renewal Options<br/><h:inputText value="#{bean1.contractObject.renewalOptions}"></h:inputText><br/><br/>
+        Amount For Contract Term 1<br/><h:inputText value="#{bean1.contractObject.amountForContractorTerm1}"></h:inputText><br/><br/>
+        Amount For Contract Term 2<br/><h:inputText value="#{bean1.contractObject.amountForContractorTerm2}"></h:inputText><br/><br/>
+        Amount For Contract Term 3<br/><h:inputText value="#{bean1.contractObject.amountForContractorTerm3}"></h:inputText><br/><br/>
+        Rate For Company Term 1<br/><h:inputText value="#{bean1.contractObject.rateForCompanyTerm1}"></h:inputText><br/><br/>
+        Rate For Company Term 2<br/><h:inputText value="#{bean1.contractObject.rateForCompanyTerm2}"></h:inputText><br/><br/>
+        Rate For Company Term 3<br/><h:inputText value="#{bean1.contractObject.rateForCompanyTerm3}"></h:inputText><br/><br/>
+        
+        <h:commandButton value="Add Contractor"
+                         action="#{bean1.addContract()}"></h:commandButton>
+        </h:form>
+    </h:body>
+        
+    
+</html>
+
+<!-- **
+    public int contractID;
+    public String startDate;
+    public String renewalStartDate1;
+    public String renewalStartDate2;
+    public String endDate;
+    public String renewalEndDate1;
+    public String renewalEndDate2;
+    public String renewalOptions;
+    public String amountForContractorTerm1;
+    public String amountForContractorTerm2;
+    public String amountForCOntractorTerm3;
+    public String rateForCompanyTerm1;
+    public String rateForCompanyTerm2;
+    public String rateForCompanyTerm3;
+ -->
