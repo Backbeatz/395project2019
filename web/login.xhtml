@@ -20,8 +20,9 @@
                 </h:inputText><br/><br/> 
                 
         <strong>Password&#160;&#160;</strong><h:inputText value="#{bean1.pass}">
-        </h:inputText><br/><br/> </center>
-            
+        </h:inputText><br/></center>
+            <center><font color="red">Login information incorrect.</font>
+            </center><br/>
         <center><h:commandButton value="Login" 
                                  action="#{bean1.login(bean1.username, bean1.pass)}"></h:commandButton></center></h:form>
         <br/>
@@ -29,5 +30,4 @@
         <center><h:commandButton value="Forgot password?"
                                  action="forgot_password"></h:commandButton></center></h:form>
     </h:body>
-    
 </html>
