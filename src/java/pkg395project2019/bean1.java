@@ -50,8 +50,6 @@ public class bean1 {
     private String currentPhone;
     private String currentComp;
     private String currentPId;
-    private String currentCId;
-    
     
     //system info
     
@@ -377,9 +375,7 @@ public class bean1 {
         public String Company;
         private int protocol;
     }
-    
-   
-    
+
     public String verify(String hours){
         if(hours.equals("")){
             attempts += 1;
@@ -392,7 +388,6 @@ public class bean1 {
             if((work > 700) || (work < 0)){
                 return "hours_reset";
             }
-
         }
         else{
             attempts += 1;
@@ -441,8 +436,7 @@ public class bean1 {
             userInfo[5]="test1";
             if (qUpdatePassword.update(1, infoUpPassword, userInfo)) {
                 return "logged_out";
-            }
-            
+            }          
         }
         pass = "";
         newPass = "";
@@ -475,16 +469,24 @@ public class bean1 {
         // Waiting on db additions of sex and job
             
             
-            if(!qConIn.insert(1, infoNC)){
-                return "adminMain";
-            } 
+        if(!qConIn.insert(1, infoNC)){
+            return "adminMain";
+        } 
         return "adminMain";
     }
     
     public String addContract(){
         //Query
+        query getCompanyID = new query();
+        /*+===========================================
+        GET COMPANY ID FROM DATABASE RUN QUERY SEARCH OR BETTER YET ADD THIS TO QUERY SO ITS NOT HERE
+        query.getCompanyID(getcurrentPId());
+        */
+        
+        
+        
         query queryContractInsert = new query();
-        Object[] insertObject = new Object[14];
+        Object[] insertObject = new Object[17];
         insertObject[0]= giveNewID(1, 10000); //person id        
         insertObject[1]=getstartDate(); //Fname
         insertObject[2]=getrenewalStartDate1();
@@ -498,7 +500,11 @@ public class bean1 {
         insertObject[10]=getamountForContractorTerm3();
         insertObject[11]=getrateForCompanyTerm1();
         insertObject[12]=getrateForCompanyTerm2();
-        insertObject[13]=getrateForCompanyTerm3();       
+        insertObject[13]=getrateForCompanyTerm3();
+        insertObject[14]=getcurrentPId();
+        
+        
+        
         if(!queryContractInsert.insert(3, insertObject)){
                 return  "adminMain";
             } 
@@ -539,7 +545,6 @@ public class bean1 {
                return i;
            }
         }
-        
         return 0;
     }   
     //--------------------------------------
@@ -565,9 +570,7 @@ public class bean1 {
         if (qConIn.selectQueryFromDb()) {
             resultInfo = qConIn.getResults();
             
-            setcurrentPId(resultInfo[0][0].toString()); //this is not working
-            setcurrentCId("N/A"); //need to be looked at
-            
+            setcurrentPId(resultInfo[0][0].toString()); 
             setCurName(resultInfo[0][1].toString());
             setLastName(resultInfo[0][2].toString());
             setCurPhone(resultInfo[0][3].toString());

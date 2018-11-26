@@ -18,7 +18,8 @@
          <!--    <h:outputText value=#"{bean1.toString()}"/> -->
         <strong>Basic Information</strong><br/>        
         [Contractor Name: <h:outputText value="#{bean1.getCurName()} "/> <h:outputText value="#{bean1.getLastName()}"/>]<br/>
-        [Reporting Period: September 2018]<br/>
+        [Contractor ID: <h:outputText value="#{bean1.getcurrentPId()}"/> ] <br/>
+        [Reporting Period: <h:outputText value="#{bean1.getMonth()}  #{bean1.getYear()}"/> ]<br/>
         [Field N:(More information)]<br/>
         <hr></hr>
         
