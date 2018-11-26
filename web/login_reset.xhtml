@@ -14,13 +14,16 @@
                                         width="200" height="300"/></center></h:form>
         <br/></font>
         
-         
+        
+        
         <h:form>    
         <center><strong>Username&#160;</strong><h:inputText value="#{bean1.username}">
                 </h:inputText><br/><br/> 
                 
         <strong>Password&#160;&#160;</strong><h:inputText value="#{bean1.pass}">
-        </h:inputText><br/></center><br/>
+        </h:inputText><br/></center>
+            <center><font color="red">Login information incorrect.</font>
+            </center><br/>
         <center><h:commandButton value="Login" 
                                  action="#{bean1.login(bean1.username, bean1.pass)}"></h:commandButton></center></h:form>
         <br/>
