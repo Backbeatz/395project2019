@@ -6,6 +6,8 @@ import java.util.Calendar;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
  
 
 @ManagedBean(name="bean1")
@@ -14,28 +16,33 @@ public class bean1 {
     //Calander
     Calendar cal = Calendar.getInstance();
     //logged in user info
-    private Contractor currentUser; //this is where we set our info
+    
     private String hours;    
     
     //Where search bar results are stored    
-    private String[] SearchResultList = {"A","b"};
+    private Object[][] SearchResultList;
     
-    public String[] getSearchRez(){
+    public Object[][] getSearchRez(){
         return SearchResultList;
     }
-    
-
+    private String searchCrit;
+    public String getSearchCrit(){
+        return searchCrit;
+    }
+    public void setSearchCrit(String crit){
+        this.searchCrit = crit;
+    }
 //searchbar
     private String searchvalue;
        
     public String getAdminSearch(){
-        return currentPId;
+        return searchvalue;
     }
     public void setAdminSearch(String searchvalue){
-        this.currentPId = searchvalue;
+        this.searchvalue = searchvalue;
     }
     
-
+   
 
 //login page info
     private String username;
@@ -44,7 +51,8 @@ public class bean1 {
     private int attempts;
     
     //info box info( name, rep period, email, phone, company )
-    private String currentName;
+    private String currentFName;
+    private String currentLName;
     //Rep period is month + year
     private String currentEmail;
     private String currentPhone;
@@ -63,7 +71,7 @@ public class bean1 {
     String month = new SimpleDateFormat("MMM").format(now.getTime()); //Current month
 
     //add user fields
-    private Contractor newContractor;
+    
     private String createUser;
     private String createPass;
     private String firstName;
@@ -129,12 +137,19 @@ public class bean1 {
         this.hours = hours;
     }
     //Current user
-    public String getCurName(){
-        return currentName;
+    public String getCurFirstName(){
+        return currentFName;
     }
-    public void setCurName(String Name){
-        this.currentName = Name;
+    public void setCurFirstName(String Name){
+        this.currentFName = Name;
     }
+    public String getCurLastName(){
+        return currentLName;
+    }
+    public void setCurLastName(String lastName){
+        this.currentLName = lastName;
+    }
+    
     public String getCurEmail(){
         return currentEmail;
     }
@@ -245,10 +260,10 @@ public class bean1 {
         this.lastName = lastName;
     }
     
-    public int setcontractID(){
+    public int getcontractID(){
         return contractID;
     }
-    public void getcontractID(int idNum){
+    public void setcontractID(int idNum){
         this.contractID = idNum;
     }
     public String getstartDate(){
@@ -368,15 +383,7 @@ public class bean1 {
     }    
     //--------------------------------------------------------------------
     //Contrctor object
-    public class Contractor{
-        public long Contractor_ID;
-        public String firstName;
-        public String lastName;
-        public String phoneNumber;
-        public String email;
-        public String Company;
-        private int protocol;
-    }
+    
     
    
     
@@ -551,7 +558,7 @@ public class bean1 {
     * @throws SQLException 
     */
     public void setContractInfo(String username, String password) throws SQLException{
-        currentUser = new Contractor();
+        
         //we connect to database
         query qConIn = new query();
         Object[] testInfo2 = new Object[8];
@@ -560,7 +567,6 @@ public class bean1 {
         Object[][] resultInfo = new Object[1][8];
         Arrays.fill(resultInfo[0], true);
         
-        //This is where we're waiting for our
         String Name = qConIn.selectWhere(1, resultInfo[0], testInfo2);
         if (qConIn.selectQueryFromDb()) {
             resultInfo = qConIn.getResults();
@@ -568,15 +574,16 @@ public class bean1 {
             setcurrentPId(resultInfo[0][0].toString()); //this is not working
             setcurrentCId("N/A"); //need to be looked at
             
-            setCurName(resultInfo[0][1].toString());
-            setLastName(resultInfo[0][2].toString());
+            setCurFirstName(resultInfo[0][1].toString());
+            setCurLastName(resultInfo[0][2].toString());
             setCurPhone(resultInfo[0][3].toString());
             setCurEmail(resultInfo[0][4].toString());
             setUsername(resultInfo[0][5].toString());
            
         }
     }
-
+   
+   
     /**
      * Connor's search results NEEDS TO BE UPDATED
      * @param SearchCrit
@@ -584,54 +591,108 @@ public class bean1 {
      * @return 
      */
     public String ConductSearch(String SearchCrit, String SearchVal){
-        //check in db for fields 
-        //SearchCrit is field, SearchVal is what we search for
-        //use selectwhere?
-        //display results
-        
-        //If you want to find all compagnies where the compagny_name contains USA just do :
-        //SELECT * FROM Company
-        //WHERE company_name like '%USA%';
-
-        System.out.print("Here is where it starts");
-        //Set up query
-        query searchQuery = new query();
-        Object[] testInfo2 = new Object[8];
-        Object[] resultInfo = new Object[8];
+        System.out.println("Values " + SearchCrit + SearchVal);
+        int rezCol = 0; //Number of collums
+        //Find number of rows
+        query qConIn1 = new query();
+        Object[] testInfo1 = new Object[8];
+        //Selection of areas
         
         if("FName".equals(SearchCrit)){
-           testInfo2[2]=SearchVal;
-
-        }
+            testInfo1[1]=SearchVal;
+            }
         if("LName".equals(SearchCrit)){
-            testInfo2[3]=SearchVal;
-            
+            testInfo1[2]=SearchVal;
         }
         if("Email".equals(SearchCrit)){
-            testInfo2[4]=SearchVal;
+            testInfo1[3]=SearchVal;
         }
         if("Phone".equals(SearchCrit)){
+            testInfo1[4]=SearchVal;
+        }
+        if("UName".equals(SearchCrit)){    
+            testInfo1[5]=SearchVal;
+        }
+        
+        Object[][] resultInfo1 = new Object[1][8];
+        Arrays.fill(resultInfo1[0], true);
+        String Name1 = qConIn1.selectWhere(1, resultInfo1[0], testInfo1);
+        System.out.println(Name1);
+        if (qConIn1.selectQueryFromDb()) { //this
+            //qConIn.numOfResults;?
+            rezCol = qConIn1.numOfResults;
+            System.out.println("number of results: " + rezCol);  
+        }
+        else{System.err.println("fail");}
+        
+
+        //find number
+        query qConIn2 = new query();
+        Object[] testInfo2 = new Object[8];
+        //Selection of areas
+        
+        if("FName".equals(SearchCrit)){
+            testInfo2[1]=SearchVal;
+            }
+        if("LName".equals(SearchCrit)){
+            testInfo2[2]=SearchVal;
+        }
+        if("Email".equals(SearchCrit)){
+            testInfo2[3]=SearchVal;
+        }
+        if("Phone".equals(SearchCrit)){
+            testInfo2[4]=SearchVal;
+        }
+        if("UName".equals(SearchCrit)){    
             testInfo2[5]=SearchVal;
         }
-        if("company".equals(SearchCrit)){
-            testInfo2[6]=SearchVal;
-        }
-        if("UName".equals(SearchCrit)){
-           testInfo2[7]=SearchVal;
+        
+        Object[][] resultInfo2 = new Object[rezCol][8];
+        Arrays.fill(resultInfo2[0], true); //ask about this
+        String Name2 = qConIn2.selectWhere(1, resultInfo2[0], testInfo2); //ask about this
+        System.out.println(Name2);
+        if (qConIn2.selectQueryFromDb()) { //this
+            //qConIn.numOfResults;?
             
+            resultInfo2 = qConIn2.getResults();
+            
+            SearchResultList = resultInfo2;
+            System.out.println("search complete");
         }
-        Arrays.fill(resultInfo, true);
-        String queryz = searchQuery.selectWhere(1, resultInfo, testInfo2);
-        System.out.println("----------------------------" + queryz);
-        if (searchQuery.selectQueryFromDb()){ //change this
-            resultInfo = searchQuery.getResults(); 
-            System.out.println("+++++++++" +resultInfo.toString());
-        }
+        else{System.err.println("fail");}
+        
+        
         
         return "adminSearchResults";
-        
+    }
+    /**
+     * Tells us if string is in our array, helper function 
+     * @param array
+     * @param item
+     * @return 
+     */
+    public static boolean contains(String[] array, String item) {
+        for (String n : array) {
+            if (item.equals(n)) {
+                return true;
+            }
         }
+      return false;
+    }
     
+    //Dispaly search rez
+    /**
+     * This function will take our results and set them up to be displayed
+     * @param SearchRes 
+     */
+    public void searchRezPrinter( Object[][] SearchRes){
+    //This is how when know what we're dealing with 
+        int numcol = SearchRes.length;
+        int numrow = SearchRes[0].length;
+        
+        
+     
+    }
     
 
    public String login(String username, String password) throws SQLException{
