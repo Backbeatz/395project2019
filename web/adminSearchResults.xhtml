@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>User hours page</title>
+    </h:head>
+    <h:body><font face="verdana" size="2">
+        <h:panelGrid columns="6">
+        <h:form>
+        <h:commandButton value="Logout"
+                         action="login"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Back"
+                         action="adminMain"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Change Password"
+                         action="change_password"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Add Contractor"
+                         action="add_contractor"></h:commandButton><br/></h:form>
+        <h:form>    
+        <h:commandButton value="Add Contract"
+                         action="add_contractor"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Add reminder"
+                         action="add_contractor"></h:commandButton><br/></h:form>
+        </h:panelGrid>
+        <br/>    
+        <div Results="#{bean1.searchRez}"></div> 
+       
+        
+         <strong>Basic Information</strong><br/>        
+        
+         [Name: <h:outputText value="#{bean1.curFirstName} "/> <h:outputText value="#{bean1.curFirstName}"/>]<br/>
+        [Current Reporting Period: <h:outputText value="#{bean1.getMonth()}  #{bean1.getYear()}"/> ]<br/>
+        
+        <table>
+            <tbody id="Table"></tbody>
+        </table>
+        
+        <script language="javascript">
+            function printObject(o) {
+                var out = '';
+                for (var p in o) {
+                out += p + ': ' + o[p] + '\n';
+                }
+                alert(out);
+                }
+    
+          
+        </script>
+        
+        
+        
+        <br/><br/></font>
+        
+        
+    </h:body>
+</html>

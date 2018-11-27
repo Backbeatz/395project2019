@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>User hours page</title>
     </h:head>
@@ -29,7 +30,7 @@
         <br/>    
          
         <strong>Basic Information</strong><br/>        
-        [Name: <h:outputText value="#{bean1.getFirstName()} "/> <h:outputText value="#{bean1.getLastName()}"/>]<br/>
+        [Name: <h:outputText value="#{bean1.getCurFirstName()} "/> <h:outputText value="#{bean1.getCurLastName()}"/>]<br/>
         [Current Reporting Period: <h:outputText value=" #{bean1.getMonth()}  #{bean1.getYear()}"/> ]<br/>
         
          
@@ -39,24 +40,27 @@
         <br/><br/></font>
         <h:form>
             
-            
             <div align="center">
-            <select name="dropdown">
-            <option value="FName">First Name</option>
-            <option value="LName">Last Name</option>
-            <option value="Email">Email</option>
-            <option value="Phone">Phone</option>
-            <option value="Company">Company</option>
-            <option value="UName">Username</option>
-            </select>
+                
+                <h:selectOneMenu value ="#{bean1.searchCrit}">
+                    <f:selectItem itemValue="FName" itemLabel ="First Name"/>
+                    <f:selectItem itemValue="LName" itemLabel ="Last Name"/>
+                    <f:selectItem itemValue="UName" itemLabel ="User Name"/>
+                    <f:selectItem itemValue="Email" itemLabel ="Email"/>
+                    <f:selectItem itemValue="Phone" itemLabel ="Phone"/>
+                    <f:selectItem itemValue="Company" itemLabel ="Company"/>
+                    
+                </h:selectOneMenu>
             </div>
             
+            
             <strong>Search: </strong><h:inputText value="#{bean1.adminSearch}">
-                </h:inputText>    
-                            
+                </h:inputText>  
+            
+            
         <center><h:commandButton value="GO!" 
-                                 action="#{bean1.ConductSearch(dropdown, bean1.adminSearch)}"></h:commandButton></center>    
-                  
+                                 action="#{bean1.ConductSearch(bean1.searchCrit, bean1.adminSearch)}"></h:commandButton></center>    
+                                 
                             
         
 
