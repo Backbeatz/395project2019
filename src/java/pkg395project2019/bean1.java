@@ -18,6 +18,22 @@ public class bean1 {
     //logged in user info
     
     private String hours;    
+    private int listedrowItem; //This is where we store the row number we're editing
+    
+    /**
+     * Getter for row number in search results
+     * @return 
+     */
+    public int getListedrowItem(){
+        return listedrowItem;
+    }
+    /**
+     * Setter for row in search results
+     * @param crit 
+     */
+    public void setListedrowItem(int crit){
+        this.listedrowItem = crit;
+    }
     
     //Where search bar results are stored    
     private Object[][] SearchResultList;
@@ -118,10 +134,10 @@ public class bean1 {
         this.currentPId = ID;
     }
     public String getcurrentCId(){
-        return currentPId;
+        return currentCId;
     }
     public void setcurrentCId(String ID){
-        this.currentPId = ID;
+        this.currentCId = ID;
     }
     
     public String getMonth(){
@@ -410,8 +426,8 @@ public class bean1 {
             Object[] infoHr = new Object[8];
             infoHr[0]=month; //Edit here
             infoHr[1]=year;
-            infoHr[2]=getcurrentPId();
-            infoHr[3]=getcurrentCId();
+            infoHr[2]=currentPId;
+            infoHr[3]=currentCId;
             infoHr[4]=getHours();
             
             //Need to check if month has already been used
@@ -592,7 +608,7 @@ public class bean1 {
      */
     public String ConductSearch(String SearchCrit, String SearchVal){
         System.out.println("Values " + SearchCrit + SearchVal);
-        int rezCol = 0; //Number of collums
+        
         //Find number of rows
         query qConIn1 = new query();
         Object[] testInfo1 = new Object[8];
@@ -620,51 +636,65 @@ public class bean1 {
         System.out.println(Name1);
         if (qConIn1.selectQueryFromDb()) { //this
             //qConIn.numOfResults;?
-            rezCol = qConIn1.numOfResults;
-            System.out.println("number of results: " + rezCol);  
-        }
-        else{System.err.println("fail");}
-        
+            int rezCol = qConIn1.numOfResults;
+            //find number
+            query qConIn2 = new query();
+            Object[] testInfo2 = new Object[8];
+            //Selection of areas
 
-        //find number
-        query qConIn2 = new query();
-        Object[] testInfo2 = new Object[8];
-        //Selection of areas
-        
-        if("FName".equals(SearchCrit)){
-            testInfo2[1]=SearchVal;
+            if("FName".equals(SearchCrit)){
+                testInfo2[1]=SearchVal;
+                }
+            if("LName".equals(SearchCrit)){
+                testInfo2[2]=SearchVal;
             }
-        if("LName".equals(SearchCrit)){
-            testInfo2[2]=SearchVal;
-        }
-        if("Email".equals(SearchCrit)){
-            testInfo2[3]=SearchVal;
-        }
-        if("Phone".equals(SearchCrit)){
-            testInfo2[4]=SearchVal;
-        }
-        if("UName".equals(SearchCrit)){    
-            testInfo2[5]=SearchVal;
-        }
-        
-        Object[][] resultInfo2 = new Object[rezCol][8];
-        Arrays.fill(resultInfo2[0], true); //ask about this
-        String Name2 = qConIn2.selectWhere(1, resultInfo2[0], testInfo2); //ask about this
-        System.out.println(Name2);
-        if (qConIn2.selectQueryFromDb()) { //this
+            if("Email".equals(SearchCrit)){
+                testInfo2[3]=SearchVal;
+            }
+            if("Phone".equals(SearchCrit)){
+                testInfo2[4]=SearchVal;
+            }
+            if("UName".equals(SearchCrit)){    
+                testInfo2[5]=SearchVal;
+            }
+              //This is where problem is
+            Object[][] resultInfo2 = new Object[rezCol][8];
+            Arrays.fill(resultInfo2[0], true);
+            String Name2 = qConIn2.selectWhere(1, resultInfo2[0], testInfo2); 
+            
+            if (qConIn2.selectQueryFromDb()) {  //This is where trouble for multiple is.
             //qConIn.numOfResults;?
-            
-            resultInfo2 = qConIn2.getResults();
-            
+                qConIn2.printItemsinResultTables();
+                resultInfo2 = qConIn2.getResults();
+                System.out.println("\n Found Result \n");
+            }
+
             SearchResultList = resultInfo2;
-            System.out.println("search complete");
+            return "adminSearchResults";
         }
         else{System.err.println("fail");}
-        
-        
-        
-        return "adminSearchResults";
+        return "adminMain";
     }
+    /**
+     * -Connor's function to turn strings to 
+     * @param res
+     * @return 
+     */
+    public static String[][] GiveStringResults (Object[][] res){
+        int col = res.length;
+        int row = res[0].length;
+        String[][] newRes = new String[col][row];
+        for(int i = 0; i<=col; i++){
+            for(int x = 0; x<=row; x++){
+                newRes[i][x]=res[i][x].toString();    
+            }
+            
+        }
+        return newRes;
+    }
+    
+    
+    
     /**
      * Tells us if string is in our array, helper function 
      * @param array
@@ -678,20 +708,6 @@ public class bean1 {
             }
         }
       return false;
-    }
-    
-    //Dispaly search rez
-    /**
-     * This function will take our results and set them up to be displayed
-     * @param SearchRes 
-     */
-    public void searchRezPrinter( Object[][] SearchRes){
-    //This is how when know what we're dealing with 
-        int numcol = SearchRes.length;
-        int numrow = SearchRes[0].length;
-        
-        
-     
     }
     
 
