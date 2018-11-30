@@ -592,6 +592,7 @@ public class query {
                     }
                 columnNum++;
                 }
+                columnNum = 1;
             numOfResults++;
             
             empty = false;
@@ -611,8 +612,8 @@ public class query {
             conn.close();
             } catch (SQLException e) { /* ignored */}
         }
-        System.err.println("----------Print of Result Table------------");
-        printItemsinResultTables();
+        //System.err.println("----------Print of Result Table------------");
+        //printItemsinResultTables();
         try {
             conn.close();
             } catch (SQLException e) {
@@ -641,6 +642,7 @@ public class query {
         int index = 0;
         int x = 0;
         while (x<this.numOfResults) {
+            index=0;
             System.err.println("contractor Result Info:\n");
             while (index<8) {    
                 if (contractorResultInfo[index]!=null) {

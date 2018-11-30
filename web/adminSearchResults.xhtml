@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>User hours page</title>
+        <title>Search Results</title>
     </h:head>
     <h:body><font face="verdana" size="2">
         <h:panelGrid columns="6">
@@ -27,33 +27,36 @@
                          action="add_contractor"></h:commandButton><br/></h:form>
         </h:panelGrid>
         <br/>    
-        <div Results="#{bean1.searchRez}"></div> 
        
+        <p id="ThisAr" Results="#{bean1.searchRez}"> </p>
         
          <strong>Basic Information</strong><br/>        
         
          [Name: <h:outputText value="#{bean1.curFirstName} "/> <h:outputText value="#{bean1.curFirstName}"/>]<br/>
         [Current Reporting Period: <h:outputText value="#{bean1.getMonth()}  #{bean1.getYear()}"/> ]<br/>
+        [Email: <h:outputText value="#{bean1.getCurEmail()}"/> ]<br/> 
+        [Phone: <h:outputText value="#{bean1.getCurPhone()}"/>]<br/> 
+    <br/><br/></font>
         
-        <table>
-            <tbody id="Table"></tbody>
-        </table>
+    <p id="demo"></p>
+
+    <script>
+    var cars = #{bean1.searchRez};
+    var text = "";
+    var i;
+    var x;
+    for (i = 0; i < cars.length; i++) {
+        for (x = 0; x &lt; cars[0].length; x++) {
+            text += cars[i].toString() + " ";
+        }
         
-        <script language="javascript">
-            function printObject(o) {
-                var out = '';
-                for (var p in o) {
-                out += p + ': ' + o[p] + '\n';
-                }
-                alert(out);
-                }
+        //This is where button goes
+        //text += "<br/>"; //new line
+    //}
     
-          
-        </script>
+    document.getElementById("demo").innerHTML = text;
+    </script> <br/>    
         
-        
-        
-        <br/><br/></font>
         
         
     </h:body>
