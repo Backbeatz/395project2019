@@ -7,21 +7,40 @@
         <title>Add Contractor</title>
     </h:head>
     <h:body>
+                <h:panelGrid columns="6">
         <h:form>
         <h:commandButton value="Logout"
-                         action="login"></h:commandButton><br/></h:form><br/>
+                         action="login"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Change Password"
+                         action="change_password"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Add Contractor"
+                         action="add_contractor"></h:commandButton><br/></h:form>
+        <h:form>    
+        <h:commandButton value="Add Contract"
+                         action="add_contract"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Add Company"
+                         action="add_company"></h:commandButton><br/></h:form>
+        <h:form>    
+        <h:commandButton value="Add reminder"
+                         action="add_contractor"></h:commandButton><br/></h:form>
+        </h:panelGrid>
+        
+        <br/>    
         <Strong><center>Input Contractor Information</center></Strong><br/>
         <h:form>
-        First Name<br/><h:inputText value="#{bean1.firstName}"></h:inputText><br/><br/>
+            First Name<br/><h:inputText value="#{bean1.firstName}"></h:inputText><br/><br/>
         Last Name<br/><h:inputText value="#{bean1.lastName}"></h:inputText><br/><br/>
-        Profession<br/><h:inputText value="#{bean1.job}"></h:inputText><br/><br/>
+        
         City<br/><h:inputText value="#{bean1.city}"></h:inputText><br/><br/>
         Province<br/><h:inputText value="#{bean1.province}"></h:inputText><br/><br/>
         Postal Code<br/><h:inputText value="#{bean1.postalCode}"></h:inputText><br/><br/>
         Email<br/><h:inputText value="#{bean1.email}"></h:inputText><br/><br/>
         Phone Number<br/><h:inputText value="#{bean1.phone}"></h:inputText><br/><br/>
         Date of Birth(Example: 1998/10/20)<br/><h:inputText value="#{bean1.dob}"></h:inputText><br/><br/>
-        Sex<br/><h:inputText value="#{bean1.sex}"></h:inputText><br/><br/>
+        
         Username<br/><h:inputText value="#{bean1.createUser}"></h:inputText><br/><br/>
         Password<br/><h:inputText value="#{bean1.createPass}"></h:inputText><br/><br/>
         <h:commandButton value="Add Contractor"
