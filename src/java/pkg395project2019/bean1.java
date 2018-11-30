@@ -35,12 +35,21 @@ public class bean1 {
         this.listedrowItem = crit;
     }
     
-    //Where search bar results are stored    
+    
+    //private Object[][] SearchResultObject;
+    
+    
+    
+    //Where search bar results to be shown are stored    
     private Object[][] SearchResultList;
     
     public Object[][] getSearchRez(){
         return SearchResultList;
     }
+    public void setSearchRez(Object[][] rez){
+        this.SearchResultList = rez;
+    }
+    
     private String searchCrit;
     public String getSearchCrit(){
         return searchCrit;
@@ -658,39 +667,54 @@ public class bean1 {
                 testInfo2[5]=SearchVal;
             }
               //This is where problem is
+            
             Object[][] resultInfo2 = new Object[rezCol][8];
             Arrays.fill(resultInfo2[0], true);
             String Name2 = qConIn2.selectWhere(1, resultInfo2[0], testInfo2); 
             
             if (qConIn2.selectQueryFromDb()) {  //This is where trouble for multiple is.
             //qConIn.numOfResults;?
-                qConIn2.printItemsinResultTables();
+                //qConIn2.printItemsinResultTables();
                 resultInfo2 = qConIn2.getResults();
-                System.out.println("\n Found Result \n");
+                SearchResultList = resultInfo2;
+                
+                return "adminSearchResults";
             }
-
-            SearchResultList = resultInfo2;
-            return "adminSearchResults";
+            return "adminMain";
+            
         }
-        else{System.err.println("fail");}
         return "adminMain";
     }
     /**
-     * -Connor's function to turn strings to 
+     * Function for turning our results object in to a set of strings.
+     * For the search results page.
      * @param res
      * @return 
      */
-    public static String[][] GiveStringResults (Object[][] res){
-        int col = res.length;
-        int row = res[0].length;
-        String[][] newRes = new String[col][row];
-        for(int i = 0; i<=col; i++){
-            for(int x = 0; x<=row; x++){
-                newRes[i][x]=res[i][x].toString();    
-            }
-            
+    public static String[][] GiveStringResults (Object[][] res, int num){
+        String Store;
+        int i;
+        int n;
+        int col;
+        if(res[0].length - 1 <= 0){
+            col = 0 ; 
         }
-        return newRes;
+        else{
+            col = res[0].length;
+        }
+        
+        
+        
+        String[][] stringArray = new String[num][col];
+        for(i=0;i<=1;i++){
+            for(n=0;n<=1;n++){
+                Store = res[i][n].toString();
+                stringArray[i][n] = Store;
+                
+            }
+        }
+ 
+        return stringArray;
     }
     
     
