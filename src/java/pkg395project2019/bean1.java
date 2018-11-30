@@ -4,14 +4,15 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+//import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
  
 
 @ManagedBean(name="bean1")
-@RequestScoped
+@SessionScoped
 public class bean1 {
     //Calander
     Calendar cal = Calendar.getInstance();
@@ -36,9 +37,15 @@ public class bean1 {
     }
     
     
-    //private Object[][] SearchResultObject;
     
+    private String[][] SearchResultString;
     
+    public String[][] getSearchRezSt(){
+        return SearchResultString;
+    }
+    public void setSearchRezSt(String[][] rez){
+        this.SearchResultString = rez;
+    }
     
     //Where search bar results to be shown are stored    
     private Object[][] SearchResultList;
@@ -616,7 +623,7 @@ public class bean1 {
      * @return 
      */
     public String ConductSearch(String SearchCrit, String SearchVal){
-        System.out.println("Values " + SearchCrit + SearchVal);
+        System.out.println(currentFName);
         
         //Find number of rows
         query qConIn1 = new query();
@@ -642,7 +649,6 @@ public class bean1 {
         Object[][] resultInfo1 = new Object[1][8];
         Arrays.fill(resultInfo1[0], true);
         String Name1 = qConIn1.selectWhere(1, resultInfo1[0], testInfo1);
-        System.out.println(Name1);
         if (qConIn1.selectQueryFromDb()) { //this
             //qConIn.numOfResults;?
             int rezCol = qConIn1.numOfResults;
@@ -677,7 +683,7 @@ public class bean1 {
                 //qConIn2.printItemsinResultTables();
                 resultInfo2 = qConIn2.getResults();
                 SearchResultList = resultInfo2;
-                
+                String[][] SearchResultString = GiveStringResults(resultInfo2, rezCol);
                 return "adminSearchResults";
             }
             return "adminMain";
@@ -692,29 +698,22 @@ public class bean1 {
      * @return 
      */
     public static String[][] GiveStringResults (Object[][] res, int num){
-        String Store;
-        int i;
-        int n;
-        int col;
-        if(res[0].length - 1 <= 0){
-            col = 0 ; 
-        }
-        else{
-            col = res[0].length;
-        }
-        
-        
-        
-        String[][] stringArray = new String[num][col];
-        for(i=0;i<=1;i++){
-            for(n=0;n<=1;n++){
-                Store = res[i][n].toString();
-                stringArray[i][n] = Store;
-                
+        int i= 0;
+        int x = 0;
+        String[][] stringArray = new String[num][8];
+        while (x<num) {
+            i=0;
+            while (i<8) {    
+                if (res[i]!=null) {
+                    stringArray[x][i] = res[x][i].toString();
+                }
+                i++;
             }
+            x++;  
         }
- 
+        
         return stringArray;
+        
     }
     
     
