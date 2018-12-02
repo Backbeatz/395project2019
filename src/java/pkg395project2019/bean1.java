@@ -14,75 +14,24 @@ import java.util.List;
 @ManagedBean(name="bean1")
 @SessionScoped
 public class bean1 {
-    //Calander
+    //System
+    //--------------------------------------------------------------------
     Calendar cal = Calendar.getInstance();
-    //logged in user info
-    
-    private String hours;    
-    private int listedrowItem; //This is where we store the row number we're editing
-    
-    /**
-     * Getter for row number in search results
-     * @return 
-     */
-    public int getListedrowItem(){
-        return listedrowItem;
-    }
-    /**
-     * Setter for row in search results
-     * @param crit 
-     */
-    public void setListedrowItem(int crit){
-        this.listedrowItem = crit;
-    }
-    
-    
-    
-    private String[][] SearchResultString;
-    
-    public String[][] getSearchRezSt(){
-        return SearchResultString;
-    }
-    public void setSearchRezSt(String[][] rez){
-        this.SearchResultString = rez;
-    }
-    
-    //Where search bar results to be shown are stored    
-    private Object[][] SearchResultList;
-    
-    public Object[][] getSearchRez(){
-        return SearchResultList;
-    }
-    public void setSearchRez(Object[][] rez){
-        this.SearchResultList = rez;
-    }
-    
-    private String searchCrit;
-    public String getSearchCrit(){
-        return searchCrit;
-    }
-    public void setSearchCrit(String crit){
-        this.searchCrit = crit;
-    }
-//searchbar
-    private String searchvalue;
-       
-    public String getAdminSearch(){
-        return searchvalue;
-    }
-    public void setAdminSearch(String searchvalue){
-        this.searchvalue = searchvalue;
-    }
-    
-   
+    private String hours;//The amount of hours inputed    
+    Calendar now = Calendar.getInstance(); //Calander our system uses
+    int d1 = now.get(Calendar.YEAR); 
+    String year = String.valueOf(d1); //current year
+    String month = new SimpleDateFormat("MMM").format(now.getTime()); //Current month
 
-//login page info
+    //
+    //--------------------------------------------------------------------
+    
+    //Current user
+    //-------------------------------------------------------------------
+    private String newPass; 
     private String username;
     private String pass;
-    private String newPass;
     private int attempts;
-    
-    //info box info( name, rep period, email, phone, company )
     private String currentFName;
     private String currentLName;
     //Rep period is month + year
@@ -91,19 +40,8 @@ public class bean1 {
     private String currentComp;
     private String currentPId;
     private String currentCId;
-    
-    
-    //system info
-    
-    //The current date and time
-    Calendar now = Calendar.getInstance();
-    int d1 = now.get(Calendar.YEAR);
-    String year = String.valueOf(d1); //current year
-    
-    String month = new SimpleDateFormat("MMM").format(now.getTime()); //Current month
-
-    //add user fields
-    
+    //Admin Create users/contractor
+    //--------------------------------------------------------------------
     private String createUser;
     private String createPass;
     private String firstName;
@@ -116,7 +54,16 @@ public class bean1 {
     private String phone;
     private String dob; //Date of Birth
     private String sex;
-    
+    //Admin Create company record
+    //--------------------------------------------------------------------
+    private String compName;
+    private String compCity;
+    private String compAddress;
+    private String compPostal;
+    private String compPhone;
+    private String compEmail;
+    //Admin Contract 
+    //--------------------------------------------------------------------
     private int contractID;
     private String startDate;
     private String renewalStartDate1;
@@ -131,294 +78,707 @@ public class bean1 {
     private float rateForCompanyTerm1;
     private float rateForCompanyTerm2;
     private float rateForCompanyTerm3;
-    
-    private String compName;
-    private String compCity;
-    private String compAddress;
-    private String compPostal;
-    private String compPhone;
-    private String compEmail;
-
- //---------------------------------------------------------------------------  
- // Setters and Getters
-    //All
-    
+    //Admin search 
+    //--------------------------------------------------------------------
+    private int listedrowItem; //number of rows in result
+    private String[][] SearchResultString; //String of search results
+    private Object[][] SearchResultList; //Where search bar results to be shown are stored 
+    private String searchCrit; //String that holds search type
+    private String searchvalue; //String that holds search term
+    //
+    //--------------------------------------------------------------------
+    //Getters and setters
+    //----------------------------------------------------------------------
+    /**
+     * Gives current user's personal ID
+     * @return 
+     */
     public String getcurrentPId(){
         return currentPId;
     }
+    /**
+     * Sets current user's personal ID
+     * @param ID
+     */
     public void setcurrentPId(String ID){
         this.currentPId = ID;
     }
+    /**
+     * Gets the current user's contract's id
+     * @return
+     */
     public String getcurrentCId(){
         return currentCId;
     }
+    /**
+     * Sets current user's contract's id
+     * @param ID
+     */
     public void setcurrentCId(String ID){
         this.currentCId = ID;
     }
-    
+    /**
+     * Get the current month
+     * @return
+     */
     public String getMonth(){
         return month;
     }
+    /**
+     * Get current year
+     * @return 
+     */
     public String getYear(){
         return year;
     }
+    /**
+     * Get inputted hours
+     * @return 
+     */
     public String getHours(){
         return hours;
     }
+    /**
+     * Set the inputed hours
+     * @param hours 
+     */
     public void setHours(String hours){
         this.hours = hours;
     }
-    //Current user
+    /**
+     * Get current user's first name
+     * @return 
+     */
     public String getCurFirstName(){
         return currentFName;
     }
+    /**
+     * Set current user's first name field
+     * @param Name 
+     */
     public void setCurFirstName(String Name){
         this.currentFName = Name;
     }
+    /**
+     * Get current user's last name
+     * @return 
+     */
     public String getCurLastName(){
         return currentLName;
     }
+    /**
+     * Set current users last name
+     * @param lastName 
+     */
     public void setCurLastName(String lastName){
         this.currentLName = lastName;
     }
-    
+    /**
+     * Get current user's email
+     * @return 
+     */
     public String getCurEmail(){
         return currentEmail;
     }
+    /**
+     * Set current email
+     * @param email 
+     */
     public void setCurEmail(String email){
         this.currentEmail = email;
     }
+    /**
+     * Get current user's phone number
+     * @return 
+     */
     public String getCurPhone(){
         return currentPhone;
     }
+    /**
+     * Set current user's phone 
+     * @param phone 
+     */
     public void setCurPhone(String phone){
         this.currentPhone = phone;
     }
+    /**
+     * Get current company the user's working for
+     * @return 
+     */
     public String getCurComp(){
         return currentComp;
     }
+    /**
+     * Set current user's company
+     * @param company 
+     */
     public void setCurComp(String company){
         this.currentComp = company;
-    }    
+    } 
+    /**
+     * Get current user's password
+     * @return 
+     */
     public String getPass(){
         return pass;
     }
+    /**
+     * Set current user's password
+     * @param pass 
+     */
     public void setPass(String pass){
         this.pass = pass;
     }
+    /**
+     * Get current user's new password
+     * @return 
+     */
     public String getNewPass(){
         return newPass;
     }
+    /**
+     * Set current user's new password
+     * @param newPass 
+     */
     public void setNewPass(String newPass){
         this.newPass = newPass;
-    }    
+    } 
+    /**
+     * Get current user's username
+     * @return 
+     */
     public String getUsername(){
         return username;
     }
+    /**
+     * Set current user's username
+     * @param username 
+     */
     public void setUsername(String username){
         this.username = username;
     }
-    //Add user
+    /**
+     * Get new user's job
+     * @return 
+     */
     public String getJob(){
         return job;
     }
+    /**
+     * Set new user's job
+     * @param job 
+     */
     public void setJob(String job){
         this.job = job;
-    }    
+    }
+    /**
+     * Get new user's date of birth
+     * @return 
+     */
     public String getDob(){
         return dob;
     }
+    /**
+     * Set new user's date of birth
+     * @param dob 
+     */
     public void setDob(String dob){
         this.dob = dob;
     }    
+    /**
+     * Get new user's home city
+     * @return
+     */
     public String getCity(){
         return city;
     }
+    /**
+     * Set new user's home city
+     * @param city
+     */
     public void setCity(String city){
         this.city = city;
-    }    
+    }
+    /**
+     * Get new user's sex
+     * @return 
+     */
     public String getSex(){
         return sex;
     }
+    /**
+     * Set new user's sex
+     * @param sex
+     */
     public void setSex(String sex){
         this.sex = sex;
     }   
+    /**
+     * Get new user's username
+     * @return
+     */
     public String getCreateUser(){
         return createUser;
     }
+    /**
+     * Set new user's username
+     * @param createUser
+     */
     public void setCreateUser(String createUser){
         this.createUser = createUser;
     }    
+    /**
+     * Get new user's password
+     * @return
+     */
     public String getCreatePass(){
         return createPass;
     }
+    /**
+     * Set new user's password
+     * @param createPass
+     */
     public void setCreatePass(String createPass){
         this.createPass = createPass;
     }    
+
+    /**
+     * Get new user's province
+     * @return
+     */
     public String getProvince(){
         return province;
     }
+    /**
+     * Set new user's province
+     * @param province 
+     */
     public void setProvince(String province){
         this.province = province;
-    }    
+    }
+    /**
+     * Get new user postal code
+     * @return 
+     */
     public String getPostalCode(){
         return postalCode;
     }
+    /**
+     * Set postal code for new user
+     * @param postalCode 
+     */
     public void setPostalCode(String postalCode){
         this.postalCode = postalCode;
-    }    
+    }
+    /**
+     * Get newly created user's email
+     * @return 
+     */
     public String getEmail(){
         return email;
     }
+    /**
+     * Sets newly created user's email
+     * @param email 
+     */
     public void setEmail(String email){
         this.email = email;
-    }    
+    } 
+    /**
+     * Gets newly created user's phone number
+     * @return 
+     */
     public String getPhone(){
         return phone;
     }
+    /**
+     * Sets newly created user's phone number
+     * @param phone 
+     */
     public void setPhone(String phone){
         this.phone = phone;
-    }    
+    }
+    /**
+     * Get newly created user's first name
+     * @return 
+     */
     public String getFirstName(){
         return firstName;
     }
+    /**
+     * Set newly created user's First Name
+     * @param firstName 
+     */
     public void setFirstName(String firstName){
         this.firstName = firstName;
-    }    
+    } 
+    /**
+     * Get newly created user's last name
+     * @return 
+     */
     public String getLastName(){
         return lastName;
     }
+    /**
+     *  Set newly created user's last name
+     * @param lastName 
+     */
     public void setLastName(String lastName){
         this.lastName = lastName;
     }
-    
+    /**
+     * Get contract's ID
+     * @return 
+     */
     public int getcontractID(){
         return contractID;
     }
+    /**
+     * Set contract's ID
+     * @param idNum 
+     */
     public void setcontractID(int idNum){
         this.contractID = idNum;
     }
+    /**
+     * Get start date on contract
+     * @return 
+     */
     public String getstartDate(){
         return startDate;
     }
+    /**
+     * Set start date on contract
+     * @param date
+     */
     public void setstartDate(String date){
         this.startDate = date;
     }
+    /**
+     * Get renewal 1 start date on contract
+     * @return
+     */
     public String getrenewalStartDate1(){
         return renewalStartDate1;
     }
+    /**
+     * Set renewal 1 start date on contract
+     * @param date
+     */
     public void setrenewalStartDate1(String date){
         this.renewalStartDate1 = date;
     }
+    /**
+     * Get renewal 2 start date on contract
+     * @return
+     */
     public String getrenewalStartDate2(){
         return renewalStartDate2;
     }
+    /**
+     * Set renewal 2 start date on contract
+     * @param date
+     */
     public void setrenewalStartDate2(String date){
         this.renewalStartDate2 = date;
     }
+    /**
+     * Get Contract end date
+     * @return
+     */
     public String getendDate(){
         return endDate;
     }
+    /**
+     * Set Contract end date
+     * @param date
+     */
     public void setendDate(String date){
         this.endDate = date;
     }
+    /**
+     * Get renewal 1 end date on contract
+     * @return
+     */
     public String getrenewalEndDate1(){
         return renewalEndDate1;
     }
+    /**
+     * Set renewal 1 end date on contract
+     * @param date
+     */
     public void setrenewalEndDate1(String date){
         this.renewalEndDate1 = date;
     }
+    /**
+     * Get renewal 2 end date on contract
+     * @return
+     */
     public String getrenewalEndDate2(){
         return renewalEndDate2;
     }
+    /**
+     * Set renewal 2 end date on contract
+     * @param date
+     */
     public void setrenewalEndDate2(String date){
         this.renewalEndDate2 = date;
     }
+    /**
+     * Get renewal options on contract
+     * @return
+     */
     public int getrenewalOptions(){
         return renewalOptions;
     }
+    /**
+     * Set renewal options on contract
+     * @param num
+     */
     public void setrenewalOptions(int num){
         this.renewalOptions = num;
     }
+    /**
+     * Get the term 1 amount
+     * @return
+     */
     public float getamountForContractorTerm1(){
         return amountForContractorTerm1;
     }
+    /**
+     * Set the term 1 amount
+     * @param amount
+     */
     public void setamountForContractorTerm1(float amount){
         this.amountForContractorTerm1 = amount;
     }
+    /**
+     * Get the term 2 amount
+     * @return
+     */
     public float getamountForContractorTerm2(){
         return amountForContractorTerm2;
     }
+    /**
+     * Set the term 2 amount
+     * @param amount
+     */
     public void setamountForContractorTerm2(float amount){
         this.amountForContractorTerm2 = amount;
     }
+    /**
+     * Get the term 3 amount
+     * @return
+     */
     public float getamountForContractorTerm3(){
         return amountForContractorTerm3;
     }
+    /**
+     * Set the term 3 amount
+     * @param amount
+     */
     public void setamountForContractorTerm3(float amount){
         this.amountForContractorTerm3 = amount;
     }
+    /**
+     * Get the term 1 rate
+     * @return
+     */
     public float getrateForCompanyTerm1(){
         return rateForCompanyTerm1;
     }
+    /**
+     * Set the term 1 rate
+     * @param amount
+     */
     public void setrateForCompanyTerm1(float amount){
         this.rateForCompanyTerm1 = amount;
     }
+    /**
+     * Get the term 2 rate
+     * @return
+     */
     public float getrateForCompanyTerm2(){
         return rateForCompanyTerm2;
     }
+    /**
+     * Set the term 2 rate
+     * @param amount
+     */
     public void setrateForCompanyTerm2(float amount){
         this.rateForCompanyTerm2 = amount;
     }
+    /**
+     * Get the term 3 rate
+     * @return
+     */
     public float getrateForCompanyTerm3(){
         return rateForCompanyTerm3;
     }
+    /**
+     * Set the term 3 rate
+     * @param amount
+     */
     public void setrateForCompanyTerm3(float amount){
         this.rateForCompanyTerm3 = amount;
     }
-    
+    /**
+     * Gets the company's name
+     * @return
+     */
     public String getcompName(){
         return compName;
     }
+    /**
+     * Sets the company's name
+     * @param name
+     */
     public void setcompName(String name){
         this.compName = name;
     }
+    /**
+     * Gets the company's city of origin
+     * @return 
+     */
     public String getcompCity(){
         return compName;
     }
+    /**
+     * Sets the company's city of origin
+     * @param city 
+     */
     public void setcompCity(String city){
         this.compName = city;
     }
+    /**
+     * Gets the company's street address
+     * @return 
+     */
     public String getcompAddress(){
         return compAddress;
     }
+    /**
+     * Sets the company's street address
+     * @param address 
+     */
     public void setcompAddress(String address){
         this.compAddress = address;
     }
+    /**
+     * Gets company postal code
+     * @return 
+     */
     public String getcompPostal(){
         return compPostal;
     }
+    /**
+     * Sets company's postal code
+     * @param postal 
+     */
     public void setcompPostal(String postal){
         this.compPostal = postal;
-    }    
+    }
+    /**
+     * Get the company's phone number
+     * @return 
+     */
     public String getcompPhone(){
         return compPhone;
     }
+    /**
+     * Set company phone number
+     * @param phone 
+     */
     public void setcompPhone(String phone){
         this.compPhone = phone;
     }
+    /**
+     * Gets company email
+     * @return 
+     */
     public String getcompEmail(){
         return compEmail;
     }
+    /**
+     * Sets company's email
+     * @param email 
+     */
     public void setcompEmail(String email){
         this.compEmail = email;
     }    
-    //--------------------------------------------------------------------
-    //Contrctor object
-    
+    /**
+     * Gets our search term
+     * @return 
+     */
+    public String getAdminSearch(){
+        return searchvalue;
+    }
+    /**
+     * Sets our search term
+     * @param searchvalue 
+     */
+    public void setAdminSearch(String searchvalue){
+        this.searchvalue = searchvalue;
+    }
+    /**
+     * Gets our search criteria
+     * @return 
+     */
+    public String getSearchCrit(){
+        return searchCrit;
+    }
+    /**
+     * Sets the search criteria
+     * @param crit 
+     */
+    public void setSearchCrit(String crit){
+        this.searchCrit = crit;
+    }
+    /**
+     * Gets search bar results as an object
+     * @return 
+     */
+    public Object[][] getSearchRez(){
+        return SearchResultList;
+    }
+    /**
+     * Sets search bar results as object
+     * @param rez 
+     */
+    public void setSearchRez(Object[][] rez){
+        this.SearchResultList = rez;
+    }
+    /**
+     * Getter for row number in search results
+     * @return 
+     */
+    public int getListedrowItem(){
+        return listedrowItem;
+    }
+    /**
+     * Setter for row in search results
+     * @param crit 
+     */
+    public void setListedrowItem(int crit){
+        this.listedrowItem = crit;
+    }
+    /**
+     * Gives a string array of results
+     * @return 
+     */
+    public String[][] getSearchRezSt(){
+        return SearchResultString;
+    }
+    /**
+     * Sets our string array of results
+     * @param rez 
+     */
+    public void setSearchRezSt(String[][] rez){
+        this.SearchResultString = rez;
+    }
     
    
-    
+    //___________________-----------------------_____________________________
     public String verify(String hours){
         if(hours.equals("")){
             attempts += 1;
@@ -442,8 +802,8 @@ public class bean1 {
             Object[] infoHr = new Object[8];
             infoHr[0]=month; //Edit here
             infoHr[1]=year;
-            infoHr[2]=currentPId;
-            infoHr[3]=currentCId;
+            infoHr[2]=currentCId;
+            infoHr[3]=currentPId;
             infoHr[4]=getHours();
             
             //Need to check if month has already been used
@@ -602,15 +962,16 @@ public class bean1 {
         String Name = qConIn.selectWhere(1, resultInfo[0], testInfo2);
         if (qConIn.selectQueryFromDb()) {
             resultInfo = qConIn.getResults();
-            
-            setcurrentPId(resultInfo[0][0].toString()); //this is not working
-            setcurrentCId("N/A"); //need to be looked at
-            
+            //sets our main feilds
+            setcurrentPId(resultInfo[0][0].toString()); 
+            setcurrentCId("4"); //need to be looked at
             setCurFirstName(resultInfo[0][1].toString());
             setCurLastName(resultInfo[0][2].toString());
             setCurPhone(resultInfo[0][3].toString());
             setCurEmail(resultInfo[0][4].toString());
             setUsername(resultInfo[0][5].toString());
+            
+            //Now get company
            
         }
     }
@@ -684,6 +1045,7 @@ public class bean1 {
                 resultInfo2 = qConIn2.getResults();
                 SearchResultList = resultInfo2;
                 String[][] SearchResultString = GiveStringResults(resultInfo2, rezCol);
+                listedrowItem = SearchResultString.length;
                 return "adminSearchResults";
             }
             return "adminMain";
@@ -711,6 +1073,7 @@ public class bean1 {
             }
             x++;  
         }
+        
         
         return stringArray;
         
