@@ -35,7 +35,8 @@ CREATE TABLE Contract (
 	RateForCompanyTerm1 double(20,2),
 	RateForCompanyTerm2 double(20,2),
 	RateForCompanyTerm3 double(20,2),
-	CompanyID int REFERENCES Company(CompanyID) ON UPDATE CASCADE
+	PersonID int,
+	CompanyID int REFERENCES Company(CompanyID) NOT NULL ON UPDATE CASCADE
 	);
 
 CREATE TABLE TimeClock (
