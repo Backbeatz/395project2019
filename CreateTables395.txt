@@ -35,6 +35,7 @@ CREATE TABLE Contract (
 	RateForCompanyTerm1 double(20,2),
 	RateForCompanyTerm2 double(20,2),
 	RateForCompanyTerm3 double(20,2),
+	PersonID int,
 	CompanyID int REFERENCES Company(CompanyID) ON UPDATE CASCADE
 	);
 

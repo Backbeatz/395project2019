@@ -22,12 +22,12 @@ public class query {
     ResultSet savedSet;
     Object[][] contractorResultInfo = new Object[100][8];
     Object[][] companyResultInfo = new Object[100][7];
-    Object[][] contractResultInfo = new Object[100][14];
+    Object[][] contractResultInfo = new Object[100][15];
     Object[][] timeTableResultInfo = new Object[100][5];
     
-    String[] contractorTable = new String[8];
+    String[] contractorTable = new String[9];
     String[] companyTable = new String[7];
-    String[] contractTable = new String[14];
+    String[] contractTable = new String[15];
     String[] timeTable = new String[5];
     
     public query() {
@@ -62,6 +62,7 @@ public class query {
         contractTable[11]="RateForCompanyTerm1";
         contractTable[12]="RateForCompanyTerm2";
         contractTable[13]="RateForCompanyTerm3";
+        contractTable[14]="PersonID";
     
         timeTable[0]="Month";
         timeTable[1]="Year";
@@ -98,7 +99,7 @@ public class query {
                 break;
             case 3:
                 table = "Contract";
-                size=14;
+                size=15;
                 break;
             case 4:
                 table = "TimeClock";
@@ -195,7 +196,7 @@ public class query {
                 break;
             case 3:
                 table = "Contract";
-                size=14;
+                size=15;
                 break;
             case 4:
                 table = "TimeClock";
@@ -348,7 +349,7 @@ public class query {
                 break;
             case 3:
                 table = "Contract";
-                size=14;
+                size=15;
                 break;
             case 4:
                 table = "TimeClock";
@@ -417,7 +418,7 @@ public class query {
                 break;
             case 3:
                 table = "Contract";
-                size=14;
+                size=15;
                 break;
             case 4:
                 table = "TimeClock";
@@ -660,7 +661,7 @@ public class query {
             }
             index=0;
             System.err.println("Contract Result Info:\n");
-            while (index<14) {    
+            while (index<15) {    
                 if (contractResultInfo[index]!=null) {
                     System.err.println(contractResultInfo[x][index]+"\n");
                 }
