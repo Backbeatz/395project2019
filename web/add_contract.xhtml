@@ -8,8 +8,28 @@
     </h:head>
     <h:body>
         <h:form>
+        <h:panelGrid columns="6">
+        <h:form>
         <h:commandButton value="Logout"
-                         action="login"></h:commandButton><br/></h:form><br/>
+                         action="login"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Change Password"
+                         action="change_password"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Add Contractor"
+                         action="add_contractor"></h:commandButton><br/></h:form>
+        <h:form>    
+        <h:commandButton value="Add Contract"
+                         action="add_contract"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Add Company"
+                         action="add_company"></h:commandButton><br/></h:form>
+        <h:form>    
+        <h:commandButton value="Add reminder"
+                         action="add_contractor"></h:commandButton><br/></h:form>
+        </h:panelGrid>
+        
+        </h:form><br/>
         <Strong><center>Input Contract Information</center></Strong><br/>
         <h:form>
         Contract ID<br/><h:inputText value="#{bean1.contractID}"></h:inputText><br/><br/>

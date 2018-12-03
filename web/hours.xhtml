@@ -17,10 +17,11 @@
         <br/>    
          <!--    <h:outputText value=#"{bean1.toString()}"/> -->
         <strong>Basic Information</strong><br/>        
-        [Contractor Name: <h:outputText value="#{bean1.getCurName()} "/> <h:outputText value="#{bean1.getLastName()}"/>]<br/>
-        [Contractor ID: <h:outputText value="#{bean1.getcurrentPId()}"/> ] <br/>
-        [Reporting Period: <h:outputText value="#{bean1.getMonth()}  #{bean1.getYear()}"/> ]<br/>
-        [Field N:(More information)]<br/>
+        [Contractor Name: <h:outputText value="#{bean1.curFirstName} "/> <h:outputText value="#{bean1.curLastName}"/>]<br/>
+        [Reporting Period: <h:outputText value=" #{bean1.getMonth()}  #{bean1.getYear()}"/> ]<br/>
+        [Email: <h:outputText value="#{bean1.getCurEmail()}"/> ]<br/> 
+        [Phone: <h:outputText value="#{bean1.getCurPhone()}"/>]<br/> <br/>
+
         <hr></hr>
         
         <strong>Legal Information</strong><br/>
