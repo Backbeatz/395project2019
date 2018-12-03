@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -21,17 +22,17 @@ public class query {
     
     ResultSet savedSet;
     Object[][] contractorResultInfo = new Object[100][8];
-    Object[][] companyResultInfo = new Object[100][8];
-    Object[][] contractResultInfo = new Object[100][17];
+    Object[][] companyResultInfo = new Object[100][7];
+    Object[][] contractResultInfo = new Object[100][15];
     Object[][] timeTableResultInfo = new Object[100][5];
     
-    String[] contractorTable = new String[8];
+    String[] contractorTable = new String[9];
     String[] companyTable = new String[8];
-    String[] contractTable = new String[17];
+    String[] contractTable = new String[15];
     String[] timeTable = new String[5];
     
     public query() {
-        contractorTable[0]="PersonID";
+        contractorTable[0]="ContractorID";
         contractorTable[1]="FirstName";
         contractorTable[2]="LastName";
         contractorTable[3]="PhoneNumber";
@@ -63,10 +64,8 @@ public class query {
         contractTable[11]="RateForCompanyTerm1";
         contractTable[12]="RateForCompanyTerm2";
         contractTable[13]="RateForCompanyTerm3";
-        contractTable[14]="CompanyID";
-        contractTable[15]="ContractorID";
-        contractTable[16]="Position";
-        
+        contractTable[14]="PersonID";
+    
         timeTable[0]="Month";
         timeTable[1]="Year";
         timeTable[2]="ContractID";
@@ -102,7 +101,7 @@ public class query {
                 break;
             case 3:
                 table = "Contract";
-                size=17;
+                size=15;
                 break;
             case 4:
                 table = "TimeClock";
@@ -199,7 +198,8 @@ public class query {
                 break;
             case 3:
                 table = "Contract";
-                size=17;
+                size=15;
+
                 break;
             case 4:
                 table = "TimeClock";
@@ -352,7 +352,7 @@ public class query {
                 break;
             case 3:
                 table = "Contract";
-                size=17;
+                size=15;
                 break;
             case 4:
                 table = "TimeClock";
@@ -421,7 +421,7 @@ public class query {
                 break;
             case 3:
                 table = "Contract";
-                size=17;
+                size=15;
                 break;
             case 4:
                 table = "TimeClock";
@@ -596,6 +596,7 @@ public class query {
                     }
                 columnNum++;
                 }
+                columnNum = 1;
             numOfResults++;
             
             empty = false;
@@ -615,8 +616,8 @@ public class query {
             conn.close();
             } catch (SQLException e) { /* ignored */}
         }
-        System.err.println("----------Print of Result Table------------");
-        printItemsinResultTables();
+        //System.err.println("----------Print of Result Table------------");
+        //printItemsinResultTables();
         try {
             conn.close();
             } catch (SQLException e) {
@@ -645,6 +646,7 @@ public class query {
         int index = 0;
         int x = 0;
         while (x<this.numOfResults) {
+            index=0;
             System.err.println("contractor Result Info:\n");
             while (index<8) {    
                 if (contractorResultInfo[index]!=null) {
@@ -662,7 +664,7 @@ public class query {
             }
             index=0;
             System.err.println("Contract Result Info:\n");
-            while (index<17) {    
+            while (index<15) {    
                 if (contractResultInfo[index]!=null) {
                     System.err.println(contractResultInfo[x][index]+"\n");
                 }
@@ -687,3 +689,4 @@ public class query {
 
     }
 }
+
