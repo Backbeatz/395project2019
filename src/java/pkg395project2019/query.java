@@ -26,12 +26,12 @@ public class query {
     Object[][] timeTableResultInfo = new Object[100][5];
     
     String[] contractorTable = new String[9];
-    String[] companyTable = new String[7];
+    String[] companyTable = new String[8];
     String[] contractTable = new String[15];
     String[] timeTable = new String[5];
     
     public query() {
-        contractorTable[0]="PersonID";
+        contractorTable[0]="ContractorID";
         contractorTable[1]="FirstName";
         contractorTable[2]="LastName";
         contractorTable[3]="PhoneNumber";
@@ -45,8 +45,9 @@ public class query {
         companyTable[2]="City";
         companyTable[3]="StreetAddress";
         companyTable[4]="PostalCode";
-        companyTable[5]="PhoneNumber";
-        companyTable[6]="Email";
+        companyTable[5]="Province";
+        companyTable[6]="PhoneNumber";
+        companyTable[7]="Email";
         
         contractTable[0]="ContractID";
         contractTable[1]="StartDate";
@@ -67,7 +68,7 @@ public class query {
         timeTable[0]="Month";
         timeTable[1]="Year";
         timeTable[2]="ContractID";
-        timeTable[3]="PersonID";
+        timeTable[3]="ContractorID";
         timeTable[4]="TimeEntry";
         
         tableIdentifier = 0;
@@ -95,7 +96,7 @@ public class query {
                 break;
             case 2:
                 table = "Company";
-                size=7;
+                size=8;
                 break;
             case 3:
                 table = "Contract";
@@ -192,11 +193,12 @@ public class query {
                 break;
             case 2:
                 table = "Company";
-                size=7;
+                size=8;
                 break;
             case 3:
                 table = "Contract";
                 size=15;
+
                 break;
             case 4:
                 table = "TimeClock";
@@ -345,7 +347,7 @@ public class query {
                 break;
             case 2:
                 table = "Company";
-                size=7;
+                size=8;
                 break;
             case 3:
                 table = "Contract";
@@ -414,7 +416,7 @@ public class query {
                 break;
             case 2:
                 table = "Company";
-                size=7;
+                size=8;
                 break;
             case 3:
                 table = "Contract";
@@ -569,14 +571,14 @@ public class query {
                         }
                         break;
                     case 2:
-                        for (int x=0; x<=6; x++) { //needed to get which index to add to
+                        for (int x=0; x<=7; x++) { //needed to get which index to add to
                             if (companyTable[x].compareTo(columnName)==0) {
                                 companyResultInfo[numOfResults][x]=rs.getString(columnName);
                             }
                         }
                         break;
                     case 3:
-                        for (int x=0; x<=13; x++) { //needed to get which index to add to
+                        for (int x=0; x<=16; x++) { //needed to get which index to add to
                             if (contractTable[x].compareTo(columnName)==0) {
                                 contractResultInfo[numOfResults][x]=rs.getString(columnName);
                             }
@@ -653,7 +655,7 @@ public class query {
             }
             index=0;
             System.err.println("company Result Info:\n");
-            while (index<7) {    
+            while (index<8) {    
                 if (companyResultInfo[index]!=null) {
                     System.err.println(companyResultInfo[x][index]+"\n");
                 }

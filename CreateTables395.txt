@@ -1,12 +1,12 @@
 CREATE TABLE Contractor (
-	PersonID int NOT NULL PRIMARY KEY,
+	ContractorID int NOT NULL PRIMARY KEY,
 	FirstName varchar(255),
 	LastName varchar(255),
 	PhoneNumber varchar(255),
 	Email varchar(255),
 	Username varchar(255) NOT NULL UNIQUE,
 	Password varchar(255) NOT NULL,
-	Authorization int,
+	Authorization int NOT NULL,
 	ResetPassword int
 	);
 
@@ -16,6 +16,7 @@ CREATE TABLE Company (
 	City varchar(255),
 	StreetAddress varchar(255),
 	PostalCode varchar(255),
+	Province varchar(255),
 	PhoneNumber varchar(255),
 	Email varchar(255)
 	);
@@ -35,8 +36,8 @@ CREATE TABLE Contract (
 	RateForCompanyTerm1 double(20,2),
 	RateForCompanyTerm2 double(20,2),
 	RateForCompanyTerm3 double(20,2),
-	PersonID int,
-	CompanyID int REFERENCES Company(CompanyID) ON UPDATE CASCADE
+	PersonID int;
+	CompanyID int REFERENCES Company(CompanyID) NOT NULL ON UPDATE CASCADE,
 	);
 
 CREATE TABLE TimeClock (
@@ -45,8 +46,8 @@ CREATE TABLE TimeClock (
 	ContractID int,
 	PersonID int, 
 	TimeEntry int NOT NULL PRIMARY KEY,
-	FOREIGN KEY(ContractID) REFERENCES Contract(ContractID),
-	FOREIGN KEY(PersonID) REFERENCES Contractor(PersonID)
+	FOREIGN KEY(ContractID) NOT NULL REFERENCES Contract(ContractID),
+	FOREIGN KEY(ContractorID) NOT NULL REFERENCES Contractor(ContractorID)
 	);
 
 

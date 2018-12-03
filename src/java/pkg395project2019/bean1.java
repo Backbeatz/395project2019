@@ -42,6 +42,20 @@ public class bean1 {
     private int currentCId;
     //Admin Create users/contractor
     //--------------------------------------------------------------------
+    private String currentPId;
+    
+    //system info
+    
+    //The current date and time
+    Calendar now = Calendar.getInstance();
+    int d1 = now.get(Calendar.YEAR);
+    String year = String.valueOf(d1); //current year
+    
+    String month = new SimpleDateFormat("MMM").format(now.getTime()); //Current month
+
+    //add user fields
+    private Contractor newContractor;
+
     private String createUser;
     private String createPass;
     private String firstName;
@@ -426,17 +440,12 @@ public class bean1 {
     public void setLastName(String lastName){
         this.lastName = lastName;
     }
-    /**
-     * Get contract's ID
-     * @return 
-     */
+
+    
     public int getcontractID(){
         return contractID;
     }
-    /**
-     * Set contract's ID
-     * @param idNum 
-     */
+
     public void setcontractID(int idNum){
         this.contractID = idNum;
     }
@@ -776,9 +785,10 @@ public class bean1 {
     public void setSearchRezSt(String[][] rez){
         this.SearchResultString = rez;
     }
-    
+  
    
     //___________________-----------------------_____________________________
+
     public String verify(String hours){
         if(hours.equals("")){
             attempts += 1;
@@ -791,7 +801,6 @@ public class bean1 {
             if((work > 700) || (work < 0)){
                 return "hours_reset";
             }
-
         }
         else{
             attempts += 1;
@@ -840,7 +849,7 @@ public class bean1 {
             userInfo[5]=getUsername();
             if (qUpdatePassword.update(1, infoUpPassword, userInfo)) {
                 return "logged_out";
-            }            
+            }          
         }
 
         return "adminMain";
@@ -871,16 +880,24 @@ public class bean1 {
         // Waiting on db additions of sex and job
             
             
-            if(!qConIn.insert(1, infoNC)){
-                return "adminMain";
-            } 
+        if(!qConIn.insert(1, infoNC)){
+            return "adminMain";
+        } 
         return "adminMain";
     }
     
     public String addContract(){
         //Query
+        query getCompanyID = new query();
+        /*+===========================================
+        GET COMPANY ID FROM DATABASE RUN QUERY SEARCH OR BETTER YET ADD THIS TO QUERY SO ITS NOT HERE
+        query.getCompanyID(getcurrentPId());
+        */
+        
+        
+        
         query queryContractInsert = new query();
-        Object[] insertObject = new Object[14];
+        Object[] insertObject = new Object[17];
         insertObject[0]= giveNewID(1, 10000); //person id        
         insertObject[1]=getstartDate(); //Fname
         insertObject[2]=getrenewalStartDate1();
@@ -894,7 +911,11 @@ public class bean1 {
         insertObject[10]=getamountForContractorTerm3();
         insertObject[11]=getrateForCompanyTerm1();
         insertObject[12]=getrateForCompanyTerm2();
-        insertObject[13]=getrateForCompanyTerm3();       
+        insertObject[13]=getrateForCompanyTerm3();
+        insertObject[14]=getcurrentPId();
+        
+        
+        
         if(!queryContractInsert.insert(3, insertObject)){
                 return  "adminMain";
             } 
@@ -935,7 +956,6 @@ public class bean1 {
                return i;
            }
         }
-        
         return 0;
     }
     /*
