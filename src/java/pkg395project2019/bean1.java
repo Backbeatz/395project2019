@@ -40,21 +40,10 @@ public class bean1 {
     private String currentComp;
     private int currentPId;
     private int currentCId;
+    
     //Admin Create users/contractor
     //--------------------------------------------------------------------
-    private String currentPId;
-    
-    //system info
-    
-    //The current date and time
-    Calendar now = Calendar.getInstance();
-    int d1 = now.get(Calendar.YEAR);
-    String year = String.valueOf(d1); //current year
-    
-    String month = new SimpleDateFormat("MMM").format(now.getTime()); //Current month
-
     //add user fields
-    private Contractor newContractor;
 
     private String createUser;
     private String createPass;
