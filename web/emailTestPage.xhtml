@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Admin Control Page</title>
+    </h:head>
+    <h:body><font face="verdana" size="2">
+        <h:panelGrid columns="6">
+        <h:form>
+        <h:commandButton value="Logout"
+                         action="#{bean1.logoff()}"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Change Password"
+                         action="change_password"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Add Contractor"
+                         action="add_contractor"></h:commandButton><br/></h:form>
+        <h:form>    
+        <h:commandButton value="Add Contract"
+                         action="add_contract"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Add Company"
+                         action="add_company"></h:commandButton><br/></h:form>
+        <h:form>    
+        <h:commandButton value="Back"
+                         action="adminMain"></h:commandButton><br/></h:form>
+        </h:panelGrid>
+        <br/>    
+         
+        <strong>Basic Information</strong><br/>        
+        [Name: <h:outputText value="#{bean1.getCurFirstName()} "/> <h:outputText value="#{bean1.getCurLastName()}"/>]<br/>
+        [Current Reporting Period: <h:outputText value=" #{bean1.getMonth()}  #{bean1.getYear()}"/> ]
+        [Email: <h:outputText value="#{bean1.getCurEmail()}"/> ]<br/> 
+        [Phone: <h:outputText value="#{bean1.getCurPhone()}"/>]<br/>
+        
+         
+        <hr></hr>
+        
+        
+        <br/><br/></font>
+        <h:form>
+            
+            
+            
+      
+        <center><h:commandButton value="GO!" 
+                                 action="adminMain"></h:commandButton></center>    
+                                 
+                            
+        
+
+        </h:form>
+    </h:body>
+</html>
