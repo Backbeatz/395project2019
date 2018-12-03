@@ -1,15 +1,19 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Search Results</title>
+        
     </h:head>
+
     <h:body><font face="verdana" size="2">
         <h:panelGrid columns="6">
         <h:form>
         <h:commandButton value="Logout"
-                         action="login"></h:commandButton><br/></h:form>
+                         action="#{bean1.logoff()}"></h:commandButton><br/></h:form>
         <h:form>
         <h:commandButton value="Back"
                          action="adminMain"></h:commandButton><br/></h:form>
@@ -28,36 +32,33 @@
         </h:panelGrid>
         <br/>    
        
-        <p id="ThisAr" Results="#{bean1.searchRez}"> </p>
+        
         
          <strong>Basic Information</strong><br/>        
         
-         [Name: <h:outputText value="#{bean1.curFirstName} "/> <h:outputText value="#{bean1.curFirstName}"/>]<br/>
+        [Name: <h:outputText value="#{bean1.curFirstName} "/> <h:outputText value="#{bean1.curLastName}"/>]<br/>
         [Current Reporting Period: <h:outputText value="#{bean1.getMonth()}  #{bean1.getYear()}"/> ]<br/>
         [Email: <h:outputText value="#{bean1.getCurEmail()}"/> ]<br/> 
         [Phone: <h:outputText value="#{bean1.getCurPhone()}"/>]<br/> 
-    <br/><br/></font>
+        <br/>
+        <br/>
+        </font>
         
-    <p id="demo"></p>
-
-    <script>
-    var cars = #{bean1.searchRez};
-    var text = "";
-    var i;
-    var x;
-    for (i = 0; i < cars.length; i++) {
-        for (x = 0; x &lt; cars[0].length; x++) {
-            text += cars[i].toString() + " ";
-        }
         
-        //This is where button goes
-        //text += "<br/>"; //new line
-    //}
+        
+        <div id="p1"></div>
+        <input type="hidden" id="myField" value="#{bean1.searchRezSt}" />
+        
+        <script type="text/javascript">
+            var details = document.getElementById("myField");   
+            var text = "";
+            for(j=0; j &lt; details.length; j++){
+                text += details[j];
+                text += "<br/>"; 
+            }
+            document.getElementById("p1").innerHTML = text;
+        </script>
+         
+        </h:body>
     
-    document.getElementById("demo").innerHTML = text;
-    </script> <br/>    
-        
-        
-        
-    </h:body>
 </html>

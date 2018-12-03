@@ -24,14 +24,14 @@
         <h:commandButton value="Add Company"
                          action="add_company"></h:commandButton><br/></h:form>
         <h:form>    
-        <h:commandButton value="Add reminder"
-                         action="emailTestPage"></h:commandButton><br/></h:form>
+        <h:commandButton value="Back"
+                         action="adminMain"></h:commandButton><br/></h:form>
         </h:panelGrid>
         <br/>    
          
         <strong>Basic Information</strong><br/>        
         [Name: <h:outputText value="#{bean1.getCurFirstName()} "/> <h:outputText value="#{bean1.getCurLastName()}"/>]<br/>
-        [Current Reporting Period: <h:outputText value=" #{bean1.getMonth()}  #{bean1.getYear()}"/> ]<br/> 
+        [Current Reporting Period: <h:outputText value=" #{bean1.getMonth()}  #{bean1.getYear()}"/> ]
         [Email: <h:outputText value="#{bean1.getCurEmail()}"/> ]<br/> 
         [Phone: <h:outputText value="#{bean1.getCurPhone()}"/>]<br/>
         
@@ -42,26 +42,11 @@
         <br/><br/></font>
         <h:form>
             
-            <div align="center">
-                
-                <h:selectOneMenu value ="#{bean1.searchCrit}">
-                    <f:selectItem itemValue="FName" itemLabel ="First Name"/>
-                    <f:selectItem itemValue="LName" itemLabel ="Last Name"/>
-                    <f:selectItem itemValue="UName" itemLabel ="User Name"/>
-                    <f:selectItem itemValue="Email" itemLabel ="Email"/>
-                    <f:selectItem itemValue="Phone" itemLabel ="Phone"/>
-                    <f:selectItem itemValue="Company" itemLabel ="Company"/>
-                    
-                </h:selectOneMenu>
-            </div>
             
             
-            <strong>Search: </strong><h:inputText value="#{bean1.adminSearch}">
-                </h:inputText>  
-            
-            
+      
         <center><h:commandButton value="GO!" 
-                                 action="#{bean1.ConductSearch(bean1.searchCrit, bean1.adminSearch)}"></h:commandButton></center>    
+                                 action="adminMain"></h:commandButton></center>    
                                  
                             
         

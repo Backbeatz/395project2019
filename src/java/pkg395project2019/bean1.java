@@ -38,9 +38,10 @@ public class bean1 {
     private String currentEmail;
     private String currentPhone;
     private String currentComp;
-    private int currentPId;
-    private int currentCId;
-    
+    private String currentPId;
+    private String currentCId;
+    private boolean currentAuth;
+
     //Admin Create users/contractor
     //--------------------------------------------------------------------
     //add user fields
@@ -84,7 +85,7 @@ public class bean1 {
     //Admin search 
     //--------------------------------------------------------------------
     private int listedrowItem; //number of rows in result
-    private String[][] SearchResultString; //String of search results
+    private String[] SearchResultString; //String of search results
     private Object[][] SearchResultList; //Where search bar results to be shown are stored 
     private String searchCrit; //String that holds search type
     private String searchvalue; //String that holds search term
@@ -764,14 +765,14 @@ public class bean1 {
      * Gives a string array of results
      * @return 
      */
-    public String[][] getSearchRezSt(){
+    public String[] getSearchRezSt(){
         return SearchResultString;
     }
     /**
      * Sets our string array of results
      * @param rez 
      */
-    public void setSearchRezSt(String[][] rez){
+    public void setSearchRezSt(String[] rez){
         this.SearchResultString = rez;
     }
   
@@ -1008,10 +1009,15 @@ public class bean1 {
             */
          }
     }
-   
-   //---------------------------------------------------------------------------
+    public String changePassBack(){
+        if(currentAuth = true){
+          return "adminMain";  
+        }
+        return "hours";
+    }
+    
     /**
-     * Connor's search results NEEDS TO BE UPDATED
+     * Connor's search results 
      * @param SearchCrit
      * @param SearchVal
      * @return 
@@ -1077,7 +1083,7 @@ public class bean1 {
                 //qConIn2.printItemsinResultTables();
                 resultInfo2 = qConIn2.getResults();
                 SearchResultList = resultInfo2;
-                String[][] SearchResultString = GiveStringResults(resultInfo2, rezCol);
+                String[] SearchResultString = GiveStringResults(resultInfo2, rezCol);
                 listedrowItem = SearchResultString.length;
                 return "adminSearchResults";
             }
@@ -1092,28 +1098,30 @@ public class bean1 {
      * @param res
      * @return 
      */
-    public static String[][] GiveStringResults (Object[][] res, int num){
+    public static String[] GiveStringResults (Object[][] res, int num){
         int i= 0;
         int x = 0;
-        String[][] stringArray = new String[num][8];
+        String newline = "";
+        String[] stringArray = new String[num];
         while (x<num) {
             i=0;
+            newline = "";
             while (i<8) {    
                 if (res[i]!=null) {
-                    stringArray[x][i] = res[x][i].toString();
+                    
+                    newline = newline + res[x][i].toString();
                 }
                 i++;
             }
+            stringArray[x] = newline;
             x++;  
         }
-        
-        
         return stringArray;
         
     }
     
     
-    
+
     /**
      * Tells us if string is in our array, helper function 
      * @param array
@@ -1154,9 +1162,11 @@ public class bean1 {
            setUserInfo(username, password);
            System.err.println(result[0][7].toString());
            if (result[0][7].toString().compareTo("1")==0) { //for Contractor
+            currentAuth = false;
             return "hours";
            }
            if (result[0][7].toString().compareTo("2")==0) { //for Admin
+            currentAuth = true;
             return "adminMain"; //<--- Change to Admin page
            }
            return "login";
@@ -1164,6 +1174,67 @@ public class bean1 {
         else {
             return "login";
         }
+   }
+   /**
+    * Nulls the system's fields and transfers us to log in screen
+    * @return 
+    */
+    public String logoff(){
+        hours = null;
+        newPass = null; 
+        username = null;
+        pass = null;
+        attempts = 0;
+        currentFName = null;
+        currentLName = null;
+        currentEmail = null;
+        currentPhone = null;
+        currentComp = null;
+        currentPId = null;
+        currentCId = null;
+        currentAuth = false;
+
+        createUser = null;
+        createPass = null;
+        firstName = null;
+        lastName = null;
+        job = null; 
+        city = null;
+        province = null;
+        postalCode = null;
+        email = null;
+        phone = null;
+        dob = null; 
+        sex = null;
+
+        compName = null;
+        compCity = null;
+        compAddress = null;
+        compPostal = null;
+        compPhone = null;
+        compEmail = null;
+
+        contractID = 0;
+        startDate = null;
+        renewalStartDate1 = null;
+        renewalStartDate2 = null;
+        endDate = null;
+        renewalEndDate1 = null;
+        renewalEndDate2 = null;
+        renewalOptions = 0;
+        amountForContractorTerm1 = 0;
+        amountForContractorTerm2 = 0;
+        amountForContractorTerm3 = 0;
+        rateForCompanyTerm1 = 0;
+        rateForCompanyTerm2 = 0;
+        rateForCompanyTerm3 = 0;
+
+        listedrowItem = 0;
+        SearchResultString = null; 
+        SearchResultList = null; 
+        searchCrit = null; 
+        searchvalue = null; 
+        return "login";  
    }
 }
 

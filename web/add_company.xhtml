@@ -9,8 +9,8 @@
     <h:body>
         <h:form>
         <h:commandButton value="Logout"
-                         action="login"></h:commandButton><br/></h:form><br/>
-        <Strong><center>Input Contractor Information</center></Strong><br/>
+                         action="#{bean1.logoff()}"></h:commandButton><br/></h:form>
+        <Strong><center>Input Company Information</center></Strong><br/>
         <h:form>
         Company Name<br/><h:inputText value="#{bean1.compName}"></h:inputText><br/><br/>
         City<br/><h:inputText value="#{bean1.compCity}"></h:inputText><br/><br/>
