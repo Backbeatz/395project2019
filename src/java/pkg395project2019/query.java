@@ -23,16 +23,16 @@ public class query {
     ResultSet savedSet;
     Object[][] contractorResultInfo = new Object[100][8];
     Object[][] companyResultInfo = new Object[100][7];
-    Object[][] contractResultInfo = new Object[100][15];
+    Object[][] contractResultInfo = new Object[100][16];
     Object[][] timeTableResultInfo = new Object[100][5];
     
     String[] contractorTable = new String[9];
     String[] companyTable = new String[8];
-    String[] contractTable = new String[15];
+    String[] contractTable = new String[16];
     String[] timeTable = new String[5];
     
     public query() {
-        contractorTable[0]="ContractorID";
+        contractorTable[0]="PersonID";
         contractorTable[1]="FirstName";
         contractorTable[2]="LastName";
         contractorTable[3]="PhoneNumber";
@@ -65,6 +65,7 @@ public class query {
         contractTable[12]="RateForCompanyTerm2";
         contractTable[13]="RateForCompanyTerm3";
         contractTable[14]="PersonID";
+        contractTable[15]="CompanyID";
     
         timeTable[0]="Month";
         timeTable[1]="Year";
@@ -101,7 +102,7 @@ public class query {
                 break;
             case 3:
                 table = "Contract";
-                size=15;
+                size=16;
                 break;
             case 4:
                 table = "TimeClock";
@@ -165,6 +166,7 @@ public class query {
         queryString.append(")");
         
         boolean success = false;
+        System.err.println(queryString.toString());
         success = insertQueryToDb();
         
         if (success) {
@@ -198,7 +200,7 @@ public class query {
                 break;
             case 3:
                 table = "Contract";
-                size=15;
+                size=16;
 
                 break;
             case 4:
@@ -352,7 +354,7 @@ public class query {
                 break;
             case 3:
                 table = "Contract";
-                size=15;
+                size=16;
                 break;
             case 4:
                 table = "TimeClock";
@@ -400,7 +402,7 @@ public class query {
      *
      * @param whichTable Table to query
      * @param info Object outlining which information is wanted
-     * @param item Object with items for comparison
+     * @param item Object with items for comparison 
      * @return
      */
     public String selectWhere (int whichTable, Object[] info, Object[] item) {
@@ -421,7 +423,7 @@ public class query {
                 break;
             case 3:
                 table = "Contract";
-                size=15;
+                size=16;
                 break;
             case 4:
                 table = "TimeClock";
@@ -664,7 +666,7 @@ public class query {
             }
             index=0;
             System.err.println("Contract Result Info:\n");
-            while (index<15) {    
+            while (index<16) {    
                 if (contractResultInfo[index]!=null) {
                     System.err.println(contractResultInfo[x][index]+"\n");
                 }

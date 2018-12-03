@@ -55,11 +55,11 @@ public class bean1 {
     private String postalCode;
     private String email;
     private String phone;
-    private String dob; //Date of Birth
-    private String sex;
+    private String contractorID;
     //Admin Create company record
     //--------------------------------------------------------------------
     private String compName;
+    private String compID;
     private String compCity;
     private String compAddress;
     private String compPostal;
@@ -67,7 +67,7 @@ public class bean1 {
     private String compEmail;
     //Admin Contract 
     //--------------------------------------------------------------------
-    private int contractID; //int
+    private String contractID; //int
     private String startDate;
     private String renewalStartDate1;
     private String renewalStartDate2;
@@ -88,6 +88,10 @@ public class bean1 {
     private Object[][] SearchResultList; //Where search bar results to be shown are stored 
     private String searchCrit; //String that holds search type
     private String searchvalue; //String that holds search term
+    //check flags
+    //--------------------------------------------------------------------
+    private boolean isPID; //flag for checking if Contractor ID exists
+    private boolean isCID; //flag for checking if company ID exists
     //
     //--------------------------------------------------------------------
     //Getters and setters
@@ -261,34 +265,6 @@ public class bean1 {
         this.username = username;
     }
     /**
-     * Get new user's job
-     * @return 
-     */
-    public String getJob(){
-        return job;
-    }
-    /**
-     * Set new user's job
-     * @param job 
-     */
-    public void setJob(String job){
-        this.job = job;
-    }
-    /**
-     * Get new user's date of birth
-     * @return 
-     */
-    public String getDob(){
-        return dob;
-    }
-    /**
-     * Set new user's date of birth
-     * @param dob 
-     */
-    public void setDob(String dob){
-        this.dob = dob;
-    }    
-    /**
      * Get new user's home city
      * @return
      */
@@ -302,20 +278,6 @@ public class bean1 {
     public void setCity(String city){
         this.city = city;
     }
-    /**
-     * Get new user's sex
-     * @return 
-     */
-    public String getSex(){
-        return sex;
-    }
-    /**
-     * Set new user's sex
-     * @param sex
-     */
-    public void setSex(String sex){
-        this.sex = sex;
-    }   
     /**
      * Get new user's username
      * @return
@@ -429,13 +391,32 @@ public class bean1 {
     public void setLastName(String lastName){
         this.lastName = lastName;
     }
-
-    
-    public int getcontractID(){
+    /**
+     * Get the contractor ID
+     * @return
+     */
+    public String getContractorID(){
         return contractID;
     }
-
-    public void setcontractID(int idNum){
+    /**
+     * Set the contractor ID
+     * @param idNum
+     */
+    public void setContractorID(String idNum){
+        this.contractID = idNum;
+    }
+    /**
+     *
+     * @return
+     */
+    public String getcontractID(){
+        return contractID;
+    }
+    /**
+     *
+     * @param idNum
+     */
+    public void setcontractID(String idNum){
         this.contractID = idNum;
     }
     /**
@@ -621,6 +602,20 @@ public class bean1 {
         this.rateForCompanyTerm3 = amount;
     }
     /**
+     * Gets the company's ID
+     * @return
+     */
+    public String getCompID(){
+        return compName;
+    }
+    /**
+     * Sets the company's name
+     * @param id
+     */
+    public void setCompID(String id){
+        this.compName = id;
+    }
+    /**
      * Gets the company's name
      * @return
      */
@@ -774,7 +769,18 @@ public class bean1 {
     public void setSearchRezSt(String[][] rez){
         this.SearchResultString = rez;
     }
-  
+    public boolean getisCID(){
+        return isCID;
+    }
+    public void setisCID(boolean isIt){
+        this.isCID = isIt;
+    }
+        public boolean getisPID(){
+        return isPID;
+    }
+    public void setisPID(boolean isIt){
+        this.isPID = isIt;
+    }
    
     //___________________-----------------------_____________________________
 
@@ -858,7 +864,7 @@ public class bean1 {
         //Query
         query qConIn = new query();
         Object[] infoNC = new Object[8];
-        infoNC[0]= giveNewID(1, 100); //person id
+        infoNC[0]= giveNewID(1, 100000); //person id
         infoNC[1]=getFirstName(); //Fname
         infoNC[2]=getLastName(); //Lname
         infoNC[3]=getPhone(); //phone
@@ -866,8 +872,6 @@ public class bean1 {
         infoNC[5]=getCreateUser(); //uname 
         infoNC[6]=getCreatePass(); //pass
         infoNC[7]=1; //Auth Hard code as 2 for now
-        // Waiting on db additions of sex and job
-            
             
         if(!qConIn.insert(1, infoNC)){
             return "adminMain";
@@ -877,17 +881,10 @@ public class bean1 {
     
     public String addContract(){
         //Query
-        query getCompanyID = new query();
-        /*+===========================================
-        GET COMPANY ID FROM DATABASE RUN QUERY SEARCH OR BETTER YET ADD THIS TO QUERY SO ITS NOT HERE
-        query.getCompanyID(getcurrentPId());
-        */
-        
-        
-        
+        boolean flag = true;
         query queryContractInsert = new query();
-        Object[] insertObject = new Object[17];
-        insertObject[0]= giveNewID(1, 10000); //person id        
+        Object[] insertObject = new Object[16];
+        insertObject[0]= giveNewID(1, 10000); //person id
         insertObject[1]=getstartDate(); //Fname
         insertObject[2]=getrenewalStartDate1();
         insertObject[3]=getrenewalStartDate2();
@@ -901,12 +898,39 @@ public class bean1 {
         insertObject[11]=getrateForCompanyTerm1();
         insertObject[12]=getrateForCompanyTerm2();
         insertObject[13]=getrateForCompanyTerm3();
-        insertObject[14]=getcurrentPId();
         
+        query checkCompany = new query();
+        Object[] checkObject = new Object[8];
+        checkObject[0]=getContractorID();
+        Object[] fieldsToGet = new Object[8];
+        fieldsToGet[0]=true;
+        checkCompany.selectWhere(1, fieldsToGet, checkObject);
+        if (checkCompany.selectQueryFromDb()) {
+            insertObject[14]=getContractorID();
+        }
+        else {
+            setisPID(false);
+            flag = false;
+        }
         
-        
+        checkCompany = new query();
+        checkObject = new Object[8];
+        checkObject[0]=getCompID();
+        fieldsToGet = new Object[8];
+        fieldsToGet[0]=true;
+        checkCompany.selectWhere(2, fieldsToGet, checkObject);
+        if (checkCompany.selectQueryFromDb()) {
+            insertObject[15]=getCompID();
+        }
+        else {
+            setisCID(false);
+            flag = false;
+        }
+        System.err.println("Here goes the insert!");
+
         if(!queryContractInsert.insert(3, insertObject)){
                 return  "adminMain";
+                
             } 
         return "adminMain";
     }
@@ -947,11 +971,42 @@ public class bean1 {
         }
         return 0;
     }
-    /*
-    private String getContract (){
-     
+  
+    private void getContractInfo (){
+     //Now get contract
+        query qConIn = new query();
+        Object[] testInfo2 = new Object[15];
+        testInfo2[14]=getcurrentPId();
+        Object[][] resultInfo = new Object[1][15];
+        Arrays.fill(resultInfo[0], true);
+        String Name = qConIn.selectWhere(3, resultInfo[0], testInfo2);
+        if (qConIn.selectQueryFromDb()) {
+            resultInfo = qConIn.getResults();
+            try {
+                setcurrentCId(Integer.parseInt(resultInfo[0][0].toString()));
+            }
+            catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
+            /*
+            setcontractID(Integer.parseInt(resultInfo[0][0].toString()));
+            setstartDate(resultInfo[0][1].toString());
+            setrenewalStartDate1(resultInfo[0][2].toString());
+            setrenewalStartDate2(resultInfo[0][3].toString());
+            setendDate(resultInfo[0][4].toString());
+            setrenewalEndDate1(resultInfo[0][5].toString());
+            setrenewalEndDate2(resultInfo[0][6].toString());
+            setrenewalOptions(Integer.parseInt(resultInfo[0][7].toString()));
+            setamountForContractorTerm1(Float.parseFloat(resultInfo[0][8].toString()));
+            setamountForContractorTerm2(Float.parseFloat(resultInfo[0][9].toString()));
+            setamountForContractorTerm3(Float.parseFloat(resultInfo[0][10].toString()));
+            setrateForCompanyTerm1(Float.parseFloat(resultInfo[0][11].toString()));
+            setrateForCompanyTerm2(Float.parseFloat(resultInfo[0][12].toString()));
+            setrateForCompanyTerm3(Float.parseFloat(resultInfo[0][13].toString()));
+            */
     }
-    */
+  
     //--------------------------------------
     
    /**
@@ -979,34 +1034,7 @@ public class bean1 {
             setCurPhone(resultInfo[0][3].toString());
             setCurEmail(resultInfo[0][4].toString());
             setUsername(resultInfo[0][5].toString()); 
-        }
-        
-        //Now get contract
-        testInfo2 = new Object[15];
-        testInfo2[14]=getcurrentPId();
-        resultInfo = new Object[1][15];
-        Arrays.fill(resultInfo[0], true);
-        Name = qConIn.selectWhere(3, resultInfo[0], testInfo2);
-        if (qConIn.selectQueryFromDb()) {
-            resultInfo = qConIn.getResults();
-            setcurrentCId(Integer.parseInt(resultInfo[0][0].toString()));
-            /*
-            setcontractID(Integer.parseInt(resultInfo[0][0].toString()));
-            setstartDate(resultInfo[0][1].toString());
-            setrenewalStartDate1(resultInfo[0][2].toString());
-            setrenewalStartDate2(resultInfo[0][3].toString());
-            setendDate(resultInfo[0][4].toString());
-            setrenewalEndDate1(resultInfo[0][5].toString());
-            setrenewalEndDate2(resultInfo[0][6].toString());
-            setrenewalOptions(Integer.parseInt(resultInfo[0][7].toString()));
-            setamountForContractorTerm1(Float.parseFloat(resultInfo[0][8].toString()));
-            setamountForContractorTerm2(Float.parseFloat(resultInfo[0][9].toString()));
-            setamountForContractorTerm3(Float.parseFloat(resultInfo[0][10].toString()));
-            setrateForCompanyTerm1(Float.parseFloat(resultInfo[0][11].toString()));
-            setrateForCompanyTerm2(Float.parseFloat(resultInfo[0][12].toString()));
-            setrateForCompanyTerm3(Float.parseFloat(resultInfo[0][13].toString()));
-            */
-         }
+        } 
     }
    
    //---------------------------------------------------------------------------
@@ -1152,7 +1180,6 @@ public class bean1 {
         result = sample2.getResults();
         if(a == true){
            setUserInfo(username, password);
-           System.err.println(result[0][7].toString());
            if (result[0][7].toString().compareTo("1")==0) { //for Contractor
             return "hours";
            }
