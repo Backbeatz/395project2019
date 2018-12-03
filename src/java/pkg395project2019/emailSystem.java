@@ -39,9 +39,9 @@ public class emailSystem {
 		try {
 
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("from-group395cmptemail@gmail.com"));
+			message.setFrom(new InternetAddress("group395cmptemail@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse("to-pochylkoc@mymacewan.ca"));
+				InternetAddress.parse("jamia@mymacewan.ca")); //change this
 			message.setSubject("Testing Subject");
 			message.setText("Dear Mail Crawler,"
 				+ "\n\n No spam to my email, please!");
