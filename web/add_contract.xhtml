@@ -31,8 +31,11 @@
         
         </h:form><br/>
         <Strong><center>Input Contract Information</center></Strong><br/>
+        <!--{% if fname == null or fname == '' %}NO NAME CONTENT{% else %}WITH NAME CONTENT{% endif %}STATIC CONTENT -->
         <h:form>
         Contract ID<br/><h:inputText value="#{bean1.contractID}"></h:inputText><br/><br/>
+        Contractor ID<br/><h:inputText value="#{bean1.contractorID}"></h:inputText><br/><br/>
+        Company ID<br/><h:inputText value="#{bean1.compID}"></h:inputText><br/><br/>
         Start Date<br/><h:inputText value="#{bean1.startDate}"></h:inputText><br/><br/>
         Renewal Start Date 1<br/><h:inputText value="#{bean1.renewalStartDate1}"></h:inputText><br/><br/>
         Renewal Start Date 2<br/><h:inputText value="#{bean1.renewalStartDate2}"></h:inputText><br/><br/>
