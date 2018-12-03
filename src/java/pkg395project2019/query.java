@@ -31,7 +31,7 @@ public class query {
     String[] timeTable = new String[5];
     
     public query() {
-        contractorTable[0]="ContractorID";
+        contractorTable[0]="PersonID";
         contractorTable[1]="FirstName";
         contractorTable[2]="LastName";
         contractorTable[3]="PhoneNumber";
