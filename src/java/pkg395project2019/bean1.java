@@ -41,8 +41,11 @@ public class bean1 {
     private String currentPId;
     private String currentCId;
     private boolean currentAuth;
+
     //Admin Create users/contractor
     //--------------------------------------------------------------------
+    //add user fields
+
     private String createUser;
     private String createPass;
     private String firstName;
@@ -65,20 +68,20 @@ public class bean1 {
     private String compEmail;
     //Admin Contract 
     //--------------------------------------------------------------------
-    private int contractID;
+    private int contractID; //int
     private String startDate;
     private String renewalStartDate1;
     private String renewalStartDate2;
     private String endDate;
     private String renewalEndDate1;
     private String renewalEndDate2;
-    private int renewalOptions;
-    private float amountForContractorTerm1;
-    private float amountForContractorTerm2;
-    private float amountForContractorTerm3;
-    private float rateForCompanyTerm1;
-    private float rateForCompanyTerm2;
-    private float rateForCompanyTerm3;
+    private int renewalOptions; //int
+    private float amountForContractorTerm1; //float
+    private float amountForContractorTerm2; //float
+    private float amountForContractorTerm3; //float
+    private float rateForCompanyTerm1; //float
+    private float rateForCompanyTerm2; //float
+    private float rateForCompanyTerm3; //float
     //Admin search 
     //--------------------------------------------------------------------
     private int listedrowItem; //number of rows in result
@@ -94,28 +97,28 @@ public class bean1 {
      * Gives current user's personal ID
      * @return 
      */
-    public String getcurrentPId(){
+    public int getcurrentPId(){
         return currentPId;
     }
     /**
      * Sets current user's personal ID
      * @param ID
      */
-    public void setcurrentPId(String ID){
+    public void setcurrentPId(int ID){
         this.currentPId = ID;
     }
     /**
      * Gets the current user's contract's id
      * @return
      */
-    public String getcurrentCId(){
+    public int getcurrentCId(){
         return currentCId;
     }
     /**
      * Sets current user's contract's id
      * @param ID
      */
-    public void setcurrentCId(String ID){
+    public void setcurrentCId(int ID){
         this.currentCId = ID;
     }
     /**
@@ -427,17 +430,12 @@ public class bean1 {
     public void setLastName(String lastName){
         this.lastName = lastName;
     }
-    /**
-     * Get contract's ID
-     * @return 
-     */
+
+    
     public int getcontractID(){
         return contractID;
     }
-    /**
-     * Set contract's ID
-     * @param idNum 
-     */
+
     public void setcontractID(int idNum){
         this.contractID = idNum;
     }
@@ -777,9 +775,10 @@ public class bean1 {
     public void setSearchRezSt(String[] rez){
         this.SearchResultString = rez;
     }
-    
+  
    
     //___________________-----------------------_____________________________
+
     public String verify(String hours){
         if(hours.equals("")){
             attempts += 1;
@@ -792,7 +791,6 @@ public class bean1 {
             if((work > 700) || (work < 0)){
                 return "hours_reset";
             }
-
         }
         else{
             attempts += 1;
@@ -838,16 +836,13 @@ public class bean1 {
             Object[] infoUpPassword = new Object[8];
             infoUpPassword[6]=newPassword;
             Object[] userInfo = new Object[8];
-            userInfo[5]="test1";
+            userInfo[5]=getUsername();
             if (qUpdatePassword.update(1, infoUpPassword, userInfo)) {
                 return "logged_out";
-            }
-            
+            }          
         }
-        pass = "";
-        newPass = "";
-        attempts = 0;
-        return "change_password_reset";
+
+        return "adminMain";
         
     }
 
@@ -875,16 +870,24 @@ public class bean1 {
         // Waiting on db additions of sex and job
             
             
-            if(!qConIn.insert(1, infoNC)){
-                return "adminMain";
-            } 
+        if(!qConIn.insert(1, infoNC)){
+            return "adminMain";
+        } 
         return "adminMain";
     }
     
     public String addContract(){
         //Query
+        query getCompanyID = new query();
+        /*+===========================================
+        GET COMPANY ID FROM DATABASE RUN QUERY SEARCH OR BETTER YET ADD THIS TO QUERY SO ITS NOT HERE
+        query.getCompanyID(getcurrentPId());
+        */
+        
+        
+        
         query queryContractInsert = new query();
-        Object[] insertObject = new Object[14];
+        Object[] insertObject = new Object[17];
         insertObject[0]= giveNewID(1, 10000); //person id        
         insertObject[1]=getstartDate(); //Fname
         insertObject[2]=getrenewalStartDate1();
@@ -898,7 +901,11 @@ public class bean1 {
         insertObject[10]=getamountForContractorTerm3();
         insertObject[11]=getrateForCompanyTerm1();
         insertObject[12]=getrateForCompanyTerm2();
-        insertObject[13]=getrateForCompanyTerm3();       
+        insertObject[13]=getrateForCompanyTerm3();
+        insertObject[14]=getcurrentPId();
+        
+        
+        
         if(!queryContractInsert.insert(3, insertObject)){
                 return  "adminMain";
             } 
@@ -939,9 +946,13 @@ public class bean1 {
                return i;
            }
         }
-        
         return 0;
-    }   
+    }
+    /*
+    private String getContract (){
+     
+    }
+    */
     //--------------------------------------
     
    /**
@@ -950,31 +961,53 @@ public class bean1 {
     * @param password
     * @throws SQLException 
     */
-    public void setContractInfo(String username, String password) throws SQLException{
+    private void setUserInfo(String username, String password) throws SQLException{
         
-        //we connect to database
+        //we get the User information
         query qConIn = new query();
         Object[] testInfo2 = new Object[8];
         testInfo2[5]=username;
         testInfo2[6]=password;
         Object[][] resultInfo = new Object[1][8];
         Arrays.fill(resultInfo[0], true);
-        
         String Name = qConIn.selectWhere(1, resultInfo[0], testInfo2);
         if (qConIn.selectQueryFromDb()) {
             resultInfo = qConIn.getResults();
-            //sets our main feilds
-            setcurrentPId(resultInfo[0][0].toString()); 
-            setcurrentCId("4"); //need to be looked at
+            //sets our main feilds for User
+            setcurrentPId(Integer.parseInt(resultInfo[0][0].toString())); 
             setCurFirstName(resultInfo[0][1].toString());
             setCurLastName(resultInfo[0][2].toString());
             setCurPhone(resultInfo[0][3].toString());
             setCurEmail(resultInfo[0][4].toString());
-            setUsername(resultInfo[0][5].toString());
-            
-            //Now get company
-           
+            setUsername(resultInfo[0][5].toString()); 
         }
+        
+        //Now get contract
+        testInfo2 = new Object[15];
+        testInfo2[14]=getcurrentPId();
+        resultInfo = new Object[1][15];
+        Arrays.fill(resultInfo[0], true);
+        Name = qConIn.selectWhere(3, resultInfo[0], testInfo2);
+        if (qConIn.selectQueryFromDb()) {
+            resultInfo = qConIn.getResults();
+            setcurrentCId(Integer.parseInt(resultInfo[0][0].toString()));
+            /*
+            setcontractID(Integer.parseInt(resultInfo[0][0].toString()));
+            setstartDate(resultInfo[0][1].toString());
+            setrenewalStartDate1(resultInfo[0][2].toString());
+            setrenewalStartDate2(resultInfo[0][3].toString());
+            setendDate(resultInfo[0][4].toString());
+            setrenewalEndDate1(resultInfo[0][5].toString());
+            setrenewalEndDate2(resultInfo[0][6].toString());
+            setrenewalOptions(Integer.parseInt(resultInfo[0][7].toString()));
+            setamountForContractorTerm1(Float.parseFloat(resultInfo[0][8].toString()));
+            setamountForContractorTerm2(Float.parseFloat(resultInfo[0][9].toString()));
+            setamountForContractorTerm3(Float.parseFloat(resultInfo[0][10].toString()));
+            setrateForCompanyTerm1(Float.parseFloat(resultInfo[0][11].toString()));
+            setrateForCompanyTerm2(Float.parseFloat(resultInfo[0][12].toString()));
+            setrateForCompanyTerm3(Float.parseFloat(resultInfo[0][13].toString()));
+            */
+         }
     }
     public String changePassBack(){
         if(currentAuth = true){
@@ -1126,7 +1159,7 @@ public class bean1 {
         Object[][] result = new Object[1][8];
         result = sample2.getResults();
         if(a == true){
-           setContractInfo(username, password);
+           setUserInfo(username, password);
            System.err.println(result[0][7].toString());
            if (result[0][7].toString().compareTo("1")==0) { //for Contractor
             currentAuth = false;
