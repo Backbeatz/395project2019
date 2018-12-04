@@ -46,13 +46,30 @@
         <h:form>  
             <div align="left">Create invoice: </div>
             
-            <strong>company </strong><h:inputText value="#{bean1.adminSearch}">
+            <strong>Company: </strong><h:inputText value="#{bean1.targetCompany}">
+                </h:inputText>
+            <h:selectOneMenu value ="#{bean1.invoiceMonth}">
+                    <f:selectItem itemValue="January" itemLabel ="January"/>
+                    <f:selectItem itemValue="February" itemLabel ="February"/> 
+                    <f:selectItem itemValue="March" itemLabel ="March"/> 
+                    <f:selectItem itemValue="April" itemLabel ="April"/>
+                    <f:selectItem itemValue="May" itemLabel ="May"/>
+                    <f:selectItem itemValue="June" itemLabel ="June"/>
+                    <f:selectItem itemValue="July" itemLabel ="July"/>
+                    <f:selectItem itemValue="August" itemLabel ="August"/>
+                    <f:selectItem itemValue="September" itemLabel ="September"/>
+                    <f:selectItem itemValue="October" itemLabel ="October"/> 
+                    <f:selectItem itemValue="November" itemLabel ="November"/>
+                    <f:selectItem itemValue="December" itemLabel ="December"/> 
+            </h:selectOneMenu>
+            
+            <strong>Year:</strong><h:inputText value="#{bean1.invoiceYear}">
                 </h:inputText>
             
             
             
         <center><h:commandButton value="GO!" 
-                                 action="#{bean1.ConductSearch(bean1.searchCrit, bean1.adminSearch)}"></h:commandButton></center>    
+                                 action="#{bean1.Invoice(bean1.targetCompany, bean1.invoiceMonth, bean1.invoiceYear)}"></h:commandButton></center>    
                                  
                             
         
