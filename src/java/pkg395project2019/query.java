@@ -70,7 +70,7 @@ public class query {
         timeTable[0]="Month";
         timeTable[1]="Year";
         timeTable[2]="ContractID";
-        timeTable[3]="ContractorID";
+        timeTable[3]="PersonID";
         timeTable[4]="TimeEntry";
         
         tableIdentifier = 0;
@@ -581,7 +581,7 @@ public class query {
                         }
                         break;
                     case 3:
-                        for (int x=0; x<=16; x++) { //needed to get which index to add to
+                        for (int x=0; x<=15; x++) { //needed to get which index to add to
                             if (contractTable[x].compareTo(columnName)==0) {
                                 contractResultInfo[numOfResults][x]=rs.getString(columnName);
                             }
@@ -666,7 +666,7 @@ public class query {
             }
             index=0;
             System.err.println("Contract Result Info:\n");
-            while (index<16) {    
+            while (index<15) {    
                 if (contractResultInfo[index]!=null) {
                     System.err.println(contractResultInfo[x][index]+"\n");
                 }

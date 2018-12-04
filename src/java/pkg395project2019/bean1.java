@@ -788,7 +788,7 @@ public class bean1 {
         this.isPID = isIt;
     }
    
-    //___________________-----------------------_____________________________
+    //___________________Setting the Hours_____________________________
 
     public String verify(String hours){
         if(hours.equals("")){
@@ -807,6 +807,7 @@ public class bean1 {
             attempts += 1;
             return "hours_reset";
         }
+        getContractInfo();
         query qConIn = new query();
             String hrQuery;
             Object[] infoHr = new Object[8];
@@ -835,9 +836,44 @@ public class bean1 {
             return false;
         }
     }
+    private void getContractInfo (){
+     //Now get contract
+        query qConIn = new query();
+        Object[] testInfo2 = new Object[16];
+        testInfo2[14]=getcurrentPId();
+        Object[][] resultInfo = new Object[1][16];
+        Arrays.fill(resultInfo[0], true);
+        String Name = qConIn.selectWhere(3, resultInfo[0], testInfo2);
+        if (qConIn.selectQueryFromDb()) {
+            resultInfo = qConIn.getResults();
+            try {
+                setcurrentCId(Integer.parseInt(resultInfo[0][0].toString()));
+            }
+            catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
+            /*
+            setcontractID(Integer.parseInt(resultInfo[0][0].toString()));
+            setstartDate(resultInfo[0][1].toString());
+            setrenewalStartDate1(resultInfo[0][2].toString());
+            setrenewalStartDate2(resultInfo[0][3].toString());
+            setendDate(resultInfo[0][4].toString());
+            setrenewalEndDate1(resultInfo[0][5].toString());
+            setrenewalEndDate2(resultInfo[0][6].toString());
+            setrenewalOptions(Integer.parseInt(resultInfo[0][7].toString()));
+            setamountForContractorTerm1(Float.parseFloat(resultInfo[0][8].toString()));
+            setamountForContractorTerm2(Float.parseFloat(resultInfo[0][9].toString()));
+            setamountForContractorTerm3(Float.parseFloat(resultInfo[0][10].toString()));
+            setrateForCompanyTerm1(Float.parseFloat(resultInfo[0][11].toString()));
+            setrateForCompanyTerm2(Float.parseFloat(resultInfo[0][12].toString()));
+            setrateForCompanyTerm3(Float.parseFloat(resultInfo[0][13].toString()));
+            */
+    }
     
+    /*--------------------Changing Password-----------------------------*/
 
-public String changePass(String password, String newPassword){
+    public String changePass(String password, String newPassword){
     	if(password.equals(newPassword.trim().length() > 0)){
         	if(password.equals(password.trim().length() > 0)){
             	if(!(password.equals(newPassword))){
@@ -857,7 +893,7 @@ public String changePass(String password, String newPassword){
         	}
     	}
     	return "adminMain";
-	}
+    }
     //-------------------Add Object Methods -----------
     /**
      * 
@@ -891,7 +927,7 @@ public String changePass(String password, String newPassword){
         boolean flag = true;
         query queryContractInsert = new query();
         Object[] insertObject = new Object[16];
-        insertObject[0]= giveNewID(1, 10000); //person id
+        insertObject[0]= getContractID();
         insertObject[1]=getStartDate(); //Fname
         insertObject[2]=getRenewalStartDate1();
         insertObject[3]=getRenewalStartDate2();
@@ -927,7 +963,7 @@ public String changePass(String password, String newPassword){
         fieldsToGet[0]=true;
         checkCompany.selectWhere(2, fieldsToGet, checkObject);
         if (checkCompany.selectQueryFromDb()) {
-            insertObject[15]=getCompID();
+            insertObject[16]=getCompID();
         }
         else {
             setIsCID(false);
@@ -979,40 +1015,7 @@ public String changePass(String password, String newPassword){
         return 0;
     }
   
-    private void getContractInfo (){
-     //Now get contract
-        query qConIn = new query();
-        Object[] testInfo2 = new Object[15];
-        testInfo2[14]=getcurrentPId();
-        Object[][] resultInfo = new Object[1][15];
-        Arrays.fill(resultInfo[0], true);
-        String Name = qConIn.selectWhere(3, resultInfo[0], testInfo2);
-        if (qConIn.selectQueryFromDb()) {
-            resultInfo = qConIn.getResults();
-            try {
-                setcurrentCId(Integer.parseInt(resultInfo[0][0].toString()));
-            }
-            catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
-        }
-            /*
-            setcontractID(Integer.parseInt(resultInfo[0][0].toString()));
-            setstartDate(resultInfo[0][1].toString());
-            setrenewalStartDate1(resultInfo[0][2].toString());
-            setrenewalStartDate2(resultInfo[0][3].toString());
-            setendDate(resultInfo[0][4].toString());
-            setrenewalEndDate1(resultInfo[0][5].toString());
-            setrenewalEndDate2(resultInfo[0][6].toString());
-            setrenewalOptions(Integer.parseInt(resultInfo[0][7].toString()));
-            setamountForContractorTerm1(Float.parseFloat(resultInfo[0][8].toString()));
-            setamountForContractorTerm2(Float.parseFloat(resultInfo[0][9].toString()));
-            setamountForContractorTerm3(Float.parseFloat(resultInfo[0][10].toString()));
-            setrateForCompanyTerm1(Float.parseFloat(resultInfo[0][11].toString()));
-            setrateForCompanyTerm2(Float.parseFloat(resultInfo[0][12].toString()));
-            setrateForCompanyTerm3(Float.parseFloat(resultInfo[0][13].toString()));
-            */
-    }
+    
   
     //--------------------------------------
     
