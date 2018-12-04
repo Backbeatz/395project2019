@@ -1397,7 +1397,7 @@ public class bean1 {
       return false;
     }
     /**
-     * Generate invoice
+     * Generate invoice values
      * @param toWho
      * @param month
      * @param year
@@ -1415,7 +1415,6 @@ public class bean1 {
         Arrays.fill(compInfo[0], true);
         String Name = qConIn.selectWhere(2, compInfo[0], testInfo);
         if (qConIn.selectQueryFromDb()) {  
-                
                 compInfo = qConIn.getResults(); //result from company table
                 String compIDz = compInfo[0][0].toString(); //Company ID
                 targetAddress = compInfo[0][3].toString() + "," + compInfo[0][2].toString() + "Box:" + compInfo[0][4].toString();
@@ -1438,11 +1437,12 @@ public class bean1 {
                     Arrays.fill(contInfo2[0], true);
                     String Name2 = qConIn2.selectWhere(3, contInfo2[0], testInfo2);
                     if (qConIn2.selectQueryFromDb()) {
-                        contInfo2 = qConIn2.getResults(); //result from our contract table (2d array)
-                        
+                        contInfo2 = qConIn2.getResults(); //result from our contract table (2d array) 
+                        //This would be used in invoice page to display the contracts and the charges.
                         while (x<numofresol) { //cycle thru contracts
                             String getRate = contInfo2[x][8].toString();
-                            float ourRate = Float.parseFloat(getRate);
+                            float ourRate = Float.parseFloat(getRate); //Currently only takes the rate of orginal contract time. 
+                            //Other times and rates will be implimented at later updates
                             //We have our rate now need hours
                             String thePID = contInfo2[x][14].toString();
                             String theCtID = contInfo2[x][0].toString();
