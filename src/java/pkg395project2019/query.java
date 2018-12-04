@@ -27,7 +27,7 @@ public class query {
     Object[][] timeTableResultInfo = new Object[100][5];
     
     String[] contractorTable = new String[9];
-    String[] companyTable = new String[8];
+    String[] companyTable = new String[7];
     String[] contractTable = new String[16];
     String[] timeTable = new String[5];
     
@@ -46,9 +46,8 @@ public class query {
         companyTable[2]="City";
         companyTable[3]="StreetAddress";
         companyTable[4]="PostalCode";
-        companyTable[5]="Province";
-        companyTable[6]="PhoneNumber";
-        companyTable[7]="Email";
+        companyTable[5]="PhoneNumber";
+        companyTable[6]="Email";
         
         contractTable[0]="ContractID";
         contractTable[1]="StartDate";
@@ -98,7 +97,7 @@ public class query {
                 break;
             case 2:
                 table = "Company";
-                size=8;
+                size=7;
                 break;
             case 3:
                 table = "Contract";
@@ -196,7 +195,7 @@ public class query {
                 break;
             case 2:
                 table = "Company";
-                size=8;
+                size=7;
                 break;
             case 3:
                 table = "Contract";
@@ -350,7 +349,7 @@ public class query {
                 break;
             case 2:
                 table = "Company";
-                size=8;
+                size=7;
                 break;
             case 3:
                 table = "Contract";
@@ -419,7 +418,7 @@ public class query {
                 break;
             case 2:
                 table = "Company";
-                size=8;
+                size=7;
                 break;
             case 3:
                 table = "Contract";
@@ -574,7 +573,7 @@ public class query {
                         }
                         break;
                     case 2:
-                        for (int x=0; x<=7; x++) { //needed to get which index to add to
+                        for (int x=0; x<=6; x++) { //needed to get which index to add to
                             if (companyTable[x].compareTo(columnName)==0) {
                                 companyResultInfo[numOfResults][x]=rs.getString(columnName);
                             }
@@ -658,7 +657,7 @@ public class query {
             }
             index=0;
             System.err.println("company Result Info:\n");
-            while (index<8) {    
+            while (index<7) {    
                 if (companyResultInfo[index]!=null) {
                     System.err.println(companyResultInfo[x][index]+"\n");
                 }
