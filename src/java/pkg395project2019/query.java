@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -581,7 +580,7 @@ public class query {
                         }
                         break;
                     case 3:
-                        for (int x=0; x<=16; x++) { //needed to get which index to add to
+                        for (int x=0; x<=15; x++) { //needed to get which index to add to
                             if (contractTable[x].compareTo(columnName)==0) {
                                 contractResultInfo[numOfResults][x]=rs.getString(columnName);
                             }
@@ -666,7 +665,7 @@ public class query {
             }
             index=0;
             System.err.println("Contract Result Info:\n");
-            while (index<16) {    
+            while (index<15) {    
                 if (contractResultInfo[index]!=null) {
                     System.err.println(contractResultInfo[x][index]+"\n");
                 }
@@ -691,4 +690,3 @@ public class query {
 
     }
 }
-
