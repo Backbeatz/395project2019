@@ -23,12 +23,16 @@ public class bean1 {
     String year = String.valueOf(d1); //current year
     String month = new SimpleDateFormat("MMM").format(now.getTime()); //Current month
     private emailSystem emSystem = new emailSystem();
+    
     //Invoice
     //--------------------------------------------------------------------
-    private String OurCompany = "ThisCompany"; // The current company that's using the system
+    private String ourCompany = "ThisCompany"; // The current company that's using the system
+    private String ourAddress = "621b Bakerstreet";
     private String targetCompany; //Company we're invoicing
-    private String invoiceDate;
-    private String dueDate;
+    private String invoiceMonth;
+    private String invoiceYear;
+    private int invoiceNum = 0;
+    private String targetAddress;
     
     //Current user
     //-------------------------------------------------------------------
@@ -48,8 +52,6 @@ public class bean1 {
 
     //Admin Create users/contractor
     //--------------------------------------------------------------------
-    //add user fields
-
     private String createUser;
     private String createPass;
     private String firstName;
@@ -101,14 +103,39 @@ public class bean1 {
     //flag for checking if company ID exists
     //flag for checking if Contractor ID exists
     private boolean isCID; 
-    //
-
+    
+    //email
     //--------------------------------------------------------------------
     private String messageText;
     private String messageTitle;
     private String receptients; //change to array for multiple
     //Getters and setters
     //----------------------------------------------------------------------
+    
+    
+    public String getOurCompany(){
+        return ourCompany;
+    }
+    public void setOurCompany(String txt){
+        this.ourCompany = txt;
+    }
+    public String getOurAddress(){
+        return ourAddress;
+    }
+    public void setOurAddress(String txt){
+        this.ourAddress = txt;
+    }
+  
+    
+    
+    public String getTargetAddress(){
+        return targetAddress;
+    }
+    public void setTargetAddress(String txt){
+        this.targetAddress = txt;
+    }
+    
+    
     /**
      * Gets our email message's text
      * @return 
@@ -837,6 +864,26 @@ public class bean1 {
     public void setIsPID(boolean isIt){
         this.isPID = isIt;
     }
+    
+    public String getTargetCompany(){
+        return targetCompany;
+    }
+    public void setTargetCompany(String isIt){
+        this.targetCompany = isIt;
+    }
+    
+    public String getInvoiceMonth(){
+        return invoiceMonth;
+    }
+    public void setInvoiceMonth(String isIt){
+        this.invoiceMonth = isIt;
+    }
+    public String getInvoiceYear(){
+        return invoiceYear;
+    }
+    public void setInvoiceYear(String isIt){
+        this.invoiceYear = isIt;
+    }        
    
     //___________________Setting the Hours_____________________________
 
@@ -1244,11 +1291,63 @@ public class bean1 {
     }
     /**
      * Generate invoice
+     * @param toWho
+     * @param month
+     * @param year
      * @return 
      */
-    public String Invoice(String toWho, String fromWho, int invoiceNum, int invoiceDate, int duedate ){
+    public String Invoice(String toWho, String month, String year ){
         
-        return null;   
+        System.out.print("check 1");
+        //Find company id from company table
+        query qConIn = new query();
+        Object[] testInfo = new Object[7];
+        testInfo[1]=toWho;
+        Object[][] compInfo = new Object[1][7];
+        Arrays.fill(compInfo[0], true);
+        String Name = qConIn.selectWhere(2, compInfo[0], testInfo);
+        if (qConIn.selectQueryFromDb()) {  
+                System.out.print("check 2");
+                compInfo = qConIn.getResults(); //result from company table
+                String compIDz = compInfo[0][0].toString(); //Company ID
+                targetAddress = compInfo[0][3].toString() + "," + compInfo[0][2].toString() + "Box:" + compInfo[0][4].toString();
+                //Find the amount of contracts from this company
+                query qConIn1 = new query();
+                Object[] testInfo1 = new Object[16];
+                testInfo1[15]=compIDz;//here
+                Object[][] contInfo1 = new Object[1][16];
+                Arrays.fill(contInfo1[0], true);
+                String Name1 = qConIn1.selectWhere(3, contInfo1[0], testInfo1);
+                if (qConIn1.selectQueryFromDb()) {  
+                    System.out.print("check 3");
+                    int numofresol = qConIn1.numOfResults;//number of contracts company has
+                    System.out.print(numofresol + "number of results" );
+                    //get contracts from company
+                    query qConIn2 = new query();
+                    Object[] testInfo2 = new Object[16];
+                    testInfo2[15]=compIDz; //here
+                    Object[][] contInfo2 = new Object[numofresol][16];
+                    Arrays.fill(contInfo2[0], true);
+                    String Name2 = qConIn2.selectWhere(3, contInfo2[0], testInfo2);
+                    if (qConIn2.selectQueryFromDb()) {
+                        System.out.print("check 4");
+                        contInfo2 = qConIn2.getResults(); //result from our contract table (2d array)
+                        //find hours and rates
+                        
+                    }  
+
+                    //contInfo1 = qConIn1.getResults(); //result from contract table
+                    
+                //find Ids
+        
+                //search thru timetable and add hours
+        
+                //
+                
+                }
+        }
+        
+        return "display_invoice";   
     }
 
    /**
@@ -1353,10 +1452,9 @@ public class bean1 {
         searchCrit = null; 
         searchvalue = null; 
         
-        OurCompany = null; 
+        ourCompany = null; 
         targetCompany = null; 
-        invoiceDate = null;
-        dueDate = null;
+        
         
         return "login";  
    }

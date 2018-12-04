@@ -31,9 +31,21 @@
                          action="adminMain"></h:commandButton><br/></h:form>        
         </h:panelGrid>
         <br/>    
-
+        </font>
         <h:form>
             <div align="left">Printable invoice: </div>
+            <br/>
+            <div align="left">To: <h:outputText value=" #{bean1.targetCompany}"/></div><br/>
+            <div align="left"> <h:outputText value="      #{bean1.targetAddress}"/></div><br/>
+            <br/>
+            <div align="left">From: <h:outputText value=" #{bean1.ourCompany}"/></div><br/>
+            <div align="left"> <h:outputText value="      #{bean1.ourAddress}"/></div><br/>
+            <br/>
+            <div align="Right">Invoice Date:<h:outputText value=" #{bean1.invoiceMonth} / #{bean1.invoiceMonth}"/> </div>
+            <br/>
+            
+             <br/>
+            
         </h:form>
     </h:body>
 </html>
