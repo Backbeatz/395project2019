@@ -41,11 +41,16 @@
             <div align="left">From: <h:outputText value=" #{bean1.ourCompany}"/></div><br/>
             <div align="left"> <h:outputText value="      #{bean1.ourAddress}"/></div><br/>
             <br/>
-            <div align="Right">Invoice Date:<h:outputText value=" #{bean1.invoiceMonth} / #{bean1.invoiceMonth}"/> </div>
+            <div align="right">Invoice Date:<h:outputText value=" #{bean1.invoiceMonth} / #{bean1.invoiceMonth}"/> </div>
             <br/>
-            
-             <br/>
-            
+            <div align="center">Invoice of contractor's services: </div>
+            <br/>
+            <div align="center"> contractor's names and rates go here </div>
+            <br/>
+            <br/>
+            <div align="right">Total:<h:outputText value="#{bean1.totalDue}"/> </div> <br/>
+            <div align="right">Amount paid:<h:outputText value="#{bean1.totalPaid}"/> </div> <br/>
+            <div align="right">Ballance:<h:outputText value="#{bean1.ballancePay}"/> </div> <br/>
         </h:form>
     </h:body>
 </html>
