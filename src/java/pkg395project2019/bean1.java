@@ -22,9 +22,13 @@ public class bean1 {
     int d1 = now.get(Calendar.YEAR); 
     String year = String.valueOf(d1); //current year
     String month = new SimpleDateFormat("MMM").format(now.getTime()); //Current month
-
-    //
+    private emailSystem emSystem = new emailSystem();
+    //Invoice
     //--------------------------------------------------------------------
+    private String OurCompany = "ThisCompany"; // The current company that's using the system
+    private String targetCompany; //Company we're invoicing
+    private String invoiceDate;
+    private String dueDate;
     
     //Current user
     //-------------------------------------------------------------------
@@ -92,15 +96,61 @@ public class bean1 {
 //String that holds search term
     //check flags
     //--------------------------------------------------------------------
+
     private boolean isPID;
     //flag for checking if company ID exists
     //flag for checking if Contractor ID exists
     private boolean isCID; 
     //
+
     //--------------------------------------------------------------------
+    private String messageText;
+    private String messageTitle;
+    private String receptients; //change to array for multiple
     //Getters and setters
     //----------------------------------------------------------------------
-    
+    /**
+     * Gets our email message's text
+     * @return 
+     */
+    public String getMessageText(){
+        return messageText;
+    }
+    /**
+     * Set our email message's text
+     * @param txt 
+     */
+    public void setMessageText(String txt){
+        this.messageText = txt;
+    }
+    /**
+     * Gets our email's subject line
+     * @return 
+     */
+    public String getMessageTitle(){
+        return messageTitle;
+    }
+    /**
+     * Sets our email's subject line
+     * @param txt 
+     */
+    public void setMessageTitle(String txt){
+        this.messageTitle = txt;
+    }
+    /**
+     * Gets who we are emailing
+     * @return 
+     */
+    public String getReceptients(){
+        return receptients;
+    }
+    /**
+     * Set's our email's
+     * @param target 
+     */
+    public void setReceptients(String target){
+        this.receptients = target;
+    }
     /**
      * Gives current user's personal ID
      * @return 
@@ -895,6 +945,16 @@ public class bean1 {
     	return "adminMain";
     }
     //-------------------Add Object Methods -----------
+    
+    public String emailUsers(String to, String msg1, String msg2){
+        System.out.print("Step1 bean:" + receptients + to + msg1 + msg2);
+        if(emSystem.sendUMsg(receptients, msg1, msg2)){
+            System.out.print("Step end");
+            return "adminMain";
+        }
+        return "emailTestPage";
+    }
+    
     /**
      * 
      * @return webpage
@@ -1182,8 +1242,22 @@ public class bean1 {
         }
       return false;
     }
-    
+    /**
+     * Generate invoice
+     * @return 
+     */
+    public String Invoice(String toWho, String fromWho, int invoiceNum, int invoiceDate, int duedate ){
+        
+        return null;   
+    }
 
+   /**
+    * Log into system
+    * @param username
+    * @param password
+    * @return
+    * @throws SQLException 
+    */
    public String login(String username, String password) throws SQLException{
         //Needs to be changed to compare to database, just dummy login
         query sample2 = new query();
@@ -1278,6 +1352,12 @@ public class bean1 {
         SearchResultList = null; 
         searchCrit = null; 
         searchvalue = null; 
+        
+        OurCompany = null; 
+        targetCompany = null; 
+        invoiceDate = null;
+        dueDate = null;
+        
         return "login";  
    }
 }

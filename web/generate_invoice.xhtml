@@ -4,10 +4,10 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Admin Control Page</title>
+        <title>Invoice Creator</title>
     </h:head>
     <h:body><font face="verdana" size="2">
-        <h:panelGrid columns="6">
+        <h:panelGrid columns="7">
         <h:form>
         <h:commandButton value="Logout"
                          action="#{bean1.logoff()}"></h:commandButton><br/></h:form>
@@ -26,6 +26,9 @@
         <h:form>    
         <h:commandButton value="Add reminder"
                          action="emailTestPage"></h:commandButton><br/></h:form>
+        <h:form>    
+        <h:commandButton value="Back"
+                         action="adminMain"></h:commandButton><br/></h:form>    
         </h:panelGrid>
         <br/>    
          
@@ -40,24 +43,12 @@
         
         
         <br/><br/></font>
-        <h:form>
+        <h:form>  
+            <div align="left">Create invoice: </div>
             
-            <div align="left">
-                
-                <h:selectOneMenu value ="#{bean1.searchCrit}">
-                    <f:selectItem itemValue="FName" itemLabel ="First Name"/>
-                    <f:selectItem itemValue="LName" itemLabel ="Last Name"/>
-                    <f:selectItem itemValue="UName" itemLabel ="User Name"/>
-                    <f:selectItem itemValue="Email" itemLabel ="Email"/>
-                    <f:selectItem itemValue="Phone" itemLabel ="Phone"/>
-                    <f:selectItem itemValue="Company" itemLabel ="Company"/>
-                    
-                </h:selectOneMenu>
-            </div>
+            <strong>company </strong><h:inputText value="#{bean1.adminSearch}">
+                </h:inputText>
             
-            
-            <strong>Search: </strong><h:inputText value="#{bean1.adminSearch}">
-                </h:inputText>  
             
             
         <center><h:commandButton value="GO!" 
