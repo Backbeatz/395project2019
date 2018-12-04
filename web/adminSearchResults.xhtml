@@ -2,13 +2,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Search Results</title>
-        
     </h:head>
-
     <h:body><font face="verdana" size="2">
         <h:panelGrid columns="6">
         <h:form>
@@ -36,29 +34,19 @@
         
          <strong>Basic Information</strong><br/>        
         
-        [Name: <h:outputText value="#{bean1.curFirstName} "/> <h:outputText value="#{bean1.curLastName}"/>]<br/>
-        [Current Reporting Period: <h:outputText value="#{bean1.getMonth()}  #{bean1.getYear()}"/> ]<br/>
-        [Email: <h:outputText value="#{bean1.getCurEmail()}"/> ]<br/> 
+        [Name: <h:outputText value="#{bean1.curFirstName} "/> <h:outputText value="#{bean1.curFirstName}"/>]<br/>
+        [Current Reporting Period: <h:outputText value="#{bean1.getMonth()}  #{bean1.getYear()}"/>]<br/>
+        [Email: <h:outputText value="#{bean1.getCurEmail()}"/>]<br/> 
         [Phone: <h:outputText value="#{bean1.getCurPhone()}"/>]<br/> 
-        <br/>
-        <br/>
-        </font>
+    <br/><br/></font>
+                         
+        <c:forEach items="#{bean1.getSearchRezSt()}" var="item"> 
+            <h:form>
+            <h:outputText value = "#{item}  "/>
+            <h:commandButton value="Select"
+                             action="#{bean1.editContractor(item)}"/></h:form>
         
+        </c:forEach>
         
-        
-        <div id="p1"></div>
-        <input type="hidden" id="myField" value="#{bean1.searchRezSt}" />
-        
-        <script type="text/javascript">
-            var details = document.getElementById("myField");   
-            var text = "";
-            for(j=0; j &lt; details.length; j++){
-                text += details[j];
-                text += "<br/>"; 
-            }
-            document.getElementById("p1").innerHTML = text;
-        </script>
-         
-        </h:body>
-    
+    </h:body>   
 </html>
