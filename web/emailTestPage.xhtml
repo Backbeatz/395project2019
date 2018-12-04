@@ -36,21 +36,24 @@
         [Phone: <h:outputText value="#{bean1.getCurPhone()}"/>]<br/>
         
          
-        <hr></hr>
+        <hr> </hr>
         
         
         <br/><br/></font>
         <h:form>
-            
-            
-            
-      
-        <center><h:commandButton value="GO!" 
-                                 action="adminMain"></h:commandButton></center>    
-                                 
-                            
+            <strong>To: </strong><h:inputText value="#{bean1.receptients}">
+                </h:inputText>  
         
-
+            <strong>Title: </strong><h:inputText value="#{bean1.messageTitle}">
+                </h:inputText>         
+        
+            <strong>Text: </strong><h:inputText value="#{bean1.messageText}">
+                    </h:inputText>  
+        
+              
+          <center><h:commandButton value="Send" 
+                                   action="#{bean1.emailUsers(receptients, bean1.messageTitle, bean1.messageText)}"></h:commandButton></center>    
+    
         </h:form>
     </h:body>
 </html>
