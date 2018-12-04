@@ -88,10 +88,13 @@ public class bean1 {
     private Object[][] SearchResultList; //Where search bar results to be shown are stored 
     private String searchCrit; //String that holds search type
     private String searchvalue; //String that holds search term
+//String that holds search term
     //check flags
     //--------------------------------------------------------------------
-    private boolean isPID; //flag for checking if Contractor ID exists
-    private boolean isCID; //flag for checking if company ID exists
+    private boolean isPID;
+    //flag for checking if company ID exists
+    //flag for checking if Contractor ID exists
+    private boolean isCID; 
     //
     //--------------------------------------------------------------------
     //Getters and setters
@@ -409,196 +412,196 @@ public class bean1 {
      *
      * @return
      */
-    public String getcontractID(){
+    public String getContractID(){
         return contractID;
     }
     /**
      *
      * @param idNum
      */
-    public void setcontractID(String idNum){
+    public void setContractID(String idNum){
         this.contractID = idNum;
     }
     /**
      * Get start date on contract
      * @return 
      */
-    public String getstartDate(){
+    public String getStartDate(){
         return startDate;
     }
     /**
      * Set start date on contract
      * @param date
      */
-    public void setstartDate(String date){
+    public void setStartDate(String date){
         this.startDate = date;
     }
     /**
      * Get renewal 1 start date on contract
      * @return
      */
-    public String getrenewalStartDate1(){
+    public String getRenewalStartDate1(){
         return renewalStartDate1;
     }
     /**
      * Set renewal 1 start date on contract
      * @param date
      */
-    public void setrenewalStartDate1(String date){
+    public void setRenewalStartDate1(String date){
         this.renewalStartDate1 = date;
     }
     /**
      * Get renewal 2 start date on contract
      * @return
      */
-    public String getrenewalStartDate2(){
+    public String getRenewalStartDate2(){
         return renewalStartDate2;
     }
     /**
      * Set renewal 2 start date on contract
      * @param date
      */
-    public void setrenewalStartDate2(String date){
+    public void setRenewalStartDate2(String date){
         this.renewalStartDate2 = date;
     }
     /**
      * Get Contract end date
      * @return
      */
-    public String getendDate(){
+    public String getEndDate(){
         return endDate;
     }
     /**
      * Set Contract end date
      * @param date
      */
-    public void setendDate(String date){
+    public void setEndDate(String date){
         this.endDate = date;
     }
     /**
      * Get renewal 1 end date on contract
      * @return
      */
-    public String getrenewalEndDate1(){
+    public String getRenewalEndDate1(){
         return renewalEndDate1;
     }
     /**
      * Set renewal 1 end date on contract
      * @param date
      */
-    public void setrenewalEndDate1(String date){
+    public void setRenewalEndDate1(String date){
         this.renewalEndDate1 = date;
     }
     /**
      * Get renewal 2 end date on contract
      * @return
      */
-    public String getrenewalEndDate2(){
+    public String getRenewalEndDate2(){
         return renewalEndDate2;
     }
     /**
      * Set renewal 2 end date on contract
      * @param date
      */
-    public void setrenewalEndDate2(String date){
+    public void setRenewalEndDate2(String date){
         this.renewalEndDate2 = date;
     }
     /**
      * Get renewal options on contract
      * @return
      */
-    public int getrenewalOptions(){
+    public int getRenewalOptions(){
         return renewalOptions;
     }
     /**
      * Set renewal options on contract
      * @param num
      */
-    public void setrenewalOptions(int num){
+    public void setRenewalOptions(int num){
         this.renewalOptions = num;
     }
     /**
      * Get the term 1 amount
      * @return
      */
-    public float getamountForContractorTerm1(){
+    public float getAmountForContractorTerm1(){
         return amountForContractorTerm1;
     }
     /**
      * Set the term 1 amount
      * @param amount
      */
-    public void setamountForContractorTerm1(float amount){
+    public void setAmountForContractorTerm1(float amount){
         this.amountForContractorTerm1 = amount;
     }
     /**
      * Get the term 2 amount
      * @return
      */
-    public float getamountForContractorTerm2(){
+    public float getAmountForContractorTerm2(){
         return amountForContractorTerm2;
     }
     /**
      * Set the term 2 amount
      * @param amount
      */
-    public void setamountForContractorTerm2(float amount){
+    public void setAmountForContractorTerm2(float amount){
         this.amountForContractorTerm2 = amount;
     }
     /**
      * Get the term 3 amount
      * @return
      */
-    public float getamountForContractorTerm3(){
+    public float getAmountForContractorTerm3(){
         return amountForContractorTerm3;
     }
     /**
      * Set the term 3 amount
      * @param amount
      */
-    public void setamountForContractorTerm3(float amount){
+    public void setAmountForContractorTerm3(float amount){
         this.amountForContractorTerm3 = amount;
     }
     /**
      * Get the term 1 rate
      * @return
      */
-    public float getrateForCompanyTerm1(){
+    public float getRateForCompanyTerm1(){
         return rateForCompanyTerm1;
     }
     /**
      * Set the term 1 rate
      * @param amount
      */
-    public void setrateForCompanyTerm1(float amount){
+    public void setRateForCompanyTerm1(float amount){
         this.rateForCompanyTerm1 = amount;
     }
     /**
      * Get the term 2 rate
      * @return
      */
-    public float getrateForCompanyTerm2(){
+    public float getRateForCompanyTerm2(){
         return rateForCompanyTerm2;
     }
     /**
      * Set the term 2 rate
      * @param amount
      */
-    public void setrateForCompanyTerm2(float amount){
+    public void setRateForCompanyTerm2(float amount){
         this.rateForCompanyTerm2 = amount;
     }
     /**
      * Get the term 3 rate
      * @return
      */
-    public float getrateForCompanyTerm3(){
+    public float getRateForCompanyTerm3(){
         return rateForCompanyTerm3;
     }
     /**
      * Set the term 3 rate
      * @param amount
      */
-    public void setrateForCompanyTerm3(float amount){
+    public void setRateForCompanyTerm3(float amount){
         this.rateForCompanyTerm3 = amount;
     }
     /**
@@ -619,84 +622,84 @@ public class bean1 {
      * Gets the company's name
      * @return
      */
-    public String getcompName(){
+    public String getCompName(){
         return compName;
     }
     /**
      * Sets the company's name
      * @param name
      */
-    public void setcompName(String name){
+    public void setCompName(String name){
         this.compName = name;
     }
     /**
      * Gets the company's city of origin
      * @return 
      */
-    public String getcompCity(){
+    public String getCompCity(){
         return compName;
     }
     /**
      * Sets the company's city of origin
      * @param city 
      */
-    public void setcompCity(String city){
+    public void setCompCity(String city){
         this.compName = city;
     }
     /**
      * Gets the company's street address
      * @return 
      */
-    public String getcompAddress(){
+    public String getCompAddress(){
         return compAddress;
     }
     /**
      * Sets the company's street address
      * @param address 
      */
-    public void setcompAddress(String address){
+    public void setCompAddress(String address){
         this.compAddress = address;
     }
     /**
      * Gets company postal code
      * @return 
      */
-    public String getcompPostal(){
+    public String getCompPostal(){
         return compPostal;
     }
     /**
      * Sets company's postal code
      * @param postal 
      */
-    public void setcompPostal(String postal){
+    public void setCompPostal(String postal){
         this.compPostal = postal;
     }
     /**
      * Get the company's phone number
      * @return 
      */
-    public String getcompPhone(){
+    public String getCompPhone(){
         return compPhone;
     }
     /**
      * Set company phone number
      * @param phone 
      */
-    public void setcompPhone(String phone){
+    public void setCompPhone(String phone){
         this.compPhone = phone;
     }
     /**
      * Gets company email
      * @return 
      */
-    public String getcompEmail(){
+    public String getCompEmail(){
         return compEmail;
     }
     /**
      * Sets company's email
      * @param email 
      */
-    public void setcompEmail(String email){
+    public void setCompEmail(String email){
         this.compEmail = email;
     }    
     /**
@@ -769,16 +772,16 @@ public class bean1 {
     public void setSearchRezSt(String[][] rez){
         this.SearchResultString = rez;
     }
-    public boolean getisCID(){
+    public boolean getIsCID(){
         return isCID;
     }
-    public void setisCID(boolean isIt){
+    public void setIsCID(boolean isIt){
         this.isCID = isIt;
     }
-        public boolean getisPID(){
+    public boolean getIsPID(){
         return isPID;
     }
-    public void setisPID(boolean isIt){
+    public void setIsPID(boolean isIt){
         this.isPID = isIt;
     }
    
@@ -830,27 +833,27 @@ public class bean1 {
         }
     }
     
-//Not working
-    public String changePass(String password, String newPassword){
-        if(!(password.equals(newPassword))){
+public String changePass(String password, String newPassword){
+    if(password.equals(newPassword.trim().length() > 0)){
+        if(password.equals(password.trim().length() > 0)){
+            if(!(password.equals(newPassword))){
 
-            attempts += 1;
-            pass = "";
-            newPass = "";
-            query qUpdatePassword = new query();
-            Object[] infoUpPassword = new Object[8];
-            infoUpPassword[6]=newPassword;
-            Object[] userInfo = new Object[8];
-            userInfo[5]=getUsername();
-            if (qUpdatePassword.update(1, infoUpPassword, userInfo)) {
-                return "logged_out";
-            }          
+                attempts += 1;
+                pass = "";
+                newPass = "";
+                query qUpdatePassword = new query();
+                Object[] infoUpPassword = new Object[8];
+                infoUpPassword[6]=newPassword;
+                Object[] userInfo = new Object[8];
+                userInfo[5]=getUsername();
+                if (qUpdatePassword.update(1, infoUpPassword, userInfo)) {
+                    return "logged_out";
+                }
+            }
         }
-
-        return "adminMain";
-        
     }
-
+    return "adminMain";
+}
     //-------------------Add Object Methods -----------
     /**
      * 
