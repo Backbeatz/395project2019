@@ -10,13 +10,13 @@
                 <h:panelGrid columns="6">
         <h:form>
         <h:commandButton value="Logout"
-                         action="login"></h:commandButton><br/></h:form>
+                         action="#{bean1.logoff()}"></h:commandButton><br/></h:form>
         <h:form>
         <h:commandButton value="Change Password"
                          action="change_password"></h:commandButton><br/></h:form>
         <h:form>
-        <h:commandButton value="Add Contractor"
-                         action="add_contractor"></h:commandButton><br/></h:form>
+        <h:commandButton value="Back"
+                         action="adminMain"></h:commandButton><br/></h:form>
         <h:form>    
         <h:commandButton value="Add Contract"
                          action="add_contract"></h:commandButton><br/></h:form>
@@ -39,7 +39,7 @@
         Postal Code<br/><h:inputText value="#{bean1.postalCode}"></h:inputText><br/><br/>
         Email<br/><h:inputText value="#{bean1.email}"></h:inputText><br/><br/>
         Phone Number<br/><h:inputText value="#{bean1.phone}"></h:inputText><br/><br/>
-        Date of Birth(Example: 1998/10/20)<br/><h:inputText value="#{bean1.dob}"></h:inputText><br/><br/>
+        
         
         Username<br/><h:inputText value="#{bean1.createUser}"></h:inputText><br/><br/>
         Password<br/><h:inputText value="#{bean1.createPass}"></h:inputText><br/><br/>

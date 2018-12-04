@@ -40,7 +40,8 @@ public class bean1 {
     private String currentComp;
     private int currentPId;
     private int currentCId;
-    
+    private boolean currentAuth;
+
     //Admin Create users/contractor
     //--------------------------------------------------------------------
     //add user fields
@@ -67,7 +68,7 @@ public class bean1 {
     private String compEmail;
     //Admin Contract 
     //--------------------------------------------------------------------
-    private String contractID; //int
+    private int contractID; //int
     private String startDate;
     private String renewalStartDate1;
     private String renewalStartDate2;
@@ -84,7 +85,7 @@ public class bean1 {
     //Admin search 
     //--------------------------------------------------------------------
     private int listedrowItem; //number of rows in result
-    private String[][] SearchResultString; //String of search results
+    private String[] SearchResultString; //String of search results
     private Object[][] SearchResultList; //Where search bar results to be shown are stored 
     private String searchCrit; //String that holds search type
     private String searchvalue; //String that holds search term
@@ -99,6 +100,7 @@ public class bean1 {
     //--------------------------------------------------------------------
     //Getters and setters
     //----------------------------------------------------------------------
+    
     /**
      * Gives current user's personal ID
      * @return 
@@ -398,14 +400,14 @@ public class bean1 {
      * Get the contractor ID
      * @return
      */
-    public String getContractorID(){
+    public int getContractorID(){
         return contractID;
     }
     /**
      * Set the contractor ID
      * @param idNum
      */
-    public void setContractorID(String idNum){
+    public void setContractorID(int idNum){
         this.contractID = idNum;
     }
     /**
@@ -419,6 +421,7 @@ public class bean1 {
      *
      * @param idNum
      */
+
     public void setContractID(String idNum){
         this.contractID = idNum;
     }
@@ -762,14 +765,14 @@ public class bean1 {
      * Gives a string array of results
      * @return 
      */
-    public String[][] getSearchRezSt(){
+    public String[] getSearchRezSt(){
         return SearchResultString;
     }
     /**
      * Sets our string array of results
      * @param rez 
      */
-    public void setSearchRezSt(String[][] rez){
+    public void setSearchRezSt(String[] rez){
         this.SearchResultString = rez;
     }
     public boolean getIsCID(){
@@ -833,27 +836,28 @@ public class bean1 {
         }
     }
     
-public String changePass(String password, String newPassword){
-    if(password.equals(newPassword.trim().length() > 0)){
-        if(password.equals(password.trim().length() > 0)){
-            if(!(password.equals(newPassword))){
 
-                attempts += 1;
-                pass = "";
-                newPass = "";
-                query qUpdatePassword = new query();
-                Object[] infoUpPassword = new Object[8];
-                infoUpPassword[6]=newPassword;
-                Object[] userInfo = new Object[8];
-                userInfo[5]=getUsername();
-                if (qUpdatePassword.update(1, infoUpPassword, userInfo)) {
-                    return "logged_out";
-                }
-            }
-        }
-    }
-    return "adminMain";
-}
+	public String changePass(String password, String newPassword){
+    	if(password.equals(newPassword.trim().length() > 0)){
+        	if(password.equals(password.trim().length() > 0)){
+            	if(!(password.equals(newPassword))){
+
+                	attempts += 1;
+                	pass = "";
+                	newPass = "";
+                	query qUpdatePassword = new query();
+                	Object[] infoUpPassword = new Object[8];
+                	infoUpPassword[6]=newPassword;
+                	Object[] userInfo = new Object[8];
+                	userInfo[5]=getUsername();
+                	if (qUpdatePassword.update(1, infoUpPassword, userInfo)) {
+                    	return "logged_out";
+                	}
+            	}
+        	}
+    	}
+    	return "adminMain";
+	}
     //-------------------Add Object Methods -----------
     /**
      * 
@@ -1039,10 +1043,19 @@ public String changePass(String password, String newPassword){
             setUsername(resultInfo[0][5].toString()); 
         } 
     }
-   
-   //---------------------------------------------------------------------------
     /**
-     * Connor's search results NEEDS TO BE UPDATED
+     * Dependedent on level sends you back to your main
+     * @return 
+     */
+    public String changePassBack(){
+        if(currentAuth = true){
+          return "adminMain";  
+        }
+        return "hours";
+    }
+    
+    /**
+     * Connor's search results 
      * @param SearchCrit
      * @param SearchVal
      * @return 
@@ -1108,7 +1121,7 @@ public String changePass(String password, String newPassword){
                 //qConIn2.printItemsinResultTables();
                 resultInfo2 = qConIn2.getResults();
                 SearchResultList = resultInfo2;
-                String[][] SearchResultString = GiveStringResults(resultInfo2, rezCol);
+                String[] SearchResultString = GiveStringResults(resultInfo2, rezCol);
                 listedrowItem = SearchResultString.length;
                 return "adminSearchResults";
             }
@@ -1123,28 +1136,35 @@ public String changePass(String password, String newPassword){
      * @param res
      * @return 
      */
-    public static String[][] GiveStringResults (Object[][] res, int num){
+    public static String[] GiveStringResults (Object[][] res, int num){
         int i= 0;
         int x = 0;
-        String[][] stringArray = new String[num][8];
+        int j =0;
+        String newline = "";
+        String[] stringArray = new String[num];
         while (x<num) {
             i=0;
+            newline = "";
             while (i<8) {    
                 if (res[i]!=null) {
-                    stringArray[x][i] = res[x][i].toString();
+                    
+                    newline = newline + res[x][i].toString();
                 }
                 i++;
             }
+            stringArray[x] = newline;
             x++;  
         }
-        
-        
+        while (j<num) {
+            System.out.print(stringArray[j]);
+            j++;
+        }
         return stringArray;
         
     }
     
     
-    
+
     /**
      * Tells us if string is in our array, helper function 
      * @param array
@@ -1184,9 +1204,11 @@ public String changePass(String password, String newPassword){
         if(a == true){
            setUserInfo(username, password);
            if (result[0][7].toString().compareTo("1")==0) { //for Contractor
+            currentAuth = false;
             return "hours";
            }
            if (result[0][7].toString().compareTo("2")==0) { //for Admin
+            currentAuth = true;
             return "adminMain"; //<--- Change to Admin page
            }
            return "login";
@@ -1195,5 +1217,64 @@ public String changePass(String password, String newPassword){
             return "login";
         }
    }
-}
+   /**
+    * Nulls the system's fields and transfers us to log in screen
+    * @return 
+    */
+    public String logoff(){
+        hours = null;
+        newPass = null; 
+        username = null;
+        pass = null;
+        attempts = 0;
+        currentFName = null;
+        currentLName = null;
+        currentEmail = null;
+        currentPhone = null;
+        currentComp = null;
+        currentPId = 0;
+        currentCId = 0;
+        currentAuth = false;
 
+        createUser = null;
+        createPass = null;
+        firstName = null;
+        lastName = null;
+        job = null; 
+        city = null;
+        province = null;
+        postalCode = null;
+        email = null;
+        phone = null;
+        
+
+        compName = null;
+        compCity = null;
+        compAddress = null;
+        compPostal = null;
+        compPhone = null;
+        compEmail = null;
+
+        contractID = 0;
+        startDate = null;
+        renewalStartDate1 = null;
+        renewalStartDate2 = null;
+        endDate = null;
+        renewalEndDate1 = null;
+        renewalEndDate2 = null;
+        renewalOptions = 0;
+        amountForContractorTerm1 = 0;
+        amountForContractorTerm2 = 0;
+        amountForContractorTerm3 = 0;
+        rateForCompanyTerm1 = 0;
+        rateForCompanyTerm2 = 0;
+        rateForCompanyTerm3 = 0;
+
+        listedrowItem = 0;
+        SearchResultString = null; 
+        SearchResultList = null; 
+        searchCrit = null; 
+        searchvalue = null; 
+        return "login";  
+   }
+}

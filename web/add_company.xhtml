@@ -8,9 +8,30 @@
     </h:head>
     <h:body>
         <h:form>
+        <h:panelGrid columns="6">
+        <h:form>
         <h:commandButton value="Logout"
-                         action="login"></h:commandButton><br/></h:form><br/>
-        <Strong><center>Input Contractor Information</center></Strong><br/>
+                         action="#{bean1.logoff()}"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Change Password"
+                         action="change_password"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Add Contractor"
+                         action="add_contractor"></h:commandButton><br/></h:form>
+        <h:form>    
+        <h:commandButton value="Add Contract"
+                         action="add_contract"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Back"
+                         action="adminMain"></h:commandButton><br/></h:form>
+        <h:form>    
+        <h:commandButton value="Add reminder"
+                         action="add_contractor"></h:commandButton><br/></h:form>
+            
+        </h:panelGrid>
+        
+        </h:form><br/>
+        <Strong><center>Input Company Information</center></Strong><br/>
         <h:form>
         Company Name<br/><h:inputText value="#{bean1.compName}"></h:inputText><br/><br/>
         City<br/><h:inputText value="#{bean1.compCity}"></h:inputText><br/><br/>

@@ -11,7 +11,7 @@
         <h:panelGrid columns="6">
         <h:form>
         <h:commandButton value="Logout"
-                         action="login"></h:commandButton><br/></h:form>
+                         action="#{bean1.logoff()}"></h:commandButton><br/></h:form>
         <h:form>
         <h:commandButton value="Change Password"
                          action="change_password"></h:commandButton><br/></h:form>
@@ -19,8 +19,8 @@
         <h:commandButton value="Add Contractor"
                          action="add_contractor"></h:commandButton><br/></h:form>
         <h:form>    
-        <h:commandButton value="Add Contract"
-                         action="add_contract"></h:commandButton><br/></h:form>
+        <h:commandButton value="Back"
+                         action="adminMain"></h:commandButton><br/></h:form>
         <h:form>
         <h:commandButton value="Add Company"
                          action="add_company"></h:commandButton><br/></h:form>
