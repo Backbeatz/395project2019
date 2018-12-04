@@ -16,6 +16,7 @@ CREATE TABLE Company (
 	City varchar(255),
 	StreetAddress varchar(255),
 	PostalCode varchar(255),
+	Province varchar(255),
 	PhoneNumber varchar(255),
 	Email varchar(255)
 	);
