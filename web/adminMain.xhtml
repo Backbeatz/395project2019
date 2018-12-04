@@ -7,7 +7,7 @@
         <title>Admin Control Page</title>
     </h:head>
     <h:body><font face="verdana" size="2">
-        <h:panelGrid columns="6">
+        <h:panelGrid columns="7">
         <h:form>
         <h:commandButton value="Logout"
                          action="#{bean1.logoff()}"></h:commandButton><br/></h:form>
@@ -26,6 +26,9 @@
         <h:form>    
         <h:commandButton value="Add reminder"
                          action="emailTestPage"></h:commandButton><br/></h:form>
+         <h:form>    
+        <h:commandButton value="Generate Invoice"
+                         action="generate_invoice"></h:commandButton><br/></h:form>    
         </h:panelGrid>
         <br/>    
          
