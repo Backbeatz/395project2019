@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Edit User page</title>
+    </h:head>
+    <h:body><font face="verdana" size="2">
+        <h:panelGrid columns="6">
+        <h:form>
+        <h:commandButton value="Logout"
+                         action="#{bean1.logoff()}"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Back"
+                         action="adminMain"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Change Password"
+                         action="change_password"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Add Contractor"
+                         action="add_contractor"></h:commandButton><br/></h:form>
+        <h:form>    
+        <h:commandButton value="Add Contract"
+                         action="add_contractor"></h:commandButton><br/></h:form>
+        <h:form>
+        <h:commandButton value="Add reminder"
+                         action="add_contractor"></h:commandButton><br/></h:form>
+        </h:panelGrid>
+        <br/>    
+        <Strong><center>Edit Contractor Information</center></Strong><br/>
+        <h:form>
+        First Name<br/><h:inputText value="#{bean1.firstName}"></h:inputText><br/><br/>
+        Last Name<br/><h:inputText value="#{bean1.lastName}"></h:inputText><br/><br/>
+        Email<br/><h:inputText value="#{bean1.email}"></h:inputText><br/><br/>
+        Phone Number<br/><h:inputText value="#{bean1.phone}"></h:inputText><br/><br/>
+        
+        Username<br/><h:outputText value="#{bean1.createUser}"></h:outputText><br/><br/>
+        Password<br/><h:inputText value="#{bean1.createPass}"></h:inputText><br/><br/>
+        <h:commandButton value="Update Contractor"
+                         action="#{bean1.updateContractor()}"></h:commandButton>
+        </h:form>
+        </font>
+    </h:body>
+</html>
+
