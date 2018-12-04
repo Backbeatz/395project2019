@@ -68,7 +68,7 @@ public class bean1 {
     private String compEmail;
     //Admin Contract 
     //--------------------------------------------------------------------
-    private int contractID; //int
+    private String contractID; //int
     private String startDate;
     private String renewalStartDate1;
     private String renewalStartDate2;
@@ -400,14 +400,14 @@ public class bean1 {
      * Get the contractor ID
      * @return
      */
-    public int getContractorID(){
+    public String getContractorID(){
         return contractID;
     }
     /**
      * Set the contractor ID
      * @param idNum
      */
-    public void setContractorID(int idNum){
+    public void setContractorID(String idNum){
         this.contractID = idNum;
     }
     /**
@@ -837,7 +837,7 @@ public class bean1 {
     }
     
 
-	public String changePass(String password, String newPassword){
+public String changePass(String password, String newPassword){
     	if(password.equals(newPassword.trim().length() > 0)){
         	if(password.equals(password.trim().length() > 0)){
             	if(!(password.equals(newPassword))){
@@ -892,19 +892,19 @@ public class bean1 {
         query queryContractInsert = new query();
         Object[] insertObject = new Object[16];
         insertObject[0]= giveNewID(1, 10000); //person id
-        insertObject[1]=getstartDate(); //Fname
-        insertObject[2]=getrenewalStartDate1();
-        insertObject[3]=getrenewalStartDate2();
-        insertObject[4]=getendDate();
-        insertObject[5]=getrenewalEndDate1();
-        insertObject[6]=getrenewalEndDate2();
-        insertObject[7]=getrenewalOptions();
-        insertObject[8]=getamountForContractorTerm1();
-        insertObject[9]=getamountForContractorTerm2();
-        insertObject[10]=getamountForContractorTerm3();
-        insertObject[11]=getrateForCompanyTerm1();
-        insertObject[12]=getrateForCompanyTerm2();
-        insertObject[13]=getrateForCompanyTerm3();
+        insertObject[1]=getStartDate(); //Fname
+        insertObject[2]=getRenewalStartDate1();
+        insertObject[3]=getRenewalStartDate2();
+        insertObject[4]=getEndDate();
+        insertObject[5]=getRenewalEndDate1();
+        insertObject[6]=getRenewalEndDate2();
+        insertObject[7]=getRenewalOptions();
+        insertObject[8]=getAmountForContractorTerm1();
+        insertObject[9]=getAmountForContractorTerm2();
+        insertObject[10]=getAmountForContractorTerm3();
+        insertObject[11]=getRateForCompanyTerm1();
+        insertObject[12]=getRateForCompanyTerm2();
+        insertObject[13]=getRateForCompanyTerm3();
         
         query checkCompany = new query();
         Object[] checkObject = new Object[8];
@@ -916,7 +916,7 @@ public class bean1 {
             insertObject[14]=getContractorID();
         }
         else {
-            setisPID(false);
+            setIsPID(false);
             flag = false;
         }
         
@@ -930,7 +930,7 @@ public class bean1 {
             insertObject[15]=getCompID();
         }
         else {
-            setisCID(false);
+            setIsCID(false);
             flag = false;
         }
         System.err.println("Here goes the insert!");
@@ -946,12 +946,12 @@ public class bean1 {
         query queryCompanyInsert = new query();
         Object[] insertObject = new Object[7];
         insertObject[0]= giveNewID(1, 10000); //person id        
-        insertObject[1]=getcompName(); //Fname
-        insertObject[2]=getcompCity();
-        insertObject[3]=getcompAddress();
-        insertObject[4]=getcompPostal();
-        insertObject[5]=getcompPhone();
-        insertObject[6]=getcompEmail();
+        insertObject[1]=getCompName(); //Fname
+        insertObject[2]=getCompCity();
+        insertObject[3]=getCompAddress();
+        insertObject[4]=getCompPostal();
+        insertObject[5]=getCompPhone();
+        insertObject[6]=getCompEmail();
              
         if(!queryCompanyInsert.insert(2, insertObject)){
                 return "adminMain";
@@ -1255,7 +1255,7 @@ public class bean1 {
         compPhone = null;
         compEmail = null;
 
-        contractID = 0;
+        contractID = "0";
         startDate = null;
         renewalStartDate1 = null;
         renewalStartDate2 = null;
