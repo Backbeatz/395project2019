@@ -48,7 +48,7 @@ public class bean1 {
     private String currentComp;
     private int currentPId;
     private int currentCId;
-    private boolean currentAuth;
+    private boolean currentAuth = false;
 
     //Admin Create users/contractor
     //--------------------------------------------------------------------
@@ -985,8 +985,8 @@ public class bean1 {
      * @return 
      */
     public String changePass(String password, String newPassword){
-    	if(password.equals(newPassword.trim().length() > 0)){
-        	if(password.equals(password.trim().length() > 0)){
+    	if(newPassword.trim().length() > 0){
+        	if(password.trim().length() > 0){
             	if(!(password.equals(newPassword))){
 
                 	attempts += 1;
@@ -1007,10 +1007,8 @@ public class bean1 {
     }
     //-------------------Add Object Methods -----------
     
-    public String emailUsers(String to, String msg1, String msg2){
-        System.out.print("Step1 bean:" + receptients + to + msg1 + msg2);
+    public String emailUsers(String to, String msg1, String msg2){       
         if(emSystem.sendUMsg(receptients, msg1, msg2)){
-            System.out.print("Step end");
             return "adminMain";
         }
         return "emailTestPage";
@@ -1161,7 +1159,7 @@ public class bean1 {
             setIsCID(false);
             flag = false;
         }
-        System.err.println("Here goes the insert!");
+        
 
         if(!queryContractInsert.insert(3, insertObject)){
                 return  "adminMain";
@@ -1248,7 +1246,7 @@ public class bean1 {
      * @return 
      */
     public String changePassBack(){
-        if(currentAuth = true){
+        if(currentAuth == true){
           return "adminMain";  
         }
         return "hours";
@@ -1261,7 +1259,7 @@ public class bean1 {
      * @return 
      */
     public String ConductSearch(String SearchCrit, String SearchVal){
-        System.out.println(currentFName);
+        
         
         //Find number of rows
         query qConIn1 = new query();
@@ -1355,10 +1353,10 @@ public class bean1 {
             stringArray[x] = newline;
             x++;  
         }
-        while (j<num) {
-            System.out.print(stringArray[j]);
-            j++;
-        }
+              // while (j<num) {
+              //System.out.print(stringArray[j]);
+              //j++;
+              //}
         return stringArray;
         
     }
@@ -1388,7 +1386,7 @@ public class bean1 {
      */
     public String Invoice(String toWho, String month, String year ){
         
-        System.out.print("check 1");
+        
         //Find company id from company table
         query qConIn = new query();
         Object[] testInfo = new Object[7];
@@ -1397,7 +1395,7 @@ public class bean1 {
         Arrays.fill(compInfo[0], true);
         String Name = qConIn.selectWhere(2, compInfo[0], testInfo);
         if (qConIn.selectQueryFromDb()) {  
-                System.out.print("check 2");
+                
                 compInfo = qConIn.getResults(); //result from company table
                 String compIDz = compInfo[0][0].toString(); //Company ID
                 targetAddress = compInfo[0][3].toString() + "," + compInfo[0][2].toString() + "Box:" + compInfo[0][4].toString();
@@ -1409,7 +1407,7 @@ public class bean1 {
                 Arrays.fill(contInfo1[0], true);
                 String Name1 = qConIn1.selectWhere(3, contInfo1[0], testInfo1);
                 if (qConIn1.selectQueryFromDb()) {  
-                    System.out.print("check 3");
+                    
                     int numofresol = qConIn1.numOfResults;//number of contracts company has
                     System.out.print(numofresol + "number of results" );
                     //get contracts from company
@@ -1420,7 +1418,7 @@ public class bean1 {
                     Arrays.fill(contInfo2[0], true);
                     String Name2 = qConIn2.selectWhere(3, contInfo2[0], testInfo2);
                     if (qConIn2.selectQueryFromDb()) {
-                        System.out.print("check 4");
+                        
                         contInfo2 = qConIn2.getResults(); //result from our contract table (2d array)
                         //find hours and rates
                         
