@@ -886,7 +886,12 @@ public class bean1 {
     }        
    
     //___________________Setting the Hours_____________________________
-
+	
+    /**
+     * Verifies if the number of hours is correct
+     * @param hours is a String to be tested if it falls in range of 0-700hours
+     * @return webpage
+     */
     public String verify(String hours){
         if(hours.equals("")){
             attempts += 1;
@@ -923,7 +928,11 @@ public class bean1 {
         attempts = 0;
         return "hours_confirmed";
     }
-    
+    /**
+     * Simple way to verify if a number in a string is an integer
+     * @param num is a String to be tested
+     * @return boolean
+     */
     public boolean verifyInt(String num) {
         try{
             int c_hours = Integer.parseInt(num);
@@ -969,7 +978,12 @@ public class bean1 {
     }
     
     /*--------------------Changing Password-----------------------------*/
-
+    /**
+     * This changes the password of a user
+     * @param password the old password required from the user to be replaced
+     * @param newPassword the new password required from the user to replace the.
+     * @return 
+     */
     public String changePass(String password, String newPassword){
     	if(password.equals(newPassword.trim().length() > 0)){
         	if(password.equals(password.trim().length() > 0)){
@@ -1002,12 +1016,26 @@ public class bean1 {
         return "emailTestPage";
     }
     
-    /**
+    /**Adds a contractor into the system through user input from an admin.
      * 
      * @return webpage
      */
     public String addContractor(){
-        
+        if(getFirstName().trim().equals("")){
+            return "adminMain";
+        }
+        if(getLastName().trim().equals("")){
+            return "adminMain";
+        }
+        if(getEmail().trim().equals("")){
+            return "adminMain";
+        }
+        if(getCreateUser().trim().equals("")){
+            return "adminMain";
+        }
+        if(getCreatePass().trim().equals("")){
+            return "adminMain";
+        }
         //load
         String a = getFirstName();
         
@@ -1028,7 +1056,64 @@ public class bean1 {
         } 
         return "adminMain";
     }
+    /**
+     * This updates the contractor based on the admin's edits on adminUserEdit page
+     * @return webpage
+     */
+    public String updateContractor(){
+        query qUpdateFields = new query();
+        Object[] infoUpFields = new Object[8];
+        infoUpFields[1]=getFirstName();
+        infoUpFields[2]=getLastName();
+        infoUpFields[3]=getPhone();
+        infoUpFields[4]=getEmail();
+        infoUpFields[5]=getCreateUser();
+        infoUpFields[6]=getCreatePass();
+        Object[] userInfo = new Object[8];
+        userInfo[0]=getcurrentPId();
+        if (qUpdateFields.update(1, infoUpFields, userInfo)) {
+            return "adminMain";
+        }     
+        return "adminUserEdit";
+    }
     
+    /**
+     * This gets the fields necessary for the admin to see the current values
+     * before the edit them.
+     * @param text is the string of information about the user.
+     * @return webpage
+     */
+    public String editContractor(String text){
+        String pID = text.substring(1, 2);
+        if(verifyInt(pID)){
+            int personID = Integer.parseInt(pID);
+            
+            query qConIn = new query();
+            Object[] testInfo2 = new Object[8];
+            testInfo2[0]=personID;
+            Object[][] resultInfo = new Object[1][8];
+            Arrays.fill(resultInfo[0], true);
+            String Name = qConIn.selectWhere(1, resultInfo[0], testInfo2);
+            if (qConIn.selectQueryFromDb()) {
+                resultInfo = qConIn.getResults();
+                //sets our main fields for editing
+                setcurrentPId(Integer.parseInt(resultInfo[0][0].toString())); 
+                setFirstName(resultInfo[0][1].toString());
+                setLastName(resultInfo[0][2].toString());
+                setPhone(resultInfo[0][3].toString());
+                setEmail(resultInfo[0][4].toString());
+                setCreateUser(resultInfo[0][5].toString()); 
+                setCreatePass(resultInfo[0][6].toString());
+                return "adminUserEdit";
+               }
+        }
+        return "adminSearchResults";
+    }
+    
+    /**
+     * This adds a contract into the database based on user input given.
+     * @return webpage
+     */
     public String addContract(){
         //Query
         boolean flag = true;
@@ -1084,6 +1169,11 @@ public class bean1 {
             } 
         return "adminMain";
     }
+    /**
+     * This adds the company to the database based on variables given through
+     * user input.
+     * @return webpage
+     */
     public String addCompany(){
         //Query
         query queryCompanyInsert = new query();
