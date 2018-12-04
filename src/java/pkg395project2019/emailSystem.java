@@ -21,6 +21,12 @@ public class emailSystem {
 
     /**
      * Send email to target
+     * Code parts and inspiration taken from: 
+     * https://www.javatpoint.com/example-of-sending-email-using-java-mail-api
+     * https://stackoverflow.com/questions/21029418/trying-to-send-an-email-using-the-java-mail-but-its-not-working
+     * https://www.tutorialspoint.com/javamail_api/javamail_api_smtp_servers.htm
+     * https://www.tutorialspoint.com/javamail_api/javamail_api_send_html_in_email.htm
+     * https://www.mkyong.com/java/javamail-api-sending-email-via-gmail-smtp-example/
      * @param targetEmail target email
      * @param msg1 message title
      * @param msg2 message text
