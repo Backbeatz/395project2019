@@ -38,8 +38,8 @@ public class bean1 {
     private String currentEmail;
     private String currentPhone;
     private String currentComp;
-    private String currentPId;
-    private String currentCId;
+    private int currentPId;
+    private int currentCId;
     private boolean currentAuth;
 
     //Admin Create users/contractor
@@ -68,7 +68,7 @@ public class bean1 {
     private String compEmail;
     //Admin Contract 
     //--------------------------------------------------------------------
-    private String contractID; //int
+    private int contractID; //int
     private String startDate;
     private String renewalStartDate1;
     private String renewalStartDate2;
@@ -97,6 +97,7 @@ public class bean1 {
     //--------------------------------------------------------------------
     //Getters and setters
     //----------------------------------------------------------------------
+    
     /**
      * Gives current user's personal ID
      * @return 
@@ -396,28 +397,28 @@ public class bean1 {
      * Get the contractor ID
      * @return
      */
-    public String getContractorID(){
+    public int getContractorID(){
         return contractID;
     }
     /**
      * Set the contractor ID
      * @param idNum
      */
-    public void setContractorID(String idNum){
+    public void setContractorID(int idNum){
         this.contractID = idNum;
     }
     /**
      *
      * @return
      */
-    public String getcontractID(){
+    public int getcontractID(){
         return contractID;
     }
     /**
      *
      * @param idNum
      */
-    public void setcontractID(String idNum){
+    public void setcontractID(int idNum){
         this.contractID = idNum;
     }
     /**
@@ -831,23 +832,26 @@ public class bean1 {
         }
     }
     
-//Not working
+
     public String changePass(String password, String newPassword){
-        if(!(password.equals(newPassword))){
+        if(password.equals(newPassword.trim().length() > 0)){
+            if(password.equals(password.trim().length() > 0)){
+                if(!(password.equals(newPassword))){
 
-            attempts += 1;
-            pass = "";
-            newPass = "";
-            query qUpdatePassword = new query();
-            Object[] infoUpPassword = new Object[8];
-            infoUpPassword[6]=newPassword;
-            Object[] userInfo = new Object[8];
-            userInfo[5]=getUsername();
-            if (qUpdatePassword.update(1, infoUpPassword, userInfo)) {
-                return "logged_out";
-            }          
+                    attempts += 1;
+                    pass = "";
+                    newPass = "";
+                    query qUpdatePassword = new query();
+                    Object[] infoUpPassword = new Object[8];
+                    infoUpPassword[6]=newPassword;
+                    Object[] userInfo = new Object[8];
+                    userInfo[5]=getUsername();
+                    if (qUpdatePassword.update(1, infoUpPassword, userInfo)) {
+                        return "logged_out";
+                    }          
+                }
+            }
         }
-
         return "adminMain";
         
     }
@@ -1037,6 +1041,10 @@ public class bean1 {
             setUsername(resultInfo[0][5].toString()); 
         } 
     }
+    /**
+     * Dependedent on level sends you back to your main
+     * @return 
+     */
     public String changePassBack(){
         if(currentAuth = true){
           return "adminMain";  
@@ -1129,6 +1137,7 @@ public class bean1 {
     public static String[] GiveStringResults (Object[][] res, int num){
         int i= 0;
         int x = 0;
+        int j =0;
         String newline = "";
         String[] stringArray = new String[num];
         while (x<num) {
@@ -1143,6 +1152,10 @@ public class bean1 {
             }
             stringArray[x] = newline;
             x++;  
+        }
+        while (j<num) {
+            System.out.print(stringArray[j]);
+            j++;
         }
         return stringArray;
         
@@ -1217,8 +1230,8 @@ public class bean1 {
         currentEmail = null;
         currentPhone = null;
         currentComp = null;
-        currentPId = null;
-        currentCId = null;
+        currentPId = 0;
+        currentCId = 0;
         currentAuth = false;
 
         createUser = null;
@@ -1231,8 +1244,7 @@ public class bean1 {
         postalCode = null;
         email = null;
         phone = null;
-        dob = null; 
-        sex = null;
+        
 
         compName = null;
         compCity = null;
@@ -1264,4 +1276,3 @@ public class bean1 {
         return "login";  
    }
 }
-
