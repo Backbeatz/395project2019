@@ -69,7 +69,7 @@ public class query {
         timeTable[0]="Month";
         timeTable[1]="Year";
         timeTable[2]="ContractID";
-        timeTable[3]="ContractorID";
+        timeTable[3]="PersonID";
         timeTable[4]="TimeEntry";
         
         tableIdentifier = 0;
