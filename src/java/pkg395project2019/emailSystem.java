@@ -21,29 +21,35 @@ public class emailSystem {
 
     /**
      * Send email to target
+     * Code parts and inspiration taken from: 
+     * https://www.javatpoint.com/example-of-sending-email-using-java-mail-api
+     * https://stackoverflow.com/questions/21029418/trying-to-send-an-email-using-the-java-mail-but-its-not-working
+     * https://www.tutorialspoint.com/javamail_api/javamail_api_smtp_servers.htm
+     * https://www.tutorialspoint.com/javamail_api/javamail_api_send_html_in_email.htm
+     * https://www.mkyong.com/java/javamail-api-sending-email-via-gmail-smtp-example/
      * @param targetEmail target email
      * @param msg1 message title
      * @param msg2 message text
      * @return
      */
     public boolean sendUMsg(String targetEmail, String msg1, String msg2 ) {
-                System.out.print("Step1" + targetEmail + msg1 + msg2);
+                
 		final String username = "group395cmptemail@gmail.com";
 		final String password = "RunningOutOfTime1";
-                System.out.print("Step2");
+                
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
-                System.out.print("Step3");
+                
 		Session session = Session.getInstance(props,
 		  new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username, password);
 			}
 		  });
-                System.out.print("Step4");
+                
 		try {
 
 			Message message = new MimeMessage(session);
@@ -51,16 +57,16 @@ public class emailSystem {
 			message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(targetEmail)); 
 			message.setSubject(msg1);
 			message.setText(msg2);
-                        System.out.print("Step5.1");
+                        
 			Transport.send(message);
-                        System.out.print("Step here?");
+                        
                         
 
 		} catch (MessagingException e) {
-                        System.out.print("Step5.2");
+                        
                         return false;
 		}
-                System.out.print("Step6");
+                
                 return true;
     }
     public  void main(){

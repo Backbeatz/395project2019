@@ -33,6 +33,9 @@ public class bean1 {
     private String invoiceYear;
     private int invoiceNum = 0;
     private String targetAddress;
+    private float totalDue;
+    private float totalPaid = 0;
+    private float ballancePay;
     
     //Current user
     //-------------------------------------------------------------------
@@ -125,9 +128,25 @@ public class bean1 {
     public void setOurAddress(String txt){
         this.ourAddress = txt;
     }
-  
     
-    
+    public float getBallancePay(){
+        return ballancePay;
+    }
+    public void setBallancePay(float txt){
+        this.ballancePay = txt;
+    }        
+    public float getTotalDue(){
+        return totalDue;
+    }
+    public void setTotalDue(float txt){
+        this.totalDue = txt;
+    }
+    public float getTotalPaid(){
+        return totalPaid;
+    }
+    public void setTotalPaid(float txt){
+        this.totalPaid = txt;
+    }
     public String getTargetAddress(){
         return targetAddress;
     }
@@ -1378,15 +1397,16 @@ public class bean1 {
       return false;
     }
     /**
-     * Generate invoice
+     * Generate invoice values
      * @param toWho
      * @param month
      * @param year
      * @return 
      */
     public String Invoice(String toWho, String month, String year ){
-        
-        
+        int x = 0;
+        int y = 0;
+        float totalCharge = 0;
         //Find company id from company table
         query qConIn = new query();
         Object[] testInfo = new Object[7];
@@ -1395,7 +1415,6 @@ public class bean1 {
         Arrays.fill(compInfo[0], true);
         String Name = qConIn.selectWhere(2, compInfo[0], testInfo);
         if (qConIn.selectQueryFromDb()) {  
-                
                 compInfo = qConIn.getResults(); //result from company table
                 String compIDz = compInfo[0][0].toString(); //Company ID
                 targetAddress = compInfo[0][3].toString() + "," + compInfo[0][2].toString() + "Box:" + compInfo[0][4].toString();
@@ -1418,22 +1437,57 @@ public class bean1 {
                     Arrays.fill(contInfo2[0], true);
                     String Name2 = qConIn2.selectWhere(3, contInfo2[0], testInfo2);
                     if (qConIn2.selectQueryFromDb()) {
-                        
-                        contInfo2 = qConIn2.getResults(); //result from our contract table (2d array)
-                        //find hours and rates
-                        
+                        contInfo2 = qConIn2.getResults(); //result from our contract table (2d array) 
+                        //This would be used in invoice page to display the contracts and the charges.
+                        while (x<numofresol) { //cycle thru contracts
+                            String getRate = contInfo2[x][8].toString();
+                            float ourRate = Float.parseFloat(getRate); //Currently only takes the rate of orginal contract time. 
+                            //Other times and rates will be implimented at later updates
+                            //We have our rate now need hours
+                            String thePID = contInfo2[x][14].toString();
+                            String theCtID = contInfo2[x][0].toString();
+                            //Find amount of timeclock
+                            query qConIn3 = new query();
+                            Object[] testInfo3 = new Object[5];
+                            testInfo3[1]=month;
+                            testInfo3[1]=year;
+                            testInfo3[2]=theCtID;
+                            testInfo3[3]=thePID;
+                            Object[][] resultInfo3 = new Object[1][5];
+                            Arrays.fill(resultInfo3[0], true);
+                            String Name3 = qConIn3.selectWhere(4, resultInfo3[0], testInfo3);
+                            if (qConIn3.selectQueryFromDb()) {
+                                int numofterms = qConIn3.numOfResults;
+                                query qConIn4 = new query();
+                                Object[] testInfo4 = new Object[5];
+                                testInfo4[0]=month;
+                                testInfo4[1]=year;
+                                testInfo4[2]=theCtID;
+                                testInfo4[3]=thePID;
+                                Object[][] resultInfo4 = new Object[numofterms][5];
+                                Arrays.fill(resultInfo4[0], true);
+                                String Name4 = qConIn4.selectWhere(4, resultInfo4[0], testInfo4);
+                                if (qConIn4.selectQueryFromDb()) {
+                                    resultInfo4 = qConIn4.getResults(); // now we have times
+                                    String holderz;
+                                    float zhrz;
+                                    while (y < numofterms){
+                                        holderz = resultInfo4[y][4].toString();
+                                        zhrz = Float.parseFloat(holderz);
+                                        totalCharge += (zhrz * ourRate );
+                                        System.out.print(totalCharge);
+                                        y++;
+                                    }
+                                }
+                            }
+                            x++;
+                        }
                     }  
-
-                    //contInfo1 = qConIn1.getResults(); //result from contract table
                     
-                //find Ids
-        
-                //search thru timetable and add hours
-        
-                //
-                
                 }
         }
+        ballancePay = totalCharge - totalPaid;
+        totalDue = totalCharge;
         
         return "display_invoice";   
     }
@@ -1475,10 +1529,10 @@ public class bean1 {
             currentAuth = true;
             return "adminMain"; //<--- Change to Admin page
            }
-           return "login";
+           return "login_reset";
         }
         else {
-            return "login";
+            return "login_reset";
         }
    }
    /**
